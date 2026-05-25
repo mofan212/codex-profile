@@ -1,5 +1,5 @@
 ---
-name: maintain-ai-retrieval-docs
+name: ai-retrieval-docs
 description: Maintain Chinese AI retrieval docs, AI troubleshooting docs, AI context-entry docs, and AI retrieval-entry docs. Use when requirements, code changes, existing AI retrieval docs, or existing context-entry routes should update future-AI-readable code facts, execution paths, compatibility boundaries, validation commands, troubleshooting keywords, and progressive loading routes. Also use when the user asks to maintain project-level AI retrieval or context docs without specifying a document. Do not use for ordinary Markdown polishing, requirement design, implementation notes, Mermaid diagrams, or documents that are not meant for AI retrieval.
 ---
 

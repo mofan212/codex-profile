@@ -1,5 +1,5 @@
 ---
-name: write-java-code
+name: java-code
 description: Write, modify, refactor, and test Java backend code. Use only when Codex needs to implement or change Java 8, Spring, Spring Boot, Spring MVC, MyBatis, Jackson, or Lombok backend code or tests, including service, domain, controller, mapper, DTO, utility, enum, exception-handling, logging, compatibility adjustments, and focused verification. Do not use for pure bug analysis, log analysis, root-cause investigation, general code review, or design discussion unless the user asks for Java code or test changes.
 ---
 

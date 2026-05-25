@@ -1,4 +1,0 @@
-﻿interface:
-  display_name: "Karpathy Coding Guidelines"
-  short_description: "以明确假设、最小改动和目标验证完成编码任务"
-  default_prompt: "Use $karpathy-coding-guidelines to implement or review this coding task with explicit assumptions, minimal changes, and clear verification."

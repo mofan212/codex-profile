@@ -1,4 +1,0 @@
-interface:
-  display_name: "Write Chinese Markdown"
-  short_description: "编写和审查中文 Markdown 排版与标题"
-  default_prompt: "Use $write-chinese-markdown to write or review Chinese Markdown with spacing, quote, inline syntax, and numbered heading conventions."

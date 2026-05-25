@@ -1,5 +1,5 @@
 ---
-name: java-structure-naming
+name: java-naming
 description: Design, review, rename, and place Java backend package paths and class names. Use when Codex needs package hierarchy decisions, domain or responsibility package selection, class role suffix selection, interface and implementation naming, consistency checks against nearby Java code, or guidance to avoid DTO/VO/DAO/DO/PO/BO/POJO suffix taxonomies except when preserving existing repository compatibility.
 ---
 

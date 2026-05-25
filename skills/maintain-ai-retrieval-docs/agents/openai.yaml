@@ -1,4 +1,0 @@
-interface:
-  display_name: "Maintain AI Retrieval Docs"
-  short_description: "维护中文 AI 检索说明与上下文入口"
-  default_prompt: "Use $maintain-ai-retrieval-docs to maintain AI retrieval docs and AI context-entry docs from requirements, code changes, or existing entry routes."

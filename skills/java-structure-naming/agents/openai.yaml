@@ -1,4 +1,0 @@
-interface:
-  display_name: "Java 结构命名"
-  short_description: "判断 Java 包路径、类名与角色后缀"
-  default_prompt: "Use $java-structure-naming to design or review Java package paths, class names, and role suffixes."
