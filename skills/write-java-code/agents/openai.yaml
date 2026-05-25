@@ -1,4 +1,4 @@
 interface:
   display_name: "Write Java Code"
-  short_description: "Java 后端编码、测试、重构与评审规范"
-  default_prompt: "Use $write-java-code to implement, test, or review Java backend changes with repository-local conventions."
+  short_description: "Java 后端编码、测试与重构规范"
+  default_prompt: "Use $write-java-code to implement, refactor, or test Java backend changes with repository-local conventions."
