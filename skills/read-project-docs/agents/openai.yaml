@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read Project Docs"
+  short_description: "按入口和路由渐进读取项目文档"
+  default_prompt: "Use $read-project-docs to inspect project documentation directories through entry documents and progressive loading routes."
