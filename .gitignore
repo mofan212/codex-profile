@@ -1,0 +1,31 @@
+﻿# Codex runtime state, cache, logs and machine-local files
+.sandbox/
+.sandbox-bin/
+.sandbox-secrets/
+.tmp/
+tmp/
+log/
+logs/
+sessions/
+archived_sessions/
+memories/
+sqlite/
+vendor_imports/
+plugins/
+rules/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.log
+history.jsonl
+history.jsonl.bak
+session_index.jsonl
+.codex-global-state.json
+.codex-global-state.json.bak
+installation_id
+cap_sid
+version.json
+
+# Python local cache
+__pycache__/
+*.pyc
