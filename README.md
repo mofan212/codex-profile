@@ -4,8 +4,9 @@
 
 当前包含：
 
-- `AGENTS.md`：个人全局规则
-- `skills/`：个人自定义 Skills
+- `AGENTS.md`：当前仓库的 AI 操作规则
+- `profile/AGENTS.md`：个人 Codex 全局规则
+- `profile/skills/`：个人自定义 Skills
 - `install.py`：Windows、macOS、Linux 通用安装脚本
 
 # 2. 使用方式
@@ -22,7 +23,7 @@ Windows 环境如果命令名是 `python`，执行：
 python install.py
 ```
 
-脚本会把 `AGENTS.md` 和 `skills/` 复制到当前用户的 `~/.codex` 目录。
+脚本会把 `profile/AGENTS.md` 和 `profile/skills/` 复制到当前用户的 `~/.codex` 目录。
 
 # 3. Skill 列表
 
