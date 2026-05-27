@@ -1,6 +1,6 @@
 ---
 name: java-code
-description: Write, modify, refactor, and test Java backend code. Use only when Codex needs to implement or change Java 8, Spring, Spring Boot, Spring MVC, MyBatis, Jackson, or Lombok backend code or tests, including service, domain, controller, mapper, DTO, utility, enum, exception-handling, logging, compatibility adjustments, and focused verification. Do not use for pure bug analysis, log analysis, root-cause investigation, general code review, or design discussion unless the user asks for Java code or test changes.
+description: Write, modify, refactor, and test Java backend code. Use only when Codex needs to implement or change Java 8, Spring, Spring Boot, Spring MVC, MyBatis, Jackson, or Lombok backend code or tests, including service, domain, controller, mapper, Dto/DTO, Dao/DAO, utility, enum, exception-handling, logging, compatibility adjustments, and focused verification. Do not use for pure bug analysis, log analysis, root-cause investigation, general code review, or design discussion unless the user asks for Java code or test changes.
 ---
 
 # 1. 工作流程
@@ -8,8 +8,9 @@ description: Write, modify, refactor, and test Java backend code. Use only when 
 ## 1.1 先建立事实
 
 - 先读取相关源码、测试、配置、接口定义、调用方、同包类、父类或接口，再设计方案或修改代码。
-- 使用 `rg` 或同类快速搜索工具定位类、方法、Bean、Mapper、DTO、枚举、异常和测试覆盖。
+- 使用 `rg` 或同类快速搜索工具定位类、方法、Bean、Mapper、Dto/DTO、Dao/DAO、枚举、异常和测试覆盖。
 - 优先贴合当前代码库已有架构、命名、分层、异常处理和测试风格；当前上下文缺少明确模式时，再使用本 Skill 的默认规范。
+- 如果任务重点是设计、评审或重命名 Java 包、类、方法、变量或常量，优先配合使用 `$java-naming`，不要在本 Skill 内另起一套命名规则。
 - 如果需求、输入输出、兼容性或业务边界不明确，先向用户确认；如果事实与用户表述冲突，直接指出并给出依据。
 
 ## 1.2 小步实现

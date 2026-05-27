@@ -1,11 +1,11 @@
 ---
 name: coding-guidelines
 description: Coding-task execution guidelines that constrain Codex to explicit assumptions, minimal viable changes, KISS design, small scoped edits, and goal-driven verification. Use when implementing, debugging, fixing bugs, refactoring, adding tests, reviewing code, clarifying ambiguous requirements, avoiding opportunistic refactors, or when the user asks for small steps, minimal changes, assumption checks, or verification-focused delivery.
-# Reference: https://linux.do/t/topic/1977532
-
 ---
 
 # Coding Guidelines
+
+> Reference: https://linux.do/t/topic/1977532
 
 ## Overview
 

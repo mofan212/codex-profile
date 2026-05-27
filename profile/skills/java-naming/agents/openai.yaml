@@ -1,4 +1,4 @@
 interface:
   display_name: "Java Naming"
-  short_description: "判断 Java 包路径、类名与角色后缀"
-  default_prompt: "Use $java-naming to design or review Java package paths, class names, and role suffixes."
+  short_description: "为 Java 后端包、类、方法、字段、变量与常量提供命名建议"
+  default_prompt: "Use $java-naming to design or review Java package, class, method, field, variable, constant, and role suffix names."

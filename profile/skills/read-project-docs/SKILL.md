@@ -7,6 +7,8 @@ description: Read project documentation directories with progressive loading. Us
 
 使用本 Skill 读取项目文档目录、需求目录、设计文档目录、AI 上下文入口和 AI 检索入口。目标是先定位入口和路由，再按需加载，避免把同一目录下的 Markdown 文档一次性全部读入上下文。
 
+如果任务从读取文档转为维护 AI 检索文档、AI 排查文档、AI 上下文入口或 AI 检索入口，应切换使用 `$ai-retrieval-docs`。
+
 # 2. 目录入口优先级
 
 当任务需要读取文档目录时，必须先查看该目录下的文件列表和文件名，不要直接批量读取全部文档内容。
