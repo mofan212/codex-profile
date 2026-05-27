@@ -24,5 +24,7 @@
 # 4. 安装脚本边界
 
 - `install.py` 应从 `profile/AGENTS.md` 和 `profile/skills/` 安装到目标 Codex 目录
+- `install.py` 真实安装时会整体替换目标目录中同名 Skill，不会合并目录，也不会保留目标同名 Skill 目录中的额外文件
+- 如果由 AI 执行 `python install.py` 进行真实安装，必须先向用户说明上述覆盖规则，并获得用户二次确认；`python install.py --dry-run` 不需要二次确认
 - 调整备份目录结构时，必须同步检查并更新 `install.py`
 - 验证安装行为时优先运行 `python install.py --dry-run`，确认来源和目标路径正确后再考虑真实安装

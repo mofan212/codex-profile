@@ -2,13 +2,25 @@
 import argparse
 import os
 import shutil
+import sys
 from pathlib import Path
+
+
+INSTALL_WARNING = (
+    "重要提示：真实安装会整体替换目标 Codex skills 目录中的同名 Skill，"
+    "不会合并目录，也不会保留目标同名 Skill 目录中的额外文件。"
+)
 
 
 def default_codex_home():
     if os.name == "nt" and os.environ.get("USERPROFILE"):
         return Path(os.environ["USERPROFILE"]) / ".codex"
     return Path.home() / ".codex"
+
+
+def configure_stdout():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
 
 
 def is_relative_to(path, parent):
@@ -48,6 +60,8 @@ def replace_directory(source, target, dry_run):
 
 
 def main():
+    configure_stdout()
+
     parser = argparse.ArgumentParser(description="Install Codex profile files.")
     parser.add_argument(
         "--codex-home",
@@ -75,6 +89,7 @@ def main():
     if not skills_source.is_dir():
         raise SystemExit("profile/skills directory not found")
 
+    print(INSTALL_WARNING)
     copy_file(agents_source, codex_home / "AGENTS.md", args.dry_run)
 
     for skill_dir in sorted(path for path in skills_source.iterdir() if path.is_dir()):

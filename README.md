@@ -2,6 +2,8 @@
 
 这个仓库用于同步个人 Codex 全局配置，只保存可迁移的配置源码。
 
+**重要提示：执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会整体替换本机 `~/.codex/skills/` 下的对应 Skill，不会合并目录，也不会保留本机同名 Skill 目录中的额外文件。请先使用 `python install.py --dry-run` 确认同步范围。**
+
 当前包含：
 
 - `AGENTS.md`：当前仓库的 AI 操作规则
