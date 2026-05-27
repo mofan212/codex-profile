@@ -27,7 +27,7 @@ description: Design, review, rename, and place Java backend package paths and cl
 
 - 识别当前模块、业务域和职责边界；
 - 查看同级包名和相邻类名后缀；
-- 沿用仓库内已经稳定的领域词拼写，例如 `MicroFlow` 和 `Microflow` 之间不要随意切换；
+- 沿用仓库内已经稳定的领域词拼写，例如 `OrderId` 和 `OrderID` 之间不要随意切换；
 - 检查是否已有同职责类、接口、抽象基类、测试类或常量类；
 - 不要为了统一风格而主动重命名既有代码。
 
@@ -54,8 +54,8 @@ com.company.project.module.domain.responsibility
 
 - `appservice`：面向应用层的服务入口；
 - `controller`：Web 或 API 入口；
-- `executor`：执行节点、任务、命令或运行时单元；
-- `handler`：处理特定事件、动作、节点或请求；
+- `executor`：执行任务、命令、作业或运行时单元；
+- `handler`：处理特定事件、动作、请求或回调；
 - `context`：贯穿调用链传递执行状态；
 - `resolver`：解析值、表达式、变量、类型或引用；
 - `converter`：转换数据结构或类型体系；
@@ -70,15 +70,14 @@ com.company.project.module.domain.responsibility
 - `util`：无状态工具方法；
 - `support`：某个更具体父包下的内部支撑类。
 
-当某个职责包变大时，继续按业务对象、节点类型或稳定子域拆分：
+当某个职责包变大时，继续按业务对象、业务场景或稳定子域拆分：
 
 ```text
-executor.logic
-executor.activity
-executor.activity.entity
-executor.activity.service
-executor.activity.data
-executor.activity.data.support
+handler.order
+handler.payment
+handler.inventory
+handler.notification
+handler.notification.support
 ```
 
 # 3. 类命名规则
@@ -94,14 +93,14 @@ executor.activity.data.support
 示例：
 
 ```text
-BranchNodeExecutor
-CreateEntityHandler
-ActivityNodeHandlerDispatcher
-ExecutionContext
-ValueResolver
-EntityOperationHelper
-NodeExecutionException
-MicroFlowEngineConstants
+OrderPaymentExecutor
+CreateOrderHandler
+PaymentHandlerDispatcher
+RequestContext
+ExpressionValueResolver
+OrderOperationHelper
+OrderProcessingException
+OrderServiceConstants
 ```
 
 ## 3.2 角色后缀选择
@@ -109,9 +108,9 @@ MicroFlowEngineConstants
 根据真实职责选择后缀。能用精确后缀时，不要退回到模糊的 `Service`、`Manager`、`Helper` 或 `Utils`。
 
 - `Engine`：核心执行或编排引擎，谨慎使用；
-- `Executor`：执行节点、任务、命令或运行时单元；
+- `Executor`：执行任务、命令、作业或运行时单元；
 - `Dispatcher`：按类型选择并分发到对应执行器或处理器；
-- `Handler`：承载动作、事件、节点或请求的具体处理逻辑；
+- `Handler`：承载动作、事件、请求或回调的具体处理逻辑；
 - `Processor`：处理一段流程或一批规则；
 - `Manager`：管理有状态资源或生命周期；
 - `Context`：贯穿调用链传递执行状态；
@@ -149,13 +148,13 @@ MicroFlowEngineConstants
 抽象类在提供共享行为时使用 `Abstract` 或 `Base` 前缀：
 
 ```text
-AbstractCallMethodActivityNodeHandler
-BaseNodeExecutor
+AbstractOrderCommandHandler
+BasePaymentExecutor
 ```
 
 只有在存在稳定接口且可能有多个实现，或仓库已有这种约定时，才使用 `Impl` 后缀。
 
-接口不要机械添加 `I` 前缀。优先让接口表达能力或契约，例如 `NodeHandler`、`ValueResolver`。实现类应说明差异点，例如 `DefaultValueResolver`、`ExpressionValueResolver`，而不是默认使用 `NodeHandlerImpl`。
+接口不要机械添加 `I` 前缀。优先让接口表达能力或契约，例如 `PaymentHandler`、`ValueResolver`。实现类应说明差异点，例如 `DefaultValueResolver`、`ExpressionValueResolver`，而不是默认使用 `PaymentHandlerImpl`。
 
 测试类使用：
 
