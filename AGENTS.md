@@ -12,7 +12,9 @@
 - 不要把备份用的 `profile/AGENTS.md` 或 `profile/skills/` 移回仓库根目录
 - 除非用户明确要求安装、同步到本机或修改真实 Codex 配置目录，否则不要修改 `~/.codex/AGENTS.md`、`~/.codex/skills/` 或其他已安装目录
 - 如果用户只说「修改 skill」「改全局规则」「更新配置」，必须先理解为修改当前仓库中的备份源码；如果仍然无法判断目标位置，先向用户确认
+- 修改 `profile/skills/` 下的 Skill 内容时，`SKILL.md` 的 `description` 必须使用英文，正文必须使用中文；`agents/openai.yaml` 的 `default_prompt` 必须使用英文，`short_description` 必须使用中文
 - 如果新增、删除、重命名或调整 `profile/skills/` 下的 Skill 目录结构，必须同步检查并按需维护 `install.py` 和 `README.md` 中的路径、Skill 列表与安装说明
+- 维护 `README.md` 中的 Skill 列表时，必须按职责拆分到不同类别：`chinese-markdown` 和 `node-fetch-http` 属于通用技能，当前其他 Skill 属于编码技能；后续新增 Skill 必须归入合适类别，必要时新增类别，不要合并回单一总表
 - 如果修改 `profile/skills/` 下各 Skill 之间的软依赖、切换关系或协作边界，必须同步维护 `README.md` 中的 Skill 软依赖关系说明
 
 # 3. 文档边界

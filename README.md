@@ -51,7 +51,9 @@ flowchart LR
 
 # 4. Skill 列表
 
-当前仓库包含以下 Skill：
+当前仓库包含以下 Skill。新增 Skill 时应按职责归入已有类别；如果不适合现有类别，再新增类别。
+
+## 4.1 编码技能
 
 | Skill | 触发场景 | 作用 |
 | --- | --- | --- |
@@ -59,8 +61,14 @@ flowchart LR
 | `coding-guidelines` | 实现、调试、修复 Bug、重构、补测试、代码评审、澄清模糊需求，或用户要求小步修改、最小改动、显式假设、验证交付时触发。 | 约束编码任务先明确假设和目标，再用 KISS 原则完成小范围改动，并用测试、构建或明确检查点验证结果。 |
 | `ai-retrieval-docs` | 需求、代码变更、已有 AI 检索文档或上下文入口需要更新为未来 AI 可读事实时触发；维护项目级 AI 检索或上下文文档时也触发。 | 维护中文 AI 检索文档、AI 排查文档、AI 上下文入口和 AI 检索入口，记录代码事实、执行链路、兼容边界、验证命令和检索关键词。 |
 | `read-project-docs` | 需要读取文档目录、需求目录、AI 上下文入口、AI 检索入口、`README.md`、`index.md`、设计文档集、实现记录或混合项目文档时触发。 | 先查看目录文件列表和入口文档，再按入口路由渐进读取相关文档，避免一次性加载同目录下全部 Markdown 文档。 |
-| `chinese-markdown` | 创建、修改、格式化或审查中文 Markdown 文章、需求、`README.md`、设计文档、AI 文档、Skill 文档或检查清单时触发。 | 约束中文 Markdown 的引号、空格、行内语法间距、标题层级和标题编号，保持文档排版一致。 |
 | `java-code` | 需要编写、修改、重构或测试 Java 8、Spring、Spring Boot、Spring MVC、MyBatis、Jackson、Lombok 后端代码或测试时触发。 | 指导 Java 后端代码修改流程、结构命名、兼容边界、Web 与 MyBatis 约定、日志、类注释、测试和验证反馈。 |
+
+## 4.2 通用技能
+
+| Skill | 触发场景 | 作用 |
+| --- | --- | --- |
+| `chinese-markdown` | 创建、修改、格式化或审查中文 Markdown 文章、需求、`README.md`、设计文档、AI 文档、Skill 文档或检查清单时触发。 | 约束中文 Markdown 的引号、空格、行内语法间距、标题层级和标题编号，保持文档排版一致。 |
+| `node-fetch-http` | 在 Codex 中调用、测试、验证、请求、POST 或检查 HTTP/API 接口，尤其是需要 Cookie、Bearer Token、JSON 请求体、多接口串联或接口结果校验时触发。 | 约束 HTTP/API 调用默认使用 Node.js 内置 `fetch`，通过环境变量传入敏感值，并提供紧凑 JSON 输出的请求脚本模板。 |
 
 # 5. 不同步内容
 
