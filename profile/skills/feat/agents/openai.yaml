@@ -1,4 +1,4 @@
 interface:
   display_name: "Feat"
-  short_description: "编排需求草稿、澄清、PRD 完善、Issue 拆分和文档沉淀"
-  default_prompt: "Use $feat to drive this feature from a lightweight requirement draft through clarification, PRD refinement, issues, implementation, and AI retrieval documentation."
+  short_description: "编排需求、Issue、代码事实校验、Review 门禁和文档沉淀"
+  default_prompt: "Use $feat to drive this feature from a lightweight requirement draft through clarification, PRD refinement, issue slicing, pre-implementation code fact checks, review gates, implementation notes, and AI retrieval documentation."

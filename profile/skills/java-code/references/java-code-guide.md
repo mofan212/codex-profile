@@ -68,7 +68,7 @@
 
 ## 4.3 异常和日志
 
-- 异常处理优先复用项目已有异常类型、错误码、Thrower 或 BusinessException 工具，不随意引入新的异常体系。
+- 异常处理优先复用项目已有业务异常类型、错误码、异常抛出工具或统一异常处理机制，不随意引入新的异常体系。
 - 可恢复的工具方法可以记录日志后返回空结果；业务失败应按项目统一异常机制抛出。
 - 日志模板使用占位符，不拼接字符串。
 - 不为每个分支都加防御性日志，只记录能帮助定位失败的异常或关键状态。
@@ -90,53 +90,64 @@
 
 # 6. 常见代码形态
 
-## 6.1 工具类
+## 6.1 使用原则
+
+本节示例只表达常见结构，不要求照抄类名、后缀、依赖或字段类型。优先沿用当前项目已有形态。
+
+| 形态 | 适用场景 | 注意事项 |
+| --- | --- | --- |
+| 工具类 | 无状态、可复用、与具体业务流程弱绑定的纯函数能力。 | 使用 `final` 类和私有构造方法；不要注入 Spring Bean；不要把业务流程塞进工具类。 |
+| 构造/转换协作者 | 对象构造、字段填充、分组转换或多步骤映射逻辑明显膨胀。 | 类名和后缀跟随项目习惯；不要默认使用 `Support` 后缀；只在确实降低主流程复杂度时抽出。 |
+| 流程编排类 | 调度、入口、批处理、Controller 或 Service 中串联多个步骤。 | 保持轻量，只组织流程；复杂转换、校验或构造下沉到稳定协作者。 |
+| 静态工厂方法 | 构造参数需要校验、归一化或表达业务语义。 | 方法名跟随项目习惯，例如 `from`、`of`、`create`、`build`；不要为了样式统一强行引入。 |
+
+## 6.2 工具类最小示例
 
 ```java
-public final class XxxUtils {
-    private XxxUtils() {
+public final class TextValues {
+    private TextValues() {
     }
 
-    public static Optional<String> getStringValue(JsonNode jsonNode, String key) {
-        if (jsonNode == null || StringUtils.isEmpty(key)) {
+    public static Optional<String> nonBlank(String value) {
+        if (value == null || value.trim().isEmpty()) {
             return Optional.empty();
         }
-        return Optional.ofNullable(jsonNode.get(key))
-                .filter(JsonNode::isTextual)
-                .map(JsonNode::asText);
+        return Optional.of(value.trim());
     }
 }
 ```
 
-## 6.2 Support 类
+## 6.3 构造或转换协作者最小示例
 
 ```java
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class XxxSupport {
+public class ItemAssembler<S, R> {
 
-    private final Collection<?> sourceData;
+    private final List<S> sourceItems;
+    private final Function<S, R> mapper;
 
-    public static XxxSupport from(Collection<?> sourceData) {
-        return new XxxSupport(sourceData);
+    private ItemAssembler(List<S> sourceItems, Function<S, R> mapper) {
+        this.sourceItems = sourceItems;
+        this.mapper = mapper;
     }
 
-    public List<Map<String, Object>> mapping() {
-        if (CollectionUtils.isEmpty(sourceData)) {
+    public static <S, R> ItemAssembler<S, R> from(List<S> sourceItems, Function<S, R> mapper) {
+        return new ItemAssembler<>(sourceItems, mapper);
+    }
+
+    public List<R> assemble() {
+        if (sourceItems == null || sourceItems.isEmpty()) {
             return Collections.emptyList();
         }
-        List<Map<String, Object>> result = new ArrayList<>();
-        for (Object sourceDatum : sourceData) {
-            // 逐条处理来源数据，保证处理顺序稳定
-            result.add(singleMapping(sourceDatum));
+        List<R> results = new ArrayList<>();
+        for (S sourceItem : sourceItems) {
+            results.add(mapper.apply(sourceItem));
         }
-        return result;
-    }
-
-    private Map<String, Object> singleMapping(Object sourceDatum) {
-        return new HashMap<>();
+        return results;
     }
 }
 ```
+
+如果示例中的泛型、静态工厂或协作者类让实际代码更难读，直接使用项目中更简单的既有写法。
 
 # 7. 单测风格
 
