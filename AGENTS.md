@@ -14,8 +14,9 @@
 - 如果用户只说「修改 skill」「改全局规则」「更新配置」，必须先理解为修改当前仓库中的备份源码；如果仍然无法判断目标位置，先向用户确认
 - 修改 `profile/skills/` 下的 Skill 内容时，`SKILL.md` 的 `description` 必须使用英文，正文必须使用中文；`agents/openai.yaml` 的 `default_prompt` 必须使用英文，`short_description` 必须使用中文
 - 如果新增、删除、重命名或调整 `profile/skills/` 下的 Skill 目录结构，必须同步检查并按需维护 `install.py` 和 `README.md` 中的路径、Skill 列表与安装说明
-- 维护 `README.md` 中的 Skill 列表时，必须按职责拆分到不同类别：`chinese-markdown` 和 `node-fetch-http` 属于通用技能，当前其他 Skill 属于编码技能；后续新增 Skill 必须归入合适类别，必要时新增类别，不要合并回单一总表
+- 维护 `README.md` 中的 Skill 列表时，必须按职责拆分到不同类别：`feat` 和 `ai-retrieval-docs` 属于 Feat 工作流技能，`chinese-markdown` 和 `node-fetch-http` 属于通用技能，当前其他 Skill 属于编码技能；后续新增 Skill 必须归入合适类别，必要时新增类别，不要合并回单一总表
 - 如果修改 `profile/skills/` 下各 Skill 之间的软依赖、切换关系或协作边界，必须同步维护 `README.md` 中的 Skill 软依赖关系说明
+- 如果新增或修改 `feat` 工作流的阶段、门禁、依赖 Skill、文档边界、实现沉淀规则或目录结构，必须同步检查并按需维护 `README.md` 中的 Feat 工作流说明、依赖声明、软依赖关系和 Skill 列表
 
 # 3. 文档边界
 

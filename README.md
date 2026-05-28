@@ -45,25 +45,49 @@ python install.py
 
 ```mermaid
 flowchart LR
-    readProjectDocs["read-project-docs"] -->|维护 AI 检索文档、AI 排查文档、AI 上下文入口或 AI 检索入口| aiRetrievalDocs["ai-retrieval-docs"]
-    javaCode["java-code"] -->|设计、评审或重命名 Java 包、类、方法、变量或常量| javaNaming["java-naming"]
+    feat["feat"] -->|需求澄清| grillWithDocs["grill-with-docs"]
+    feat -->|需求整理| toPrd["to-prd"]
+    feat -->|Issue 拆分| toIssues["to-issues"]
+    feat -->|文档定位| readProjectDocs["read-project-docs"]
+    feat -->|最终归档| aiRetrievalDocs["ai-retrieval-docs"]
+    readProjectDocs["read-project-docs"] -->|文档维护切换| aiRetrievalDocs["ai-retrieval-docs"]
+    javaCode["java-code"] -->|命名协作| javaNaming["java-naming"]
 ```
+
+`feat` 是 AI Coding 主控工作流 Skill。它会先执行工作流前置检查，只显式关联工作流必要 Skill：项目安装了 `mattpocock/skills` 时可编排 `setup-matt-pocock-skills`、`grill-with-docs`、`to-prd` 和 `to-issues`，实现阶段使用本仓库的 `read-project-docs` 定位并渐进读取相关文档，最终归档阶段配合本仓库的 `ai-retrieval-docs`。具体实现类 Skill 由项目技术栈、用户偏好和已安装 Skill 决定，不在 `feat` 中硬编码。
 
 # 4. Skill 列表
 
 当前仓库包含以下 Skill。新增 Skill 时应按职责归入已有类别；如果不适合现有类别，再新增类别。
 
-## 4.1 编码技能
+## 4.1 Feat 工作流技能
+
+`feat` 工作流会用到 `mattpocock/skills` 提供的以下外部工作流 Skill。这些 Skill 不在本仓库内维护，但需要在目标项目或当前会话中可用。
+
+| Skill | 在 `feat` 中的作用 |
+| --- | --- |
+| `setup-matt-pocock-skills` | 初始化项目的 Agent Skill 说明、Issue tracker 和领域文档布局。 |
+| `grill-with-docs` | 基于需求文档和项目领域文档澄清需求，并按需更新需求文档、`CONTEXT.md` 或 ADR。 |
+| `to-prd` | 按 PRD 结构整理和完善当前需求文档。 |
+| `to-issues` | 将通过 Feature DoR 的需求拆分为可独立实现的垂直切片 Issue。 |
+
+本仓库维护的 Feat 工作流相关 Skill 如下：
+
+| Skill | 触发场景 | 作用 |
+| --- | --- | --- |
+| `feat` | 用户要求使用 `feat` 推进需求、继续下一步、澄清需求、完善需求文档、拆分 Issue、进入实现、处理完成门禁或归档 AI 检索文档时触发。 | 作为 AI Coding 主控工作流，执行工作流前置检查，编排轻量需求草稿、需求澄清、PRD 完善、文档边界、Feature DoR、Issue DoR / DoD、垂直 Issue 拆分、实现阶段文档定位、实现沉淀记录和最终 AI 检索文档归档；不硬编码具体实现类 Skill。 |
+| `ai-retrieval-docs` | 需求、代码变更、已有 AI 检索文档或上下文入口需要更新为未来 AI 可读事实时触发；维护项目级 AI 检索或上下文文档时也触发。 | 维护中文 AI 检索文档、AI 排查文档、AI 上下文入口和 AI 检索入口，记录代码事实、执行链路、兼容边界、验证命令和检索关键词；也是 `feat` 工作流最终归档阶段使用的 Skill。 |
+
+## 4.2 编码技能
 
 | Skill | 触发场景 | 作用 |
 | --- | --- | --- |
 | `java-naming` | 需要设计、评审、重命名或放置 Java 后端包路径、类名、接口名、实现类名、方法名、变量名、常量名和职责后缀时触发。 | 为 Java 后端代码提供渐进加载的包、类、方法、变量、常量命名规则；允许语义明确的 `Dto` 和 `Dao`，避免默认引入 `VO`、`DO`、`PO`、`BO`、`POJO` 等后缀体系。 |
 | `coding-guidelines` | 实现、调试、修复 Bug、重构、补测试、代码评审、澄清模糊需求，或用户要求小步修改、最小改动、显式假设、验证交付时触发。 | 约束编码任务先明确假设和目标，再用 KISS 原则完成小范围改动，并用测试、构建或明确检查点验证结果。 |
-| `ai-retrieval-docs` | 需求、代码变更、已有 AI 检索文档或上下文入口需要更新为未来 AI 可读事实时触发；维护项目级 AI 检索或上下文文档时也触发。 | 维护中文 AI 检索文档、AI 排查文档、AI 上下文入口和 AI 检索入口，记录代码事实、执行链路、兼容边界、验证命令和检索关键词。 |
 | `read-project-docs` | 需要读取文档目录、需求目录、AI 上下文入口、AI 检索入口、`README.md`、`index.md`、设计文档集、实现记录或混合项目文档时触发。 | 先查看目录文件列表和入口文档，再按入口路由渐进读取相关文档，避免一次性加载同目录下全部 Markdown 文档。 |
 | `java-code` | 需要编写、修改、重构或测试 Java 8、Spring、Spring Boot、Spring MVC、MyBatis、Jackson、Lombok 后端代码或测试时触发。 | 指导 Java 后端代码修改流程、结构命名、兼容边界、Web 与 MyBatis 约定、日志、类注释、测试和验证反馈。 |
 
-## 4.2 通用技能
+## 4.3 通用技能
 
 | Skill | 触发场景 | 作用 |
 | --- | --- | --- |
