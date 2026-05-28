@@ -10,7 +10,7 @@
 - 需求文档模式包括 `*需求文档*.md`、`*需求设计文档*.md`、`*PRD*.md`、`*需求说明*.md`。
 - 如果用户显式指定其他项目或多个项目，以用户指定范围为准。
 
-如果存在变更的需求文档，以这些需求文档为入口，逐个读取 `requirement-doc-flow.md` 并按需求文档驱动流程维护 AI 检索文档、需求目录入口和上层入口。
+如果存在变更的需求文档，以这些需求文档为入口，逐个读取 [requirement-doc-flow.md](requirement-doc-flow.md) 并按需求文档驱动流程维护 AI 检索文档、需求目录入口和上层入口。
 
 # 3. 没有变更需求文档
 
@@ -27,4 +27,4 @@
 
 维护时不要机械重写所有文档。只更新稳定事实已变化、加载路由缺失或文档明显过时的部分。
 
-更新 AI 检索文档前读取 `writing-ai-retrieval-doc.md`。更新 AI 上下文入口前读取 `writing-context-entry-doc.md`。最终检查前读取 `markdown-and-checklist.md`。
+更新 AI 检索文档前读取 [writing-ai-retrieval-doc.md](writing-ai-retrieval-doc.md)。更新 AI 上下文入口前读取 [writing-context-entry-doc.md](writing-context-entry-doc.md)。最终检查前读取 [markdown-and-checklist.md](markdown-and-checklist.md)。

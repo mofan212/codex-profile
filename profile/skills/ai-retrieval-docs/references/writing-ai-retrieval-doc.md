@@ -15,7 +15,7 @@
 - `# N. 当前测试重点` 或 `# N. 验证建议`
 - `# N. AI 快速检索提示`
 
-需要更完整模板时，读取 `document-template.md`。
+需要更完整模板时，读取 [document-template.md](document-template.md)。
 
 # 3. 写作原则
 

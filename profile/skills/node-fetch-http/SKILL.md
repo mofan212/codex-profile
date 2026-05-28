@@ -24,7 +24,7 @@ description: Use Node.js built-in fetch in Codex to call, test, verify, POST to,
 
 # 4. 请求模式
 
-一次性 JSON 请求可以使用 `scripts/fetch-json.mjs` 这类脚本模板。
+一次性 JSON 请求可以使用 [scripts/fetch-json.mjs](scripts/fetch-json.mjs) 这类脚本模板。
 
 | env_var | meaning |
 | --- | --- |

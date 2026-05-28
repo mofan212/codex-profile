@@ -6,7 +6,7 @@
 
 以此文档所在目录向上搜索最近的 AI 上下文入口：
 
-- 找到入口后，读取 `context-entry-flow.md`，按 AI 上下文入口驱动流程处理。
+- 找到入口后，读取 [context-entry-flow.md](context-entry-flow.md)，按 AI 上下文入口驱动流程处理。
 - 未找到入口时，先识别当前项目和文档树，再询问用户是否以该 AI 检索文档所在目录为起点创建或维护上层 AI 上下文入口。
 
 如果用户只指定当前 AI 检索文档但没有要求扩大范围，不要默认读取入口范围内所有 AI 检索文档。
@@ -18,7 +18,7 @@
 1. 读取当前 AI 检索文档。
 2. 查找同目录同主题需求文档、设计文档或示例数据。
 3. 检查当前项目 git 变更和相关代码事实。
-4. 读取 `writing-ai-retrieval-doc.md` 和 `markdown-and-checklist.md` 后更新。
+4. 读取 [writing-ai-retrieval-doc.md](writing-ai-retrieval-doc.md) 和 [markdown-and-checklist.md](markdown-and-checklist.md) 后更新。
 
 不要把入口范围内所有文档作为默认读取对象。
 
