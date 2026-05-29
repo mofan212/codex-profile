@@ -27,4 +27,4 @@
 
 维护时不要机械重写所有文档。只更新稳定事实已变化、加载路由缺失或文档明显过时的部分。
 
-更新 AI 检索文档前读取 [writing-ai-retrieval-doc.md](writing-ai-retrieval-doc.md)。更新 AI 上下文入口前读取 [writing-context-entry-doc.md](writing-context-entry-doc.md)。最终检查前读取 [markdown-and-checklist.md](markdown-and-checklist.md)。
+更新文档前按 [SKILL.md](../SKILL.md) 的「按需读取参考」读取对应写作参考。

@@ -18,7 +18,7 @@
 1. 读取当前 AI 检索文档。
 2. 查找同目录同主题需求文档、设计文档或示例数据。
 3. 检查当前项目 git 变更和相关代码事实。
-4. 读取 [writing-ai-retrieval-doc.md](writing-ai-retrieval-doc.md) 和 [markdown-and-checklist.md](markdown-and-checklist.md) 后更新。
+4. 按 [SKILL.md](../SKILL.md) 的「按需读取参考」读取对应写作参考后更新。
 
 不要把入口范围内所有文档作为默认读取对象。
 
