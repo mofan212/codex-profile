@@ -28,6 +28,7 @@
 - Skill 文档中引用当前 Skill 内真实存在、稳定可定位的文件时，优先使用相对路径链接；文件名模式、待创建路径、命令、环境路径、目标项目中的候选文件名或泛称路径继续使用反引号。需要说明 Markdown 链接语法时，可以在行内代码或代码块中展示 `[文件名](文件名)`，不要渲染成实际占位链接。
 - Skill 优化后必须检查 `description`、正文语言、`agents/openai.yaml`、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
 - `write-a-skill` 只参与 Skill 修改完成后的检查：用它核对 Skill 是否符合结构、触发描述、渐进加载、引用深度、示例和脚本使用等要求
+- 修改或新增 `profile/skills/` 下的 Skill 后，最终回复前必须先完成 `write-a-skill` 检查；脚本校验不能替代该检查
 - 如果 `write-a-skill` 检查发现不符合项，必须继续修改并重新检查；不要让它参与编写或修改阶段
 - 在 Windows 中文环境运行 Skill 校验脚本读取中文 Markdown 时，如果遇到默认编码错误，优先使用 UTF-8 模式运行，例如设置 `PYTHONUTF8=1` 后再执行校验；不要把编码报错误判为 Skill 格式错误
 - `profile/skills/coding-guidelines/` 是成熟 Skill，后续进行 Skill 优化、批量润色、协作边界调整或规则沉淀时，默认排除该目录；除非用户明确点名要求修改它，否则不要修改此 Skill
