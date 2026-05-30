@@ -26,6 +26,13 @@ installation_id
 cap_sid
 version.json
 
+# IDE/editor local files
+.idea/
+*.iml
+.vscode/
+.vs/
+.fleet/
+
 # Python local cache
 __pycache__/
 *.pyc
