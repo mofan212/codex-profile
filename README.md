@@ -94,7 +94,7 @@ flowchart TD
 | `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求。 |
 | `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档。 |
 | `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue。 |
-| `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 和归档。 |
+| `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档。 |
 | `read-project-docs` | 本仓库维护 | 按需读取项目文档、需求目录和上下文入口，用于实现阶段文档定位。 |
 | `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文。 |
 
@@ -140,13 +140,13 @@ flowchart LR
         implement["实现代码与测试"]
     end
 
-    review{{"📝 Review"}}
+    review{{"📝 Review Loop\nSubagents / 外部 Review / 自审"}}
     archive(["✅ 最终归档\nai-retrieval-docs"])
 
     slice --> locate --> verify --> implement
     implement --> review
     review -->|"✅ 通过"| archive
-    review -->|"🔄 阻塞"| implement
+    review -->|"🔄 修复后重审"| review
 
     style slice fill:#6366f1,color:#fff,stroke:#4f46e5
     style review fill:#475569,color:#fff,stroke:#334155

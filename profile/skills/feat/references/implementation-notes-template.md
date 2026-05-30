@@ -7,7 +7,7 @@
 
 本文只记录单个 Issue 完成后产生的实现事实，供后续 `ai-retrieval-docs` 归并为正式 AI 检索文档。
 
-不要记录未实现设想、讨论过程、临时猜测、Review 中间意见或调试流水。
+不要记录未实现设想、讨论过程、临时猜测、Review 各轮中间讨论或调试流水。
 
 ## 1.2 Issue 信息
 
@@ -32,7 +32,20 @@ validation_results:
   - ""
 ```
 
-## 1.5 AI 检索提示
+## 1.5 Review 摘要
+
+```yaml
+review_method: ""
+review_rounds: 0
+last_round_result: ""
+blocking_findings_resolved:
+  - ""
+non_blocking_decisions:
+  - ""
+skip_reason: ""
+```
+
+## 1.6 AI 检索提示
 
 ```yaml
 retrieval_keywords:
