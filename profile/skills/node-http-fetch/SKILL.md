@@ -1,9 +1,9 @@
 ---
-name: node-fetch-http
+name: node-http-fetch
 description: Use Node.js built-in fetch in Codex to call, test, verify, POST to, or inspect HTTP/API endpoints, especially for Cookie, Bearer Token, JSON body, chained requests, reusable request scripts, or response validation. Do not try PowerShell Invoke-WebRequest or Windows curl.exe first, and do not install node-fetch.
 ---
 
-# 1. Node Fetch HTTP
+# 1. Node HTTP Fetch
 
 在 Codex 中调用 HTTP/API 接口时，默认使用 Node.js 内置 `fetch` 作为 HTTP 客户端。
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java Backend Code"
+  short_description: "Java 后端编码、测试与重构规范"
+  default_prompt: "Use $java-backend-code to implement, refactor, or test Java backend changes with repository-local conventions."

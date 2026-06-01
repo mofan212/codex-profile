@@ -1,0 +1,4 @@
+interface:
+  display_name: "Node HTTP Fetch"
+  short_description: "在 Codex 中用 Node.js 内置 fetch 调用 HTTP/API 接口。"
+  default_prompt: "Use $node-http-fetch to call this HTTP API with Node.js built-in fetch."

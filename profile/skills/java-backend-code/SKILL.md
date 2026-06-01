@@ -1,5 +1,5 @@
 ---
-name: java-code
+name: java-backend-code
 description: Write, modify, refactor, and test Java backend code. Use only when Codex needs to implement or change Java 8, Spring, Spring Boot, Spring MVC, MyBatis, Jackson, or Lombok backend code or tests, including service, domain, controller, mapper, Dto/DTO, Dao/DAO, utility, enum, exception-handling, logging, compatibility adjustments, and focused verification. Do not use for pure bug analysis, log analysis, root-cause investigation, general code review, or design discussion unless the user asks for Java code or test changes.
 ---
 
@@ -59,4 +59,4 @@ description: Write, modify, refactor, and test Java backend code. Use only when 
 
 | trigger | read | purpose | skip_when |
 | --- | --- | --- | --- |
-| 新建 Java 类、跨层改动、重构较大方法、补单测，或拿不准命名、结构、异常处理和测试风格 | [references/java-code-guide.md](references/java-code-guide.md) | 确认详细 Java 规范、常见代码形态、单测风格和评审清单 | 只做局部一两行修复，且当前文件已有清晰模式 |
+| 新建 Java 类、跨层改动、重构较大方法、补单测，或拿不准命名、结构、异常处理和测试风格 | [references/java-backend-code-guide.md](references/java-backend-code-guide.md) | 确认详细 Java 规范、常见代码形态、单测风格和评审清单 | 只做局部一两行修复，且当前文件已有清晰模式 |

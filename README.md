@@ -58,7 +58,7 @@ flowchart TD
     end
 
     subgraph java_coding ["Java 编码"]
-        javaCode["java-code"]
+        javaBackendCode["java-backend-code"]
         javaNaming["java-naming"]
     end
 
@@ -68,7 +68,7 @@ flowchart TD
     feat -->|文档定位| readProjectDocs
     feat -->|最终归档| aiRetrievalDocs
     readProjectDocs -->|文档维护切换| aiRetrievalDocs
-    javaCode -->|命名协作| javaNaming
+    javaBackendCode -->|命名协作| javaNaming
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
     style grillWithDocs fill:#0ea5e9,color:#fff,stroke:#0284c7
@@ -76,7 +76,7 @@ flowchart TD
     style toIssues fill:#0ea5e9,color:#fff,stroke:#0284c7
     style readProjectDocs fill:#10b981,color:#fff,stroke:#059669
     style aiRetrievalDocs fill:#10b981,color:#fff,stroke:#059669
-    style javaCode fill:#f59e0b,color:#fff,stroke:#d97706
+    style javaBackendCode fill:#f59e0b,color:#fff,stroke:#d97706
     style javaNaming fill:#f59e0b,color:#fff,stroke:#d97706
 ```
 
@@ -164,14 +164,14 @@ flowchart LR
 | --- | --- |
 | `java-naming` | 设计和评审 Java 后端命名。 |
 | `coding-guidelines` | 约束编码任务小步实现、显式假设和验证交付。 |
-| `java-code` | 指导 Java 后端代码修改、测试和验证反馈。 |
+| `java-backend-code` | 指导 Java 后端代码修改、测试和验证反馈。 |
 
 ## 通用技能
 
 | 名称 | 一句话用途 |
 | --- | --- |
 | `chinese-markdown` | 约束中文 Markdown 的排版、标题和行内语法。 |
-| `node-fetch-http` | 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API。 |
+| `node-http-fetch` | 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API。 |
 
 # 不同步内容
 
