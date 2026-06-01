@@ -2,13 +2,11 @@
 
 - 当前仓库是 Codex Profile 备份仓库，用于保存可迁移的 Codex 配置源码
 - 根目录 `AGENTS.md` 只约束 AI 在当前仓库中的行为，不是要安装到 Codex 全局目录的备份文件
-- 要备份和安装的 Codex 全局规则位于 `profile/AGENTS.md`
-- 要备份和安装的自定义 Skill 位于 `profile/skills/`
+- 要备份和安装的 Codex 全局规则位于 `profile/AGENTS.md`，自定义 Skill 位于 `profile/skills/`
 
 # 2. 默认修改目标
 
-- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`
-- 用户要求修改 Skill、调整 Skill 文档或新增 Skill 时，默认修改 `profile/skills/` 下的内容
+- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`
 - 用户只说「修改 Skill」「改全局规则」「更新配置」时，先理解为修改当前仓库中的备份源码
 - 只有目标位置互相冲突、用户语义明确指向本机已安装 Codex 配置目录，或需要修改当前工作区之外的文件时，才先向用户确认
 - 不要把备份用的 `profile/AGENTS.md` 或 `profile/skills/` 移回仓库根目录
@@ -35,11 +33,11 @@
 
 ## 3.3 校验与保护
 
-- Skill 优化后必须检查 `description`、正文语言、`agents/openai.yaml`、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
-- `write-a-skill` 只参与 Skill 修改完成后的检查：用它核对 Skill 是否符合结构、触发描述、渐进加载、引用深度、示例和脚本使用等要求
-- 修改或新增 `profile/skills/` 下的 Skill 后，最终回复前必须完成 `write-a-skill` 检查；脚本校验不能替代该检查
-- 如果 `write-a-skill` 检查发现不符合项，必须继续修改并重新检查
-- 不要让 `write-a-skill` 参与 Skill 编写或修改阶段
+- 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml`、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
+- 编写或修改 Skill 时，以 `skill-creator` 作为主流程；`write-a-skill` 只用于需求收集、用户评审和结构质量复核，不替代初始化、资源规划、`agents/openai.yaml` 生成和校验
+- 新增 Skill 或较大修改既有 Skill 前，必须借用 `write-a-skill` 确认任务领域、用例、触发条件、脚本需求、`references/` / `assets/` 需求和参考资料；仅小范围文案修正可跳过
+- 修改完成后，必须借用 `write-a-skill` 的 Review Checklist 复核；新增 Skill 或较大修改须向用户呈现评审要点，脚本校验不能替代该检查
+- 如果 `write-a-skill` 检查或用户评审发现不符合项，必须继续修改并重新检查
 - 在 Windows 中文环境运行 Skill 校验脚本读取中文 Markdown 时，如果遇到默认编码错误，优先使用 UTF-8 模式运行，例如设置 `PYTHONUTF8=1` 后再执行校验；不要把编码报错误判为 Skill 格式错误
 - `profile/skills/coding-guidelines/` 是成熟 Skill，默认不要对此目录下的任何文件做任何调整；除非用户显式点名要求修改它，否则必须排除该目录
 
@@ -50,14 +48,12 @@
 | 新增、删除、重命名或调整 Skill 目录结构 | 同步 `install.py` 和 `README.md` 中的路径、Skill 列表与安装说明 |
 | 维护 `README.md` 中的 Skill 列表 | 按 `README.md` 现有类别归入合适分类，必要时新增类别，不要合并回单一总表 |
 | 修改 Skill 之间的软依赖、切换关系或协作边界 | 同步 `README.md` 中的 Skill 软依赖关系说明 |
-| 新增或修改 feat 工作流的阶段、门禁、依赖或文档边界 | 同步 `README.md` 中的 Feat 工作流说明、依赖声明和 Skill 列表 |
-| 新增或修改 feat 工作流的实现沉淀规则或目录结构 | 同步 `README.md` 中的 Feat 工作流说明、依赖声明和 Skill 列表 |
+| 新增或修改 feat 工作流的阶段、门禁、依赖、文档边界、实现沉淀规则或目录结构 | 同步 `README.md` 中的 Feat 工作流说明、依赖声明和 Skill 列表 |
 
 # 5. 文档边界
 
-- `README.md` 面向人类读者，不用于承载 AI 行为规则
-- 项目级 AI 行为规则应写在根目录 `AGENTS.md`
-- 除非用户明确要求更新面向人类的说明文档，否则不要为了约束 AI 行为而修改 `README.md`
+- `README.md` 面向人类读者，不承载 AI 行为规则；项目级 AI 行为规则应写在根目录 `AGENTS.md`
+- 除非用户明确要求或同步维护规则触发，否则不要修改 `README.md`；触发时只更新面向人类的事实说明、Skill 列表、依赖关系和安装说明
 
 # 6. 安装脚本边界
 
