@@ -1,6 +1,6 @@
 ---
 name: read-project-docs
-description: Read project documentation directories with progressive loading. Use when Codex needs to inspect a documentation directory, requirements directory, AI context-entry document, AI retrieval-entry document, README, index document, design document set, implementation notes, or mixed project docs before answering, designing, or modifying code. Do not use for ordinary source-code search that does not involve documentation directories.
+description: Read project documentation directories with progressive, workspace-aware loading. Use when Codex needs to inspect a documentation directory, requirements directory, AI context-entry document, AI retrieval-entry document, README, index document, design document set, implementation notes, sibling-project documentation, or mixed project docs before answering, designing, or modifying code. Do not use for ordinary source-code search that does not involve documentation directories.
 ---
 
 # 1. 项目文档读取规则
@@ -34,14 +34,24 @@ description: Read project documentation directories with progressive loading. Us
 | 多个文档存在明显新旧关系 | 优先读取最新的集成说明、AI 检索说明或上下文入口 | 旧版文档仅在追溯历史行为或兼容旧逻辑时读取 |
 | 读取过程中发现引用了更合适的上下文文档 | 按引用继续读取被指向文档 | 引用文档只解释历史背景且当前任务不需要 |
 
-# 4. Skill 切换交接
+# 4. Workspace 文档边界
+
+当文档任务涉及当前项目外的模块、仓库或子项目时，按下表确认 Workspace 文档边界；本节只约束文档读取，不替代源码调研、调用链确认或跨项目写入确认规则。
+
+| trigger | action | forbidden |
+| --- | --- | --- |
+| 文档引用当前项目外的模块、仓库或子项目 | 先识别当前项目的上级 Workspace，并按需查看同一 Workspace 下兄弟项目或聚合仓库中的相关文档 | 只在当前项目根目录内检索后断言其不存在 |
+| 无法判断 Workspace 边界 | 先查看当前项目父目录下的项目列表，再根据模块名、包名、文档路径或构建配置判断相关项目 | 在未确认边界时直接下结论 |
+| 需要跨项目读取文档事实 | 可以直接读取相关兄弟项目或聚合仓库中的文档 | 把未读取的跨项目文档事实当作不存在 |
+
+# 5. Skill 切换交接
 
 | condition | target_skill | carry_context | stop_rule |
 | --- | --- | --- | --- |
 | 任务从读取文档转为维护 AI 检索文档、AI 排查文档、AI 上下文入口或 AI 检索入口 | `$ai-retrieval-docs` | 已读取的入口文档、路由依据、相关文档路径、跳过依据、仍需确认的问题 | 停止按本 Skill 扩大读取范围，由 `$ai-retrieval-docs` 判断写入边界、事实依据和是否需要询问用户 |
 | 用户只要求理解、定位、汇总或基于文档回答问题，没有要求维护 AI 检索或入口文档 | 保持本 Skill | 已读取文档、读取理由、可选的下一步上下文 | 不写入 AI 检索文档或入口文档 |
 
-# 5. 输出要求
+# 6. 输出要求
 
 | field | requirement |
 | --- | --- |

@@ -95,7 +95,7 @@ flowchart TD
 | `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档。 |
 | `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue。 |
 | `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档。 |
-| `read-project-docs` | 本仓库维护 | 按需读取项目文档、需求目录和上下文入口，用于实现阶段文档定位。 |
+| `read-project-docs` | 本仓库维护 | 按入口、路由和 Workspace 边界按需读取项目文档，用于实现阶段文档定位。 |
 | `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文。 |
 
 <details>
