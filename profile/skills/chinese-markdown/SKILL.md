@@ -1,20 +1,18 @@
 ---
 name: chinese-markdown
-description: Write, edit, format, or review Chinese Markdown documents with strict typography and heading rules. Use when creating or modifying Chinese Markdown articles, requirements, README files, design docs, AI docs, Skill docs, checklists, or any Markdown content that should follow Chinese spacing, quote, inline syntax, and numbered heading conventions.
+description: Write, edit, format, or review Chinese Markdown documents with numbered headings, inline syntax, and Chinese copywriting conventions. Use when working on Chinese Markdown articles, requirements, README files, design docs, AI docs, Skill docs, or checklists.
 ---
 
 # 1. 中文 Markdown 编写规则
 
-使用本 Skill 编写、修改、格式化或审查中文 Markdown 文档。优先保证标题层级稳定、编号连续、内容层次清楚，并保持标点、空格和 Markdown 行内语法间距一致。
+使用本 Skill 编写、修改、格式化或审查中文 Markdown 文档。优先保证标题层级稳定、编号连续、内容层次清楚，并保持 Markdown 行内语法间距一致。
 
-# 2. 标点和间距
+需要处理中文文案排版规则、术语大小写、数字和单位、全角半角、中文标点或正反例时，读取 [references/chinese-copywriting.md](references/chinese-copywriting.md)。只检查 Markdown 结构、标题或行内语法时，不读取 reference。
 
-- 中文引号使用 `「」`，不要使用中文弯引号
-- 中文与英文、数字或代码词相邻时，中间使用一个半角空格隔开
+# 2. Markdown 行内语法
+
 - Markdown 行内代码、链接、强调等语法与中文内容相邻时，两侧留一个半角空格
 - Markdown 行内语法与中文标点相邻时，不强制在标点前后加空格；行内代码后接顿号、逗号、句号、分号、冒号、问号或感叹号时，通常保持紧邻
-
-示例：
 
 ```markdown
 正确：运行 `example --help` 查看可用参数
@@ -46,9 +44,7 @@ description: Write, edit, format, or review Chinese Markdown documents with stri
 # 2. 标题
 ```
 
-不要只保留一个 1 级标题并把所有内容塞进 2 级标题。需要更细层级时，优先使用引用块或列表，不要继续新增 3 级或更深标题。
-
-示例：
+不要只保留一个 1 级标题并把所有内容塞进 2 级标题，例如：
 
 ```markdown
 正确：
@@ -66,7 +62,7 @@ description: Write, edit, format, or review Chinese Markdown documents with stri
 ## 1.4 实施步骤
 ```
 
-需要表达更细层级时：
+需要更细层级时，优先使用引用块或列表，不要继续新增 3 级或更深标题，例如：
 
 ```markdown
 正确：
@@ -103,8 +99,6 @@ description: Write, edit, format, or review Chinese Markdown documents with stri
 
 交付前检查：
 
-- 不存在中文弯引号，必要时已替换为 `「」`
-- 中文与英文、数字或代码词之间已留空格
 - Markdown 行内语法两侧与中文内容留有一个半角空格
 - Markdown 行内语法与中文标点紧邻时没有误判为缺少空格
 - 标题只使用 1 级和 2 级
