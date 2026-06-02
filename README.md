@@ -84,7 +84,7 @@ flowchart TD
 
 # Skill 列表
 
-## Feat 工作流技能
+## feat 工作流技能
 
 外部依赖来自 [mattpocock/skills](https://github.com/mattpocock/skills)。
 
