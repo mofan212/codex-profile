@@ -53,7 +53,7 @@ flowchart TD
         grillWithDocs["grill-with-docs"]
         toPrd["to-prd"]
         toIssues["to-issues"]
-        readProjectDocs["read-project-docs"]
+        loadProjectContext["load-project-context"]
         aiRetrievalDocs["ai-retrieval-docs"]
     end
 
@@ -65,16 +65,16 @@ flowchart TD
     feat -->|需求澄清| grillWithDocs
     feat -->|需求整理| toPrd
     feat -->|Issue 拆分| toIssues
-    feat -->|文档定位| readProjectDocs
+    feat -->|上下文加载| loadProjectContext
     feat -->|最终归档| aiRetrievalDocs
-    readProjectDocs -->|文档维护切换| aiRetrievalDocs
+    loadProjectContext -->|文档维护切换| aiRetrievalDocs
     javaBackendCode -->|命名协作| javaNaming
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
     style grillWithDocs fill:#0ea5e9,color:#fff,stroke:#0284c7
     style toPrd fill:#0ea5e9,color:#fff,stroke:#0284c7
     style toIssues fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style readProjectDocs fill:#10b981,color:#fff,stroke:#059669
+    style loadProjectContext fill:#10b981,color:#fff,stroke:#059669
     style aiRetrievalDocs fill:#10b981,color:#fff,stroke:#059669
     style javaBackendCode fill:#f59e0b,color:#fff,stroke:#d97706
     style javaNaming fill:#f59e0b,color:#fff,stroke:#d97706
@@ -95,7 +95,7 @@ flowchart TD
 | `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档。 |
 | `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue。 |
 | `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档。 |
-| `read-project-docs` | 本仓库维护 | 按入口、路由和 Workspace 边界按需读取项目文档，用于实现阶段文档定位。 |
+| `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载。 |
 | `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文。 |
 
 <details>
@@ -135,7 +135,7 @@ flowchart LR
     slice(["🎯 选择切片 Issue"])
 
     subgraph impl ["实现"]
-        locate["文档定位\nread-project-docs"]
+        locate["上下文加载\nload-project-context"]
         verify["代码事实校验"]
         implement["实现代码与测试"]
     end

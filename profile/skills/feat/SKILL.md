@@ -30,7 +30,7 @@ description: Orchestrate an AI coding workflow from explicitly requested require
 | `clarify_requirement` | 是否能调用 `grill-with-docs` 或读取其产物 | 无法调用时，提示用户运行 `/grill-with-docs`，或粘贴澄清结果供当前流程回写 |
 | `refine_requirement` | 是否能调用 `to-prd` 或读取其产物 | 无法调用时，提示用户运行 `/to-prd`，或提供 PRD 整理结果供当前流程合并 |
 | `split_issues` | 是否能调用 `to-issues` 或读取其产物 | 无法调用时，提示用户运行 `/to-issues`，或提供拆分结果供当前流程补齐 Issue DoR / DoD |
-| `implement_issue` | 当前会话是否可用 `read-project-docs` | 提示用户添加或启用该 Skill |
+| `implement_issue` | 当前会话是否可用 `load-project-context` | 提示用户添加或启用该 Skill |
 | `archive_ai_docs` | 当前会话是否可用 `ai-retrieval-docs` | 提示用户添加或启用该 Skill |
 
 `draft_requirement` 阶段只需要当前任务描述、[references/draft-protocol.md](references/draft-protocol.md) 和 [references/requirement-template.md](references/requirement-template.md)，不要因为外部工作流 Skill 不可用而阻塞草稿创建。
@@ -81,7 +81,7 @@ description: Orchestrate an AI coding workflow from explicitly requested require
 | `feature_dor` | 完整需求文档、必要时 [references/readiness-checklists.md](references/readiness-checklists.md) | 执行 Feature DoR | Feature DoR 结果已写回需求文档或工作流产物；通过后进入 Issue 拆分，未通过时先补需求文档 |
 | `split_issues` | 通过 DoR 的需求文档 | 使用 `to-issues` 按垂直切片拆分 Issue | Issue 按用户可感知或系统可验证行为拆分 |
 | `issue_readiness` | Issue 列表、来源需求文档 | 为每个 Issue 补齐 Issue DoR、Issue DoD 和代码事实校验要求 | 每个 Issue 的 DoR、DoD、依赖、验证方式和实现前校验要求明确 |
-| `implement_issue` | 当前 Issue、来源需求文档、验收标准、验证方式 | 使用 `read-project-docs` 定位并渐进读取相关文档；读取 [references/code-fact-check.md](references/code-fact-check.md) 执行代码事实校验，再交接实现 | 明确最小改动范围、相关文档上下文，以及 Issue 假设与当前代码事实是否一致 |
+| `implement_issue` | 当前 Issue、来源需求文档、验收标准、验证方式 | 使用 `load-project-context` 定位并渐进读取相关文档；读取 [references/code-fact-check.md](references/code-fact-check.md) 执行代码事实校验，再交接实现 | 明确最小改动范围、相关文档上下文，以及 Issue 假设与当前代码事实是否一致 |
 | `review_loop` | 当前 Issue、实现结果、验证结果、Review 结果或 Review 策略选择 | 读取 [references/review-loop.md](references/review-loop.md) 执行 Review 修复循环；仅在当前会话支持且用户明确选择 Subagents Review 时启动 Review Subagents，否则提示用户选择 Main Agent 自审、提供外部 Review 结果或跳过 Review | Review 门禁通过，或用户明确跳过 Review 且已记录原因和风险 |
 | `issue_done` | 当前 Issue、实现结果、验证结果、Review 门禁结果 | 执行 Issue DoD，并按需更新 `.feat-tmp/issues/*-实现沉淀.md` | Issue DoD 通过；沉淀记录已按需处理 |
 | `archive_ai_docs` | 需求文档、全部 Issue、`.feat-tmp/issues/` 实现沉淀文件、代码事实 | 使用 `ai-retrieval-docs` 生成或更新正式 AI 检索文档 | AI 检索文档反映最终已实现事实 |
@@ -124,7 +124,7 @@ description: Orchestrate an AI coding workflow from explicitly requested require
 - 需求澄清：使用 `grill-with-docs`。
 - 需求文档完善：参考 `to-prd` 的 PRD 整理方式。
 - Issue 拆分：使用 `to-issues`。
-- 实现阶段文档定位：使用 `read-project-docs`。
+- 实现阶段上下文加载：使用 `load-project-context`。
 - 最终 AI 检索文档归档：使用 `ai-retrieval-docs`。
 
 按需读取以下引用文件：

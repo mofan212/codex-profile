@@ -1,6 +1,6 @@
 ---
 name: chinese-markdown
-description: Write, edit, format, or review Chinese Markdown documents with strict typography and heading rules. Use when Codex creates or modifies Chinese Markdown articles, requirements, README files, design docs, AI docs, Skill docs, checklists, or any Markdown content that should follow Chinese spacing, quote, inline syntax, and numbered heading conventions.
+description: Write, edit, format, or review Chinese Markdown documents with strict typography and heading rules. Use when creating or modifying Chinese Markdown articles, requirements, README files, design docs, AI docs, Skill docs, checklists, or any Markdown content that should follow Chinese spacing, quote, inline syntax, and numbered heading conventions.
 ---
 
 # 1. 中文 Markdown 编写规则

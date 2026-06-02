@@ -1,15 +1,17 @@
 ---
-name: read-project-docs
-description: Read project documentation directories with progressive, workspace-aware loading. Use when Codex needs to inspect a documentation directory, requirements directory, AI context-entry document, AI retrieval-entry document, README, index document, design document set, implementation notes, sibling-project documentation, or mixed project docs before answering, designing, or modifying code. Do not use for ordinary source-code search that does not involve documentation directories.
+name: load-project-context
+description: Load project context through progressive, workspace-aware documentation and source-adjacent context discovery. Use when a task involves project documentation directories, requirements, design docs, AI context entries, AI retrieval entries, README or index files, sibling-project docs, or source-oriented explanation, review, design, or modification that depends on project domain terms in class names, package names, paths, or the user question. Prefer domain entries and terminology routes before reading source code to avoid terminology drift; do not use for ordinary source-code search without documentation or domain-context needs.
 ---
 
-# 1. 项目文档读取规则
+# 1. 项目上下文加载规则
 
-使用本 Skill 读取项目文档目录、需求目录、设计文档目录、AI 上下文入口和 AI 检索入口。先定位入口和路由，再按需加载；不要因为文档位于同一目录，就一次性读取全部 Markdown。
+使用本 Skill 加载项目上下文，包括项目文档目录、需求目录、设计文档目录、AI 上下文入口、AI 检索入口和必要的跨项目文档事实。先定位入口和路由，再按需加载；不要因为文档位于同一目录，就一次性读取全部 Markdown。
+
+当用户询问代码职责、设计含义、命名合理性、调用链、实现方案或代码修改，且类名、包名、文档路径或问题描述涉及项目领域词时，先读取项目领域入口和术语文档，再读取源码。不要把类名、包名或实现复用关系直接推导为领域名词。
 
 # 2. 目录入口优先级
 
-当任务需要读取文档目录时，必须先查看该目录下的文件列表和文件名，不要直接批量读取全部文档内容。
+当任务需要加载文档目录时，必须先查看该目录下的文件列表和文件名，不要直接批量读取全部文档内容。
 
 按以下顺序查找入口，优先读取第一个命中的入口：
 
@@ -19,7 +21,7 @@ description: Read project documentation directories with progressive, workspace-
 4. `README.md` — 没有 AI 入口，或已读取的 AI 入口不能覆盖当前任务时读取；如果 AI 入口已覆盖当前任务，跳过
 5. `index.md` — 没有以上入口时读取，按索引继续读取
 
-读取入口文档后，先按入口指向的相关文档继续加载。只有入口缺失、入口不能覆盖当前任务，或用户明确要求全量读取时，才继续读取其他入口或同目录文档。
+加载入口文档后，先按入口指向的相关文档继续加载。只有入口缺失、入口不能覆盖当前任务，或用户明确要求全量读取时，才继续读取其他入口或同目录文档。
 
 # 3. 按需加载规则
 
@@ -33,6 +35,7 @@ description: Read project documentation directories with progressive, workspace-
 | 需求文档、AI 检索说明、设计文档、实现记录同时存在 | 优先读取 AI 检索说明或上下文入口，按需补充原始需求或详细设计 | AI 检索说明已足以回答当前问题 |
 | 多个文档存在明显新旧关系 | 优先读取最新的集成说明、AI 检索说明或上下文入口 | 旧版文档仅在追溯历史行为或兼容旧逻辑时读取 |
 | 读取过程中发现引用了更合适的上下文文档 | 按引用继续读取被指向文档 | 引用文档只解释历史背景且当前任务不需要 |
+| 代码问题涉及项目领域词 | 先读取领域入口、术语表、上下文入口或 AI 检索说明，再读取源码本体和调用链 | 普通源码搜索且不涉及领域词、文档事实或术语边界 |
 
 # 4. Workspace 文档边界
 
@@ -55,7 +58,7 @@ description: Read project documentation directories with progressive, workspace-
 
 | field | requirement |
 | --- | --- |
-| `read_docs` | 在回答、设计方案或修改代码前，说明当前读取了哪些文档 |
-| `read_reason` | 说明为什么读取这些文档 |
-| `skipped_docs` | 如果跳过同目录下其他文档，基于入口文档、文件名、标题或任务目标说明其暂时无关 |
+| `loaded_context` | 在回答、设计方案或修改代码前，说明当前加载了哪些文档、入口或领域上下文 |
+| `load_reason` | 说明为什么加载这些上下文 |
+| `skipped_context` | 如果跳过同目录下其他文档或入口，基于入口文档、文件名、标题或任务目标说明其暂时无关 |
 | `next_context` | 如果仍需补充上下文，说明下一步应该读取什么以及触发条件 |
