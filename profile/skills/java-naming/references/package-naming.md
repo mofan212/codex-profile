@@ -42,9 +42,11 @@ com.company.project.module.domain.responsibility
 - `constant`：常量；
 - `enums`：枚举；
 - `exception`：异常；
-- `helper`：辅助协作者，通常需要依赖注入或协调既有 API；
+- `helper`：辅助协作者职责包；不要在包名规则中展开类后缀边界；
 - `util`：无状态工具方法；
 - `support`：某个更具体父包下的内部支撑类。
+
+选择职责包时按类的角色归类，而不是只按「谁在调用」归类。比如 `handler` / `executor` 包主要放具体处理器或执行器；可复用辅助协作者优先放到项目已有 `helper`、`service` 或 `component` 包。只有确实是某个包内私有实现细节时，才把辅助类留在调用方所在包。
 
 当某个职责包变大时，继续按业务对象、业务场景或稳定子域拆分：
 
