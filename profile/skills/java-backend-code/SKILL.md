@@ -1,6 +1,6 @@
 ---
 name: java-backend-code
-description: Write, modify, refactor, and test Java backend code. Use only when Codex needs to implement or change Java 8, Spring, Spring Boot, Spring MVC, MyBatis, Jackson, or Lombok backend code or tests, including service, domain, controller, mapper, Dto/DTO, Dao/DAO, utility, enum, exception-handling, logging, compatibility adjustments, and focused verification. Do not use for pure bug analysis, log analysis, root-cause investigation, general code review, or design discussion unless the user asks for Java code or test changes.
+description: 编写、修改、重构和测试 Java 后端代码。适用于实现或调整 Java 8、Spring、Spring Boot、Spring MVC、MyBatis、Jackson、Lombok 相关代码和测试，包括 service、domain、controller、mapper、DTO/DAO、工具类、枚举、异常处理、日志和兼容性修复。纯分析、日志排查、代码审查或设计讨论不使用，除非用户要求修改代码或测试。
 ---
 
 # 1. 工作流程

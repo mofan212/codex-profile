@@ -1,6 +1,6 @@
 ---
 name: coding-guidelines
-description: Coding-task execution guidelines that constrain Codex to explicit assumptions, minimal viable changes, KISS design, small scoped edits, and goal-driven verification. Use when implementing, debugging, fixing bugs, refactoring, adding tests, reviewing code, clarifying ambiguous requirements, avoiding opportunistic refactors, or when the user asks for small steps, minimal changes, assumption checks, or verification-focused delivery.
+description: 为编码任务提供行为约束与执行准则，在实现、调试、修复 bug、重构、补测试、代码审查等场景下减少主观猜测、避免过度设计、控制改动范围，并用清晰的验证目标驱动交付。适用于用户明确要求小步修改、最小改动、先澄清假设、避免顺手重构、按目标验证，或任务存在多种解释和实现路径的场景。
 ---
 
 # Coding Guidelines

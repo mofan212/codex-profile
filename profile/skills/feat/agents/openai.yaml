@@ -1,4 +1,4 @@
 interface:
   display_name: "Feat"
   short_description: "显式新建或基于产物续跑 feat 工作流"
-  default_prompt: "Use $feat to start a new requirement draft workflow only when the user explicitly invokes feat or $feat with a new requirement; continue only from existing feat artifacts such as a requirement document, Issue, or .feat-tmp directory; ask one confirmation question for ambiguous full-workflow requests without explicit feat invocation; create the draft, pause for user completion, clarify it, refine it, slice issues, check code facts before implementation, run review loops with Subagents only when explicitly chosen and supported or ask for a fallback, record implementation notes under .feat-tmp/issues, and archive AI retrieval documentation."
+  default_prompt: "按 $feat 的规则编排需求工作流；只有用户明确调用 feat 或 $feat 并提出新需求时才创建需求草稿，基于既有 feat 需求目录、feat 需求文档、feat Issue 或 .feat-tmp 产物时才续跑。对未显式调用但接近完整工作流的请求只先问一个确认问题；推进时按阶段状态机只执行当前阶段所需动作，不跳过澄清、DoR/DoD、代码事实校验、Review 门禁、实现沉淀和 AI 检索文档归档边界。"

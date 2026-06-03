@@ -1,4 +1,4 @@
 interface:
   display_name: "Load Project Context"
   short_description: "按入口、术语和 Workspace 边界渐进加载项目上下文"
-  default_prompt: "Use $load-project-context to load project domain context, documentation entries, terminology routes, and workspace sibling-project docs before source-oriented analysis."
+  default_prompt: "按 $load-project-context 的规则渐进加载项目上下文；在源码解释、评审、设计或修改涉及领域术语、文档事实、术语边界或跨项目文档时，优先定位文档入口、术语路由、AI 上下文/检索入口和必要的 Workspace 兄弟项目文档，并说明读取与跳过依据。"

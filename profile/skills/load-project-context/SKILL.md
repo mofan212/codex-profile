@@ -1,6 +1,6 @@
 ---
 name: load-project-context
-description: Load project context through progressive, workspace-aware documentation and source-adjacent context discovery. Use when a task involves project documentation directories, requirements, design docs, AI context entries, AI retrieval entries, README or index files, sibling-project docs, or source-oriented explanation, review, design, or modification that depends on project domain terms in class names, package names, paths, or the user question. Prefer domain entries and terminology routes before reading source code to avoid terminology drift; do not use for ordinary source-code search without documentation or domain-context needs.
+description: 按工作区边界渐进加载项目上下文。适用于任务涉及项目文档、需求、设计文档、AI 上下文入口、AI 检索说明、README/index、兄弟项目文档，或源码分析依赖领域术语、文档事实、包名和类名含义的场景。优先读取领域入口和术语路由，再读取源码；不适用于普通源码搜索。
 ---
 
 # 1. 项目上下文加载规则

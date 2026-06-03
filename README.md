@@ -3,7 +3,7 @@
 个人 Codex 全局配置的备份仓库。
 
 > [!WARNING]
-> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会**整体替换**本机 `~/.codex/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。请先用 `python install.py --dry-run` 确认同步范围再执行。
+> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.codex/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。请先用 `python install.py --dry-run` 确认同步范围再执行。
 
 当前包含：
 

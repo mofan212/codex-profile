@@ -56,9 +56,9 @@ Issue 应按用户可感知或系统可验证的完整行为拆分。
 
 # 5. Review 结果处理规则
 
-本 Skill 不规定 Subagents 或外部 Agent 如何执行 Review；Review 循环协议见 [review-loop.md](review-loop.md)。本节只规定 Codex 收到 Review 结果后的分类和处理门禁。
+本 Skill 不规定 Subagents 或外部 Agent 如何执行 Review；Review 循环协议见 [review-loop.md](review-loop.md)。本节只规定收到 Review 结果后的分类和处理门禁。
 
-如果 Review 未标注严重级别，Codex 必须先分类，再决定处理方式。
+如果 Review 未标注严重级别，必须先分类，再决定处理方式。
 
 | 类型 | 判定标准 | 处理规则 | 进入下一步条件 |
 | --- | --- | --- | --- |

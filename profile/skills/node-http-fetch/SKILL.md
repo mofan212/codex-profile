@@ -1,11 +1,11 @@
 ---
 name: node-http-fetch
-description: Use Node.js built-in fetch in Codex to call, test, verify, POST to, or inspect HTTP/API endpoints, especially for Cookie, Bearer Token, JSON body, chained requests, reusable request scripts, or response validation. Do not try PowerShell Invoke-WebRequest or Windows curl.exe first, and do not install node-fetch.
+description: 使用 Node.js 内置 `fetch` 调用、测试、检查和验证 HTTP/API 接口。适用于请求涉及 Cookie、Bearer Token、API Key、JSON 请求体、串联调用、可复用脚本或响应校验的场景。默认使用 Node.js 内置 `fetch`，不要先用 PowerShell `Invoke-WebRequest` 或 Windows `curl.exe`，也不要安装 `node-fetch`。
 ---
 
 # 1. Node HTTP Fetch
 
-在 Codex 中调用 HTTP/API 接口时，默认使用 Node.js 内置 `fetch` 作为 HTTP 客户端。
+调用 HTTP/API 接口时，默认使用 Node.js 内置 `fetch` 作为 HTTP 客户端。
 
 这个 Skill 只沉淀工具选择和请求习惯，不绑定任何具体业务接口。
 
@@ -20,7 +20,7 @@ description: Use Node.js built-in fetch in Codex to call, test, verify, POST to,
 
 # 3. Node 选择
 
-优先使用 `load_workspace_dependencies` 返回的 Codex 工作区 Node。不可用时使用 `where.exe node` 找到的本机 `node.exe`。如果没有可用 Node，直接报告阻塞，不要回退到不相关的 HTTP 工具。
+优先使用 `load_workspace_dependencies` 返回的工作区 Node。不可用时使用 `where.exe node` 找到的本机 `node.exe`。如果没有可用 Node，直接报告阻塞，不要回退到不相关的 HTTP 工具。
 
 # 4. 请求模式
 

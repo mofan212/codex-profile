@@ -1,4 +1,4 @@
 interface:
   display_name: "Chinese Markdown"
   short_description: "编写和审查中文 Markdown 文档"
-  default_prompt: "Use $chinese-markdown to write or review Chinese Markdown with numbered headings, inline syntax, and Chinese copywriting conventions."
+  default_prompt: "按 $chinese-markdown 的规则编写、修改、格式化或审查中文 Markdown；保持标题编号连续、层级清楚，处理行内语法与中文内容的空格、标点和必要的中文文案排版约定。"

@@ -1,6 +1,6 @@
 ---
 name: java-naming
-description: Design and review Java backend naming for packages, classes, role suffixes, methods, fields, variables, and constants. Use for package hierarchy, class/interface/implementation names, Dto and Dao boundaries, method verbs, boolean/collection/data operation names, constants, local consistency checks, and avoiding VO/DO/PO/BO/POJO suffix taxonomies unless explicitly requested or required by existing convention.
+description: 设计和审查 Java 后端命名，包括包路径、类名、角色后缀、方法名、字段名、变量名和常量名。适用于确定包层级、类/接口/实现类命名、DTO/DAO 边界、方法动词、布尔和集合命名、数据操作命名、本地一致性等场景。除非用户明确要求或项目已有约定，否则不引入 VO/DO/PO/BO/POJO 后缀体系。
 ---
 
 # 1. Java 命名入口规则

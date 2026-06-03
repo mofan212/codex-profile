@@ -1,6 +1,6 @@
 ---
 name: feat
-description: Orchestrate an AI coding workflow from explicitly requested requirement draft creation through clarification, PRD refinement, Feature DoR, vertical issue slicing, Issue DoR/DoD, pre-implementation code fact checks, implementation handoff, review-loop gating, temporary implementation notes, and final AI retrieval documentation. Use to start a new workflow only when the user explicitly mentions feat or $feat with a new requirement; use to continue only when existing feat artifacts such as a requirement document, Issue, or .feat-tmp directory are present and the user asks for the next step; use to ask one confirmation question when an ambiguous request appears to need full requirement drafting, clarification, slicing, or implementation gates without explicit feat invocation.
+description: 管理 feat 需求工作流，从需求草稿、澄清、PRD、Issue 拆分到实现前检查、Review 门禁和最终归档。适用于用户明确提到 `feat` 或 `$feat` 并提出新需求，或基于既有 feat 需求目录、需求文档、Issue、`.feat-tmp` 产物继续推进下一步的场景。对未显式调用但接近完整工作流的模糊请求，先向用户确认。
 ---
 
 # 1. 定位

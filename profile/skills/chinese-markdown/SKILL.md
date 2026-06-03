@@ -1,6 +1,6 @@
 ---
 name: chinese-markdown
-description: Write, edit, format, or review Chinese Markdown documents with numbered headings, inline syntax, and Chinese copywriting conventions. Use when working on Chinese Markdown articles, requirements, README files, design docs, AI docs, Skill docs, or checklists.
+description: 编写、修改、格式化或审查中文 Markdown 文档，处理编号标题、行内语法和中文排版。适用于中文文章、需求文档、README、设计文档、AI 文档、Skill 文档和检查清单。
 ---
 
 # 1. 中文 Markdown 编写规则

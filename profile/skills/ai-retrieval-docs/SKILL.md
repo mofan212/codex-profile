@@ -1,6 +1,6 @@
 ---
 name: ai-retrieval-docs
-description: Maintain Chinese AI retrieval docs, AI troubleshooting docs, AI context-entry docs, and AI retrieval-entry docs. Use when requirements, code changes, existing AI retrieval docs, or existing context-entry routes should update future-AI-readable code facts, execution paths, compatibility boundaries, validation commands, troubleshooting keywords, and progressive loading routes. Also use when the user asks to maintain project-level AI retrieval or context docs without specifying a document. Do not use for ordinary Markdown polishing, requirement design, implementation notes, Mermaid diagrams, or documents that are not meant for AI retrieval.
+description: 维护中文 AI 检索文档、排查文档、上下文入口和检索入口。适用于根据需求、代码变更或既有入口路由，更新代码事实、执行链路、兼容边界、验证命令、排查关键词和渐进加载路径的场景，也适用于未指定具体文档但要求维护项目级 AI 检索或上下文文档的任务。不适用于普通 Markdown 润色、需求设计、实现记录、Mermaid 图或非检索类文档。
 ---
 
 # 1. 快速路由

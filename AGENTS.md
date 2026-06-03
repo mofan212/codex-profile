@@ -16,8 +16,11 @@
 
 ## 3.1 语言与格式
 
-- 修改 `profile/skills/` 下的 Skill 内容时，`SKILL.md` 的 `description` 必须使用英文，正文必须使用中文；`agents/openai.yaml` 的 `default_prompt` 必须使用英文，`short_description` 必须使用中文
-- `SKILL.md` 的 `description` 和 `agents/openai.yaml` 的 `default_prompt` 必须保持 Agent 中立，描述任务能力、适用场景和触发条件时，不要把执行主体绑定到某个具体 AI Agent 或产品名，优先改写为 `Use when...`、`Use for...` 或直接描述任务能力
+- 修改 `profile/skills/` 下的 Skill 内容时，`SKILL.md` 的 `description`、正文和 `agents/openai.yaml` 的 `default_prompt`、`short_description` 均优先使用中文，以保证 Skill 在中文语境下稳定触发和执行
+- 如果需要兼容英文触发或跨语言工具链，可以在中文描述基础上补充英文短语，但不得牺牲中文触发准确性
+- `SKILL.md` 的 `description` 和 `agents/openai.yaml` 的 `default_prompt` 必须保持 Agent 中立，描述任务能力、适用场景和触发条件时，不要把执行主体绑定到某个具体 AI Agent 或产品名
+- `SKILL.md` 的 `description` 描述触发条件时，优先使用「适用于...」
+- `agents/openai.yaml` 的 `default_prompt` 应直接描述执行原则、边界和输出要求
 - 当 Skill 的任务对象本身是特定 Agent、产品或配置时，可以提及对应名称，但只能作为任务对象出现，不要作为默认执行主体出现
 - 修改或新增 Skill 文档中的规则表格时，表头优先使用英文短字段，例如 `trigger`、`action`、`requirement`、`forbidden`、`purpose`；表格内容和正文使用中文，纯面向人类展示的清单使用中文表头
 - 修改或新增 `profile/skills/*/references/` 下的表格时，路由表、契约表和机器字段表优先使用英文短表头；检查清单、示例分类、写作指南和命名说明优先使用中文表头
@@ -35,7 +38,7 @@
 
 ## 3.3 校验与保护
 
-- 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml`、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
+- 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml` 的字段完整性与语言规则、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
 - 编写或修改 Skill 时，以 `skill-creator` 作为主流程；`write-a-skill` 只用于需求收集、用户评审和结构质量复核，不替代初始化、资源规划、`agents/openai.yaml` 生成和校验
 - 新增 Skill 或较大修改既有 Skill 前，必须借用 `write-a-skill` 确认任务领域、用例、触发条件、脚本需求、`references/` / `assets/` 需求和参考资料；仅小范围文案修正可跳过
 - 修改完成后，必须借用 `write-a-skill` 的 Review Checklist 复核；新增 Skill 或较大修改须向用户呈现评审要点，脚本校验不能替代该检查

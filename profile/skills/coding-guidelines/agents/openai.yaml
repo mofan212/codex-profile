@@ -1,4 +1,4 @@
 ﻿interface:
   display_name: "Coding Guidelines"
   short_description: "以明确假设、最小改动和目标验证完成编码任务"
-  default_prompt: "Use $coding-guidelines to implement or review this coding task with explicit assumptions, minimal changes, and clear verification."
+  default_prompt: "按 $coding-guidelines 的规则处理编码任务；先明确假设和目标，采用最小可行改动，避免无关重构，并用清晰的测试、构建或检查结果完成验证。"
