@@ -90,13 +90,13 @@ flowchart TD
 
 | 名称 | 类型 | 一句话用途 |
 | --- | --- | --- |
-| `setup-matt-pocock-skills` | 外部依赖 | 初始化项目的 Skill 说明、Issue tracker 和领域文档目录结构。 |
-| `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求。 |
-| `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档。 |
-| `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue。 |
-| `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档。 |
-| `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载。 |
-| `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文。 |
+| `setup-matt-pocock-skills` | 外部依赖 | 初始化项目的 Skill 说明、Issue tracker 和领域文档目录结构 |
+| `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求 |
+| `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档 |
+| `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue |
+| `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档 |
+| `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载 |
+| `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文 |
 
 <details>
 <summary>🔄 &nbsp;<b>feat 工作流详细阶段图</b></summary>
@@ -162,16 +162,16 @@ flowchart LR
 
 | 名称 | 一句话用途 |
 | --- | --- |
-| `java-naming` | 设计和评审 Java 后端命名。 |
-| `coding-guidelines` | 约束编码任务小步实现、显式假设和验证交付。 |
-| `java-backend-code` | 指导 Java 后端代码修改、测试和验证反馈。 |
+| `java-naming` | 设计和评审 Java 后端命名 |
+| `coding-guidelines` | 约束编码任务小步实现、显式假设和验证交付 |
+| `java-backend-code` | 指导 Java 后端代码修改、测试和验证反馈 |
 
 ## 通用技能
 
 | 名称 | 一句话用途 |
 | --- | --- |
-| `chinese-markdown` | 约束中文 Markdown 的排版、标题和行内语法。 |
-| `node-http-fetch` | 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API。 |
+| `chinese-markdown` | 约束中文 Markdown 的排版、标题和行内语法 |
+| `node-http-fetch` | 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API |
 
 # 不同步内容
 

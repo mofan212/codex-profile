@@ -22,12 +22,12 @@ Main Agent 永远负责阶段状态、Review 结论复核、修复决策、Issue
 
 启动 Review Subagents 前，Main Agent 必须提供最小但完整的上下文：
 
-- 当前 Issue 目标、范围、非范围、验收标准和验证方式。
-- 来源需求文档路径和必要业务规则摘要。
-- 本轮实现 diff、关键文件路径、测试或构建结果。
-- 已知限制、无法运行的验证项和替代核对方式。
-- Review 范围：只审当前 Issue 相关改动，不要求无关重构。
-- 二次及后续循环时，补充上一轮 findings、Main Agent 复核决策、已修复项、本轮新增 diff 和最新验证结果；明确要求 Review Subagents 只复查修复效果和可能新增的回归风险，不重复审查已确认的 `non_blocking` 或 `ignore` 项。已确认包括已处理和已记录不处理理由两种情况。
+- 当前 Issue 目标、范围、非范围、验收标准和验证方式
+- 来源需求文档路径和必要业务规则摘要
+- 本轮实现 diff、关键文件路径、测试或构建结果
+- 已知限制、无法运行的验证项和替代核对方式
+- Review 范围：只审当前 Issue 相关改动，不要求无关重构
+- 二次及后续循环时，补充上一轮 findings、Main Agent 复核决策、已修复项、本轮新增 diff 和最新验证结果；明确要求 Review Subagents 只复查修复效果和可能新增的回归风险，不重复审查已确认的 `non_blocking` 或 `ignore` 项。已确认包括已处理和已记录不处理理由两种情况
 
 不要把 Main Agent 的预期结论、已怀疑的问题或想让 Subagents 复述的答案传给 Subagents；需要让 Review 保持独立视角。
 
@@ -61,26 +61,26 @@ Main Agent 收到 Review 结果后必须逐条复核：
 
 Review 循环流程：
 
-1. Main Agent 完成实现和必要验证。
-2. 向 Review Subagents 提交最新 diff、验证结果和必要上下文。
-3. Review Subagents 返回 findings。
-4. Main Agent 逐条复核 findings。
-5. 判断通过条件或暂停条件。
-6. 修复被采纳的 `blocking` findings。
-7. 重新运行受影响验证。
-8. 回到步骤 2。
+1. Main Agent 完成实现和必要验证
+2. 向 Review Subagents 提交最新 diff、验证结果和必要上下文
+3. Review Subagents 返回 findings
+4. Main Agent 逐条复核 findings
+5. 判断通过条件或暂停条件
+6. 修复被采纳的 `blocking` findings
+7. 重新运行受影响验证
+8. 回到步骤 2
 
 通过条件全部满足时结束循环并进入 Issue DoD：
 
-- 最近一轮 Review 或 Main Agent 复核结论没有 `blocking` finding。
-- 所有 `non_blocking` 和 `ignore` findings 已处理或记录理由。
-- 受影响验证已重新运行；无法运行时已说明原因和替代核对范围。
+- 最近一轮 Review 或 Main Agent 复核结论没有 `blocking` finding
+- 所有 `non_blocking` 和 `ignore` findings 已处理或记录理由
+- 受影响验证已重新运行；无法运行时已说明原因和替代核对范围
 
 满足任一暂停条件时立即暂停，不得进入 Issue DoD：
 
-- 任一 `blocking` finding 确认无法在当前 Issue 范围内修复。
-- 已达到 3 轮 Review，仍有争议或反复未解决的 `blocking` findings。
-- 修复需要扩大 Issue 范围、改变需求、修改跨项目文件或引入新依赖。
+- 任一 `blocking` finding 确认无法在当前 Issue 范围内修复
+- 已达到 3 轮 Review，仍有争议或反复未解决的 `blocking` findings
+- 修复需要扩大 Issue 范围、改变需求、修改跨项目文件或引入新依赖
 
 每轮修复后只要求复查最新 diff、已修复 finding 和可能新增的回归风险；不要让二次 Review 无限制扩散到无关范围。
 
@@ -90,9 +90,9 @@ Review 摘要写入对应 Issue 文档末尾，或写入 `.feat-tmp/issues/*-实
 
 阶段推进说明或工作流产物中记录：
 
-- Review 方式：Subagents Review、外部 Review、Main Agent 自审或跳过 Review。
-- Review 轮次和最近一轮结果。
-- 阻塞问题的修复结论。
-- 非阻塞建议的处理或不处理理由。
-- 跳过 Review 时的原因和风险。
-- 无法执行 Subagents Review、验证或修复时的原因。
+- Review 方式：Subagents Review、外部 Review、Main Agent 自审或跳过 Review
+- Review 轮次和最近一轮结果
+- 阻塞问题的修复结论
+- 非阻塞建议的处理或不处理理由
+- 跳过 Review 时的原因和风险
+- 无法执行 Subagents Review、验证或修复时的原因

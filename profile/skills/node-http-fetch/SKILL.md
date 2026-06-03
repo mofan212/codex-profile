@@ -11,12 +11,12 @@ description: 使用 Node.js 内置 `fetch` 调用、测试、检查和验证 HTT
 
 # 2. 核心规则
 
-- 优先使用 Node.js 内置 `fetch`；不要安装或导入 `node-fetch`。
-- 除非用户明确要求，否则不要先尝试 PowerShell `Invoke-WebRequest` 或 Windows `curl.exe`。
-- PowerShell 只作为启动 Node 脚本的外壳使用。
-- `Cookie`、`Authorization`、Bearer Token、API Key 等敏感值优先通过环境变量传入；不要写入可复用脚本、生成产物、日志或最终回复。
-- 多步骤或串联接口请求使用小型 `.mjs` 脚本，不要把复杂请求逻辑塞进一条超长命令。
-- 输出紧凑 JSON，包含 HTTP 状态、状态文本、可解析响应、原始文本兜底和关键错误。
+- 优先使用 Node.js 内置 `fetch`；不要安装或导入 `node-fetch`
+- 除非用户明确要求，否则不要先尝试 PowerShell `Invoke-WebRequest` 或 Windows `curl.exe`
+- PowerShell 只作为启动 Node 脚本的外壳使用
+- `Cookie`、`Authorization`、Bearer Token、API Key 等敏感值优先通过环境变量传入；不要写入可复用脚本、生成产物、日志或最终回复
+- 多步骤或串联接口请求使用小型 `.mjs` 脚本，不要把复杂请求逻辑塞进一条超长命令
+- 输出紧凑 JSON，包含 HTTP 状态、状态文本、可解析响应、原始文本兜底和关键错误
 
 # 3. Node 选择
 
@@ -28,11 +28,11 @@ description: 使用 Node.js 内置 `fetch` 调用、测试、检查和验证 HTT
 
 | env_var | meaning |
 | --- | --- |
-| `REQUEST_URL` | URL。 |
-| `REQUEST_METHOD` | HTTP 方法，默认 `POST`。 |
-| `REQUEST_BODY` | JSON 请求体，默认 `{}`。 |
-| `REQUEST_COOKIE` | 可选 Cookie 请求头。 |
-| `REQUEST_HEADERS` | 可选 JSON 对象，会合并进请求头。 |
+| `REQUEST_URL` | URL |
+| `REQUEST_METHOD` | HTTP 方法，默认 `POST` |
+| `REQUEST_BODY` | JSON 请求体，默认 `{}` |
+| `REQUEST_COOKIE` | 可选 Cookie 请求头 |
+| `REQUEST_HEADERS` | 可选 JSON 对象，会合并进请求头 |
 
 默认请求头：
 

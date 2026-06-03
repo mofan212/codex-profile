@@ -13,11 +13,11 @@ description: 维护中文 AI 检索文档、排查文档、上下文入口和检
 
 | input_type | match_signal | load_reference |
 | --- | --- | --- |
-| `requirement_doc` | 文件名或标题包含 `需求文档`、`需求设计文档`、`PRD`、`需求说明`，且内容描述目标、范围、澄清结论、验收或设计约束。 | [requirement-doc-flow.md](references/requirement-doc-flow.md) |
-| `context_entry_doc` | 文件名为 `00-AI上下文入口.md`、`AI上下文入口.md`、`AI检索入口.md`，或内容主要描述加载规则、加载路由、核心事实和回答要求。 | [context-entry-flow.md](references/context-entry-flow.md) |
-| `retrieval_doc` | 文件名包含 `AI检索说明`、`AI检索文档`、`AI排查文档`，或内容主要描述代码位置、执行链路、兼容边界、验证命令和检索关键词。 | [retrieval-doc-flow.md](references/retrieval-doc-flow.md) |
-| `other_doc` | 不符合以上类型，或主要是普通说明、实现计划、会议记录、临时讨论、Markdown 排版问题。 | [input-routing.md](references/input-routing.md) |
-| `no_document` | 用户没有提供文件、路径、标题或文档内容，只要求维护项目级 AI 检索或上下文文档。 | [input-routing.md](references/input-routing.md) |
+| `requirement_doc` | 文件名或标题包含 `需求文档`、`需求设计文档`、`PRD`、`需求说明`，且内容描述目标、范围、澄清结论、验收或设计约束 | [requirement-doc-flow.md](references/requirement-doc-flow.md) |
+| `context_entry_doc` | 文件名为 `00-AI上下文入口.md`、`AI上下文入口.md`、`AI检索入口.md`，或内容主要描述加载规则、加载路由、核心事实和回答要求 | [context-entry-flow.md](references/context-entry-flow.md) |
+| `retrieval_doc` | 文件名包含 `AI检索说明`、`AI检索文档`、`AI排查文档`，或内容主要描述代码位置、执行链路、兼容边界、验证命令和检索关键词 | [retrieval-doc-flow.md](references/retrieval-doc-flow.md) |
+| `other_doc` | 不符合以上类型，或主要是普通说明、实现计划、会议记录、临时讨论、Markdown 排版问题 | [input-routing.md](references/input-routing.md) |
+| `no_document` | 用户没有提供文件、路径、标题或文档内容，只要求维护项目级 AI 检索或上下文文档 | [input-routing.md](references/input-routing.md) |
 
 如果一个文档同时符合多个类型，按「AI 上下文入口 > AI 检索文档 > 需求文档」判定，除非用户明确指定它的角色。
 
@@ -25,11 +25,11 @@ description: 维护中文 AI 检索文档、排查文档、上下文入口和检
 
 | input_type | allowed_write | ask_user_when | stop_when |
 | --- | --- | --- | --- |
-| `requirement_doc` | 同目录 AI 检索文档、必要的需求目录入口、必要的上层入口。 | 需求文档所属项目或文档根无法判断；跨项目写入未确认。 | 只能证明需求设想，缺少可验证事实来源。 |
-| `context_entry_doc` | 当前入口、入口路由范围内确认需要维护的 AI 检索文档、必要的上层入口。 | 没有变更需求文档，且用户未确认按入口路由范围统一维护。 | 用户只要求查看入口，未要求维护文档。 |
-| `retrieval_doc` | 当前 AI 检索文档、必要的同级入口或上层入口。 | 需要扩大到入口路由范围维护，但用户未确认。 | 用户明确只要求分析当前文档且不改文件。 |
-| `other_doc` | 默认不写文件。 | 总是先询问用户是否要转为 AI 检索文档维护任务。 | 用户没有确认维护范围或输入文档类型不匹配。 |
-| `no_document` | 用户确认维护范围前默认不写文件；确认后按候选入口和 AI 检索文档范围写入。 | 总是先识别当前项目和候选文档目录，再询问用户是否维护该项目下所有 AI 上下文入口和 AI 检索文档。 | 用户没有确认维护范围，或当前项目没有可判断的文档根目录。 |
+| `requirement_doc` | 同目录 AI 检索文档、必要的需求目录入口、必要的上层入口 | 需求文档所属项目或文档根无法判断；跨项目写入未确认 | 只能证明需求设想，缺少可验证事实来源 |
+| `context_entry_doc` | 当前入口、入口路由范围内确认需要维护的 AI 检索文档、必要的上层入口 | 没有变更需求文档，且用户未确认按入口路由范围统一维护 | 用户只要求查看入口，未要求维护文档 |
+| `retrieval_doc` | 当前 AI 检索文档、必要的同级入口或上层入口 | 需要扩大到入口路由范围维护，但用户未确认 | 用户明确只要求分析当前文档且不改文件 |
+| `other_doc` | 默认不写文件 | 总是先询问用户是否要转为 AI 检索文档维护任务 | 用户没有确认维护范围或输入文档类型不匹配 |
+| `no_document` | 用户确认维护范围前默认不写文件；确认后按候选入口和 AI 检索文档范围写入 | 总是先识别当前项目和候选文档目录，再询问用户是否维护该项目下所有 AI 上下文入口和 AI 检索文档 | 用户没有确认维护范围，或当前项目没有可判断的文档根目录 |
 
 # 2. 流程级联关系
 

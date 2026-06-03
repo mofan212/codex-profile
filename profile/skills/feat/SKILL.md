@@ -26,7 +26,7 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、PRD、Issu
 
 | required_for_state | check_method | failure_action |
 | --- | --- | --- |
-| `clarify_requirement`、`refine_requirement`、`split_issues` | 判断项目是否已具备 `mattpocock/skills` 工作流基础：查找 Agent 指南、项目文档入口或用户提供的初始化产物，只要能确认存在 Issue tracker、Triage labels、Domain docs、需求澄清或 Issue 拆分入口即可通过；不要把固定目录、固定文件名或 `## Agent skills` 固定标题作为唯一通过条件。 | 如果能够明显判断出未初始化，直接阻塞并提示用户运行 `/setup-matt-pocock-skills`；如果无法判断是否已初始化，先询问用户；非阻塞的路径或标题差异记录后继续。 |
+| `clarify_requirement`、`refine_requirement`、`split_issues` | 判断项目是否已具备 `mattpocock/skills` 工作流基础：查找 Agent 指南、项目文档入口或用户提供的初始化产物，只要能确认存在 Issue tracker、Triage labels、Domain docs、需求澄清或 Issue 拆分入口即可通过；不要把固定目录、固定文件名或 `## Agent skills` 固定标题作为唯一通过条件 | 如果能够明显判断出未初始化，直接阻塞并提示用户运行 `/setup-matt-pocock-skills`；如果无法判断是否已初始化，先询问用户；非阻塞的路径或标题差异记录后继续 |
 | `clarify_requirement` | 是否能调用 `grill-with-docs` 或读取其产物 | 无法调用时，提示用户运行 `/grill-with-docs`，或粘贴澄清结果供当前流程回写 |
 | `refine_requirement` | 是否能调用 `to-prd` 或读取其产物 | 无法调用时，提示用户运行 `/to-prd`，或提供 PRD 整理结果供当前流程合并 |
 | `split_issues` | 是否能调用 `to-issues` 或读取其产物 | 无法调用时，提示用户运行 `/to-issues`，或提供拆分结果供当前流程补齐 Issue DoR / DoD |
@@ -120,12 +120,12 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、PRD、Issu
 
 本 Skill 只显式关联工作流必要 Skill：
 
-- 项目工作流初始化：必要时使用 `setup-matt-pocock-skills`。
-- 需求澄清：使用 `grill-with-docs`。
-- 需求文档完善：参考 `to-prd` 的 PRD 整理方式。
-- Issue 拆分：使用 `to-issues`。
-- 实现阶段上下文加载：使用 `load-project-context`。
-- 最终 AI 检索文档归档：使用 `ai-retrieval-docs`。
+- 项目工作流初始化：必要时使用 `setup-matt-pocock-skills`
+- 需求澄清：使用 `grill-with-docs`
+- 需求文档完善：参考 `to-prd` 的 PRD 整理方式
+- Issue 拆分：使用 `to-issues`
+- 实现阶段上下文加载：使用 `load-project-context`
+- 最终 AI 检索文档归档：使用 `ai-retrieval-docs`
 
 按需读取以下引用文件：
 
