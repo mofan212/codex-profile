@@ -1,11 +1,11 @@
 ---
 name: chinese-markdown
-description: 编写、修改、格式化或审查中文 Markdown 文档，处理编号标题、行内语法和中文排版。适用于中文文章、需求文档、README、设计文档、AI 文档、Skill 文档和检查清单。
+description: 新增、修改、格式化或审查中文 Markdown / `.md` 文档，处理 Markdown 语法习惯和中文排版。适用于任意中文 Markdown / `.md` 文档的新增、修改、格式化和审查。
 ---
 
 # 1. 中文 Markdown 编写规则
 
-使用本 Skill 编写、修改、格式化或审查中文 Markdown 文档。优先保证标题层级稳定、编号连续、内容层次清楚，并保持 Markdown 行内语法间距一致。
+使用本 Skill 新增、编写、修改、格式化或审查中文 Markdown / `.md` 文档。保证标题层级稳定、编号连续、内容层次清楚，并保持 Markdown 行内语法间距一致。
 
 需要处理中文文案排版规则、术语大小写、数字和单位、全角半角、中文标点或正反例时，读取 [references/chinese-copywriting.md](references/chinese-copywriting.md)。只检查 Markdown 结构、标题或行内语法时，不读取 reference。
 
