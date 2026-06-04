@@ -35,14 +35,16 @@
 - 优化 Skill 时，不要将缩短篇幅或结构化作为目标，必须优先保证触发准确、执行确定、上下文加载可控
 - Skill 中涉及「是否继续执行」的规则，必须明确阻塞条件、非阻塞差异和处理动作，避免 AI 因轻微差异频繁询问用户，或在阻塞差异存在时继续实现
 - 按需读取 `references/` 时，应写清楚读取触发条件、目标文件和跳过条件，不要只写「必要时读取」这类主观描述
+- Skill 中跨文件引用 reference 时，优先只引用目标文件路径，不把小节标题、锚点或段落名称作为执行契约；需要表达具体执行要求时，由被引用文件内部维护对应规则，避免重命名小节后产生隐性失效
+- Skill 文件引用应优先沿执行流程展开；`references/` 不应反向依赖 `SKILL.md` 的路由表来继续判定流程，跨 flow 跳转必须有明确条件，且不得形成循环引用
 
 ## 3.3 校验与保护
 
 - 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml` 的字段完整性与语言规则、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
-- 编写或修改 Skill 时，以 `skill-creator` 作为主流程；`write-a-skill` 只用于需求收集、用户评审和结构质量复核，不替代初始化、资源规划、`agents/openai.yaml` 生成和校验
-- 新增 Skill 或较大修改既有 Skill 前，必须借用 `write-a-skill` 确认任务领域、用例、触发条件、脚本需求、`references/` / `assets/` 需求和参考资料；仅小范围文案修正可跳过
-- 修改完成后，必须借用 `write-a-skill` 的 Review Checklist 复核；新增 Skill 或较大修改须向用户呈现评审要点，脚本校验不能替代该检查
-- 如果 `write-a-skill` 检查或用户评审发现不符合项，必须继续修改并重新检查
+- 编写或修改 Skill 时，以 `$skill-creator` 作为主流程；`$write-a-skill` 只用于需求收集、用户评审和结构质量复核，不替代初始化、资源规划、`agents/openai.yaml` 生成和校验
+- 新增 Skill 或较大修改既有 Skill 前，必须借用 `$write-a-skill` 确认任务领域、用例、触发条件、脚本需求、`references/` / `assets/` 需求和参考资料；仅小范围文案修正可跳过
+- 修改完成后，必须借用 `$write-a-skill` 的 Review Checklist 复核；新增 Skill 或较大修改须向用户呈现评审要点，脚本校验不能替代该检查
+- 如果 `$write-a-skill` 检查或用户评审发现不符合项，必须继续修改并重新检查
 - 在 Windows 中文环境运行 Skill 校验脚本读取中文 Markdown 时，如果遇到默认编码错误，优先使用 UTF-8 模式运行，例如设置 `PYTHONUTF8=1` 后再执行校验；不要把编码报错误判为 Skill 格式错误
 - `profile/skills/coding-guidelines/` 是成熟 Skill，默认不要对此目录下的任何文件做任何调整；除非用户显式点名要求修改它，否则排除该目录
 
