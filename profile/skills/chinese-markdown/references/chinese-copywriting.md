@@ -1,8 +1,8 @@
 # 1. 中文文案排版规则
 
-用于处理中文文案、产品文案、说明文档和 Markdown 正文中的非 Markdown 专属排版规则。只在任务涉及中文文案排版、标点、全角半角、数字单位、专有名词或缩写时读取本文件。
+用于统一中文正文、说明文档、产品文案和 Markdown 内容中的中文排版习惯，包括中英空格、数字单位、全角半角、中文标点、专有名词和缩写。
 
-参考来源：[chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines/)
+> 参考来源：[chinese-copywriting-guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines/)
 
 # 2. 空格
 
