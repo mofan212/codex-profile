@@ -1,6 +1,6 @@
 ---
 name: chinese-markdown
-description: 新增、修改、格式化或审查中文内容的 Markdown / `.md` 文档，处理 Markdown 语法习惯和中文排版。适用于任意以中文为主要内容，或包含中文段落、中文列表、中文表格的 Markdown / `.md` 文档。
+description: 处理中文内容 Markdown / `.md` 文档的语法习惯和中文排版。适用于新增、修改、格式化或审查以中文为主要内容，或包含中文段落、中文列表、中文表格的 Markdown / `.md` 文档。
 ---
 
 # 1. 中文 Markdown 编写规则
