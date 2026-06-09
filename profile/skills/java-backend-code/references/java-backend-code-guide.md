@@ -24,10 +24,9 @@
 
 ## 2.2 文件头与类注释
 
-- 新建 Java 类时，补充类级 JavaDoc，并按当前仓库约定写入作者和日期时间
-- 作者信息按以下顺序确定：先读取当前目标模块、同包、同类型类或近期新增 Java 类的 `@author` 写法；如果能发现稳定约定，直接沿用该写法；只有无法确认仓库约定时，才读取 `git config user.name`
-- 不要因为 `git config user.name` 与仓库已有 `@author` 不一致就覆盖仓库约定；例如 Git 用户名是中文姓名但仓库统一使用拼音或英文 ID 时，优先使用仓库约定
-- 日期时间优先跟随同包或同模块已有标签和格式；没有既有模式时使用 `@date yyyy/MM/dd HH:mm`
+- 新建 Java 类时，添加类级 JavaDoc，并写入作者 `@author` 和日期时间 `@date` 信息：
+  - `@author`：运行 [resolve_java_author.py](../scripts/resolve_java_author.py) 获取取值；脚本输出即为最终可用值，不要复制非当前用户类注释中的 `@author` 信息
+  - `@date`：优先跟随同包或同模块已有标签和格式；没有既有模式时使用 `@date yyyy/MM/dd HH:mm`
 - 如果已有类注释，不修改原来的作者、日期或格式
 - 类注释可以简洁；当类名和上下文已能说明职责时，不强行加冗长说明
 
