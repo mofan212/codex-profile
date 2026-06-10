@@ -1,4 +1,4 @@
 interface:
   display_name: "Chinese Markdown"
   short_description: "新增、修改和审查中文内容的 Markdown 文档"
-  default_prompt: "按 $chinese-markdown 的规则新增、修改、格式化或审查中文内容的 Markdown 文档，处理 Markdown 语法习惯和中文排版。"
+  default_prompt: "按 $chinese-markdown 的规则新增、修改、格式化或审查中文内容的 Markdown 文档；先判断输入范围、是否只需审查、是否限定检查项，再处理 Markdown 语法习惯与中文排版。默认不改业务事实、术语、结论或观点；涉及语义改写或标题结构重排时先确认。用户限定范围外的问题只在结果中提示，不主动扩大处理范围。"
