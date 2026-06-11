@@ -1,4 +1,4 @@
 interface:
   display_name: "Java Naming"
   short_description: "为 Java 后端包、类、方法、字段、变量与常量提供命名建议"
-  default_prompt: "按 $java-naming 的规则设计或评审 Java 后端命名；先确认命名对象、职责边界和本地既有风格，再给出包、类、方法、字段、变量、常量或角色后缀建议及理由。"
+  default_prompt: "按 $java-naming 的规则设计或评审 Java 后端命名；先确认命名对象、职责边界、本地既有风格和潜在兼容影响，遇到职责不清、体系冲突或批量重命名前先暂停确认，再给出推荐命名、理由和兼容说明。"
