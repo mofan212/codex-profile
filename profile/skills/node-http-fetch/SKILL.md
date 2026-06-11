@@ -1,6 +1,6 @@
 ---
 name: node-http-fetch
-description: 使用 Node.js 内置 `fetch` 调用、测试、检查和验证 HTTP/API 接口。适用于请求涉及 Cookie、Bearer Token、API Key、JSON 请求体、串联调用、可复用脚本或响应校验的场景。默认使用 Node.js 内置 `fetch`，不要先用 PowerShell `Invoke-WebRequest` 或 Windows `curl.exe`，也不要安装 `node-fetch`。
+description: 使用 Node.js 内置 `fetch` 调用、测试、检查和验证 HTTP/API 接口。当请求涉及 Cookie、Bearer Token、API Key、JSON 请求体、串联调用、可复用脚本或响应校验时，使用该 Skill。默认使用 Node.js 内置 `fetch`，不要先用 PowerShell `Invoke-WebRequest` 或 Windows `curl.exe`，也不要安装 `node-fetch`。
 ---
 
 # 1. Node HTTP Fetch

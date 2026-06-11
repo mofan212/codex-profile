@@ -1,6 +1,6 @@
 ---
 name: feat
-description: 管理 feat 需求工作流，从需求草稿、澄清、PRD、Issue 拆分到实现前检查、Review 门禁和最终归档。适用于用户明确提到 `feat` 或 `$feat` 并提出新需求，或基于既有 feat 需求目录、需求文档、Issue、`.feat-tmp` 产物继续推进下一步的场景。对未显式调用但接近完整工作流的模糊请求，先向用户确认。
+description: 管理 feat 需求工作流，从需求草稿、澄清、PRD、Issue 拆分到实现前检查、Review 门禁和最终归档。当用户明确提到 `feat` 或 `$feat` 并提出新需求，或基于既有 feat 需求目录、需求文档、Issue、`.feat-tmp` 产物继续推进下一步时，使用该 Skill。对未显式调用但接近完整工作流的模糊请求，先向用户确认。
 ---
 
 # 1. 定位

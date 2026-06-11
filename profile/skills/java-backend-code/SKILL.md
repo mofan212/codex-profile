@@ -1,6 +1,6 @@
 ---
 name: java-backend-code
-description: 编写、修改、重构和测试 Java 后端代码。适用于实现或调整 Spring Boot、MyBatis、Jackson、Lombok 等 Java 后端技术栈的相关代码、测试、配置、接口契约、Mapper、DTO/DAO、异常处理、日志或兼容性修复的场景。纯分析、日志排查、代码审查或设计讨论时不使用，除非用户要求修改代码或测试。
+description: 编写、修改、重构和测试 Java 后端代码。当用户要求实现或调整 Spring Boot、MyBatis、Jackson、Lombok 等 Java 后端技术栈的相关代码、测试、配置、接口契约、Mapper、DTO/DAO、异常处理、日志或兼容性修复时，使用该 Skill。纯分析、日志排查、代码审查或设计讨论时不使用，除非用户要求修改代码或测试。
 ---
 
 # 1. 上下文加载

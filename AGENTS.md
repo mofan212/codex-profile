@@ -19,7 +19,7 @@
 - 修改 `profile/skills/` 下的 Skill 内容时，`SKILL.md` 的 `description`、正文和 `agents/openai.yaml` 的 `default_prompt`、`short_description` 均优先使用中文，以保证 Skill 在中文语境下稳定触发和执行
 - 如果需要兼容英文触发或跨语言工具链，可以在中文描述基础上补充英文短语，但不得牺牲中文触发准确性
 - `SKILL.md` 的 `description` 和 `agents/openai.yaml` 的 `default_prompt` 必须保持 Agent 中立，描述任务能力、适用场景和触发条件时，不要把执行主体绑定到某个具体 AI Agent 或产品名
-- `SKILL.md` 的 `description` 描述触发条件时，优先使用「适用于...」
+- `SKILL.md` 的 `description` 使用中文描述触发条件时，优先使用「当...时，使用该 Skill。」句式
 - `agents/openai.yaml` 的 `default_prompt` 应直接描述执行原则、边界和输出要求
 - 当 Skill 的任务对象本身是特定 Agent、产品或配置时，可以提及对应名称，但只能作为任务对象出现，不要作为默认执行主体出现
 - 修改或新增 Skill 文档中的规则表格时，表头优先使用英文短字段，例如 `trigger`、`action`、`requirement`、`forbidden`、`purpose`；表格内容和正文使用中文，纯面向人类展示的清单使用中文表头
