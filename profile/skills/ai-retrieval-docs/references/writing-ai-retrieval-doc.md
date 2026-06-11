@@ -51,7 +51,7 @@
 
 需要更完整模板时，读取 [document-template.md](document-template.md)。
 
-写入或更新完成后，读取 [markdown-and-checklist.md](markdown-and-checklist.md) 进行检查。
+写入或更新完成后，读取 [completion-checklist.md](completion-checklist.md) 进行检查。
 
 # 4. 写作原则
 
