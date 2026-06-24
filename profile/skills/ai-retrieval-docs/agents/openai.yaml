@@ -1,4 +1,4 @@
 interface:
   display_name: "AI Retrieval Docs"
   short_description: "维护中文 AI 检索说明与上下文入口"
-  default_prompt: "按 $ai-retrieval-docs 维护 AI 检索文档和上下文入口；先确认输入类型、目标文件、写入边界和事实来源，再基于可验证事实更新可长期检索的代码事实、业务语义、执行链路、验证方式和排查关键词。"
+  default_prompt: "按 $ai-retrieval-docs 维护 AI 检索文档和上下文入口；先确认输入类型、目标文件、写入边界和事实来源，再只沉淀可长期检索的关键入口、隐藏规则、兼容边界、验证入口和排查关键词，避免把文档写成实现说明书。"
