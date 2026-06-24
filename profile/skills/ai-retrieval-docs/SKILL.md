@@ -7,13 +7,13 @@ description: 维护中文 AI 检索文档、排查文档、上下文入口和检
 
 本 Skill 只维护 AI 检索文档和 AI 上下文入口文档。先判断输入类型，再只读取对应 reference；不要把它用于普通文档改写。
 
-先按是否显式指定文档分流：用户给出文件路径、明确文件名，或给出能在项目中唯一匹配的文档标题时，使用「指定文档输入路由」；否则使用「未指定文档输入路由」。不要跨表匹配，只读取匹配行指定的 reference。
+先按是否显式指定文档分流：用户给出文件路径、明确文件名，或给出能在项目中唯一匹配的文档标题时，使用「指定文档输入路由」；否则使用「未指定文档输入路由」。不要跨表匹配，只读取匹配行 `reference` 列指定的文件。
 
 只粘贴文档内容不算显式指定目标文件；纯粹查找 AI 检索文档不是维护任务，不使用本 Skill。提到模块、功能、能力域、接口、类名、包名或业务流程，但未明确要求生成、创建、维护、更新、补充或检查是否过期 AI 检索类文档时，不进入 `module_request`；按普通查找或分析处理，必要时询问是否转为 AI 检索文档维护任务。
 
 **指定文档输入路由：**
 
-| input_type | match_signal | load_reference |
+| input_type | match_signal | reference |
 | --- | --- | --- |
 | `requirement_doc` | 文件名或标题包含 `需求文档`、`需求设计文档`、`PRD`、`需求说明`，且内容描述目标、范围、澄清结论、验收或设计约束 | [requirement-doc-flow.md](references/requirement-doc-flow.md) |
 | `context_entry_doc` | 文件名为 `00-AI上下文入口.md`、`AI上下文入口.md`、`AI检索入口.md`，或内容主要描述加载规则、加载路由、核心事实和回答要求 | [context-entry-flow.md](references/context-entry-flow.md) |
@@ -24,7 +24,7 @@ description: 维护中文 AI 检索文档、排查文档、上下文入口和检
 
 **未指定文档输入路由：**
 
-| input_type | match_signal | load_reference |
+| input_type | match_signal | reference |
 | --- | --- | --- |
 | `module_request` | 用户没有显式指定文件路径、明确文件名或可唯一匹配的文档标题，但指定模块、功能、能力域、接口、类名、包名或业务流程，并明确要求生成、创建、维护、更新、补充或检查是否过期的 AI 检索文档、AI 检索说明或 AI 排查文档 | [module-request-flow.md](references/module-request-flow.md) |
 | `no_document` | 用户没有提供文件、路径、标题、文档内容，也没有指定模块、功能、能力域、接口、类名、包名或业务流程，只要求维护项目级 AI 检索或上下文文档 | [input-fallback-flow.md](references/input-fallback-flow.md) |
