@@ -51,8 +51,8 @@ flowchart TD
     subgraph feat_workflow ["feat 工作流"]
         feat(["feat"])
         grillWithDocs["grill-with-docs"]
-        toPrd["to-prd"]
-        toIssues["to-issues"]
+        toSpec["to-spec"]
+        toTickets["to-tickets"]
         loadProjectContext["load-project-context"]
         aiRetrievalDocs["ai-retrieval-docs"]
     end
@@ -63,8 +63,8 @@ flowchart TD
     end
 
     feat -->|需求澄清| grillWithDocs
-    feat -->|需求整理| toPrd
-    feat -->|Issue 拆分| toIssues
+    feat -->|需求整理| toSpec
+    feat -->|Ticket 拆分| toTickets
     feat -->|上下文加载| loadProjectContext
     feat -->|最终归档| aiRetrievalDocs
     loadProjectContext -->|文档维护切换| aiRetrievalDocs
@@ -72,8 +72,8 @@ flowchart TD
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
     style grillWithDocs fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style toPrd fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style toIssues fill:#0ea5e9,color:#fff,stroke:#0284c7
+    style toSpec fill:#0ea5e9,color:#fff,stroke:#0284c7
+    style toTickets fill:#0ea5e9,color:#fff,stroke:#0284c7
     style loadProjectContext fill:#10b981,color:#fff,stroke:#059669
     style aiRetrievalDocs fill:#10b981,color:#fff,stroke:#059669
     style javaBackendCode fill:#f59e0b,color:#fff,stroke:#d97706
@@ -90,11 +90,11 @@ flowchart TD
 
 | 名称 | 类型 | 一句话用途 |
 | --- | --- | --- |
-| `setup-matt-pocock-skills` | 外部依赖 | 初始化项目的 Skill 说明、Issue tracker 和领域文档目录结构 |
+| `setup-matt-pocock-skills` | 外部依赖 | 初始化项目的 Skill 说明、Ticket 承载位置和领域文档目录结构 |
 | `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求 |
-| `to-prd` | 外部依赖 | 按 PRD 结构整理和完善当前需求文档 |
-| `to-issues` | 外部依赖 | 将需求拆分为可独立实现的垂直切片 Issue |
-| `feat` | 本仓库维护 | 编排需求澄清、Issue 拆分、实现门禁、Review 循环和归档 |
+| `to-spec` | 外部依赖 | 按 Spec 结构整理和完善当前需求文档 |
+| `to-tickets` | 外部依赖 | 将需求或 Spec 拆分为带阻塞关系的垂直切片 Ticket |
+| `feat` | 本仓库维护 | 编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
 | `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载 |
 | `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文 |
 
@@ -111,28 +111,28 @@ flowchart LR
 
     subgraph clarify ["需求澄清"]
         grill["需求澄清\ngrill-with-docs"]
-        prd["需求整理\nto-prd"]
-        issues["Issue 拆分\nto-issues"]
+        spec["需求整理\nto-spec"]
+        tickets["Ticket 拆分\nto-tickets"]
     end
 
-    slice(["🎯 选择切片 Issue"])
+    slice(["🎯 选择切片 Ticket"])
 
     request --> precheck --> docs --> grill
-    grill --> prd --> issues --> slice
+    grill --> spec --> tickets --> slice
 
     style request fill:#6366f1,color:#fff,stroke:#4f46e5
     style precheck fill:#475569,color:#fff,stroke:#334155
     style slice fill:#6366f1,color:#fff,stroke:#4f46e5
     style grill fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style prd fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style issues fill:#0ea5e9,color:#fff,stroke:#0284c7
+    style spec fill:#0ea5e9,color:#fff,stroke:#0284c7
+    style tickets fill:#0ea5e9,color:#fff,stroke:#0284c7
 ```
 
 **② 实现阶段**
 
 ```mermaid
 flowchart LR
-    slice(["🎯 选择切片 Issue"])
+    slice(["🎯 选择切片 Ticket"])
 
     subgraph impl ["实现"]
         locate["上下文加载\nload-project-context"]
