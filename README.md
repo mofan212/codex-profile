@@ -8,6 +8,7 @@
 当前包含：
 
 - `AGENTS.md`：当前仓库的规则（约束 AI 在本仓库的行为）
+- `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
 - `profile/AGENTS.md`：个人 Codex 全局规则
 - `profile/skills/`：个人自定义 Skills
 - `install.py`：Windows、macOS、Linux 通用安装脚本
@@ -163,7 +164,6 @@ flowchart LR
 | 名称 | 一句话用途 |
 | --- | --- |
 | `java-naming` | 设计和评审 Java 后端命名 |
-| `coding-guidelines` | 约束编码任务小步实现、显式假设和验证交付 |
 | `java-backend-code` | 指导 Java 后端代码修改、测试和验证反馈 |
 
 ## 通用技能
