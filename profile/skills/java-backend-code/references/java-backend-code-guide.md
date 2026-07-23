@@ -16,7 +16,7 @@
 
 - 新建 Java 类时，添加文档注释，并写入作者 `@author` 和日期时间 `@date` 信息：
   - `@author`：运行 [resolve_java_author.py](../scripts/resolve_java_author.py) 获取取值；脚本输出即为最终可用值，不要复制非当前用户类注释中的 `@author` 信息
-  - `@date`：优先跟随同包或同模块已有标签和格式；没有既有模式时使用 `@date yyyy/MM/dd HH:mm`
+  - `@date`：先通过系统命令获取当前时间（PowerShell 运行 `Get-Date`，macOS/Linux 运行 `date`），不得推测或编造时间；再按同包或同模块已有标签和格式写入，没有既有模式时使用 `@date yyyy/MM/dd HH:mm`
 - 如果已有类注释，不修改原来的作者、日期或格式
 - 类注释可以简洁；当类名和上下文已能说明职责时，不强行加冗长说明
 
