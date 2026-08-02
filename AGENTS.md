@@ -73,3 +73,19 @@
 - `install.py` 写入本机 Codex 目录的真实安装会整体替换目标目录中同名 Skill，不会合并目录，也不会保留目标同名 Skill 目录中的额外文件
 - 如果由 AI 执行 `python install.py` 写入本机 Codex 目录，必须先向用户说明上述覆盖规则，并获得用户二次确认；`python install.py --dry-run` 不需要二次确认
 - 验证安装行为时优先运行 `python install.py --dry-run`，确认来源和目标路径正确后再考虑真实安装
+
+# 7. Git 提交信息规则
+
+为当前仓库生成 Git commit message 时，使用 `<scope>: <中文变更摘要>` 格式，并按主要变更对象选择 `scope`。
+
+| 主要变更对象 | 作用域 | 示例 |
+| --- | --- | --- |
+| 单个 Skill | 与 Skill 目录名一致 | `chinese-markdown: 完善 Mermaid 流程图规则` |
+| 备份的 Codex 全局规则 `profile/AGENTS.md` | `global-rules` | `global-rules: 完善本地文件链接引用规则` |
+| 根目录规则、安装脚本、仓库文档和版本控制配置等仓库自身内容 | `repo` | `repo: 规范 Git 提交信息作用域` |
+| 多个不可拆分的 Skill | `skills` | `skills: 统一跨 Skill 的路由规则` |
+
+- `scope` 按提交的主要目的确定，不按发生改动的文件数量确定
+- Skill 变更引起的 `README.md`、`install.py` 或 `CHANGELOG.md` 配套同步，仍使用对应 Skill 名称
+- 全局规则变更引起的仓库说明同步，仍使用 `global-rules`
+- 一个提交包含多个相互独立的主要目的时，优先拆分提交
