@@ -87,6 +87,8 @@ flowchart TD
 
 ## feat 工作流技能
 
+这套个人工作流的设计背景、使用方式和实践取舍，可参考文章：[AI 保守派的编码实践](https://mofan212.github.io/posts/AI-Coding-The-Conservative-Way/)。
+
 外部依赖来自 [mattpocock/skills](https://github.com/mattpocock/skills)。
 
 | 名称 | 类型 | 一句话用途 |
