@@ -1,26 +1,23 @@
 ---
 name: feat
-description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Ticket 拆分到实现前检查、Review 门禁和最终归档。当用户明确提到 `feat` 或 `$feat` 并提出新需求，或基于既有 feat 工作流产物目录、需求文档、Ticket、`.feat-tmp` 产物继续推进下一步时，使用该 Skill。对未显式调用但接近完整工作流的模糊请求，先向用户确认。
+description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Ticket 拆分到实现前检查、Review 门禁和最终归档。当用户通过 `$feat` 手动启动新需求或续跑既有工作流时，使用该 Skill。
 ---
 
 # 1. 定位
 
-本 Skill 是 AI Coding 主控工作流，不替代专用 Skill。用户点名 `feat`、`$feat` 新建需求工作流，或在已有 `feat` 工作流产物中要求继续下一步时，由本 Skill 识别阶段、执行门禁、决定需要配合使用的专用 Skill。
+本 Skill 是 AI Coding 主控工作流，不替代专用 Skill。收到新需求时创建草稿；收到既有工作流产物时识别阶段并续跑，同时执行门禁、决定需要配合使用的专用 Skill。
 
 如果进入某个阶段时存在更专用的 Skill，主动声明并使用它；用户不需要再次点名底层 Skill。
 
-不要因为用户只说「需要开发一个需求」「需要实现一个需求」「新增一个功能」就自动进入本 Skill；这些普通自然语言请求只有在用户显式提到 `feat` 或 `$feat` 时才新建 `feat` 工作流。如果用户表达接近完整需求建档、澄清、拆分或实现门禁流程，但没有明确 `feat` / `$feat`，只问一个问题确认，不要先创建需求文档。
+# 2. 入口路由
 
-# 2. 触发入口
-
-入口判定只使用下表，按从上到下匹配。入口判定必须先于阶段状态机和 reference 读取。判断是否显式调用 `feat` / `$feat` 时，只看用户原始请求；系统、测试、调试或外层编排要求读取本 Skill，不算用户显式调用。
+只使用下表判定新建、续跑或补充上下文，按从上到下匹配。入口判定必须先于阶段状态机和 reference 读取。
 
 | entry | condition | action | stop_when | forbidden |
 | --- | --- | --- | --- | --- |
-| `explicit_new_feat` | 用户明确说 `feat` 或 `$feat`，并描述新需求，且没有指定现成需求文档 | 进入 `draft_requirement`，读取 [references/draft-protocol.md](references/draft-protocol.md) 执行建档协议 | 需求草稿已创建；或无法确认文档目录、需求序号等建档必要信息 | 直接进入代码实现、需求澄清、Spec、Ticket 拆分 |
-| `explicit_resume_feat` | 用户提供既有 `feat` 工作流产物目录、需求文档、Ticket 或 `.feat-tmp/` 产物，或在这些上下文中说「下一步」「继续 feat」「需求文档已完善」 | 先定位并读取现有产物，按需求文档完整度、澄清结论、DoR / DoD、Ticket 列表、实现记录、Review 结果和归档状态判断当前阶段 | 无法确认任何可续跑产物位置 | 重新创建需求文档；猜测需求文档位置；跳过状态检测直接实现 |
-| `implicit_workflow_request` | 用户没有明确 `feat` / `$feat`，也没有提供既有 `feat` 产物，但要求完整需求流程、建档、澄清、拆 Ticket 或实现门禁 | 🔴 CHECKPOINT：只问「是否启用 feat 工作流？」 | 用户确认启用前 | 读取建档 reference；命名需求目录；创建需求草稿；标记为 `draft_requirement` |
-| `ordinary_task` | 用户只是要求开发、修 Bug、解释、测试、Review 或局部实现 | 不进入本 Skill 后续流程 | 无 | 为小任务强行创建需求文档或要求用户走完整流程 |
+| `new_feat` | 用户描述新需求，且没有指定现成需求文档 | 进入 `draft_requirement`，读取 [references/draft-protocol.md](references/draft-protocol.md) 执行建档协议 | 需求草稿已创建；或无法确认文档目录、需求序号等建档必要信息 | 直接进入代码实现、需求澄清、Spec、Ticket 拆分 |
+| `resume_feat` | 用户提供既有 `feat` 工作流产物目录、需求文档、Ticket 或 `.feat-tmp/` 产物，或要求继续这些产物 | 先定位并读取现有产物，按需求文档完整度、澄清结论、DoR / DoD、Ticket 列表、实现记录、Review 结果和归档状态判断当前阶段 | 无法确认任何可续跑产物位置 | 重新创建需求文档；猜测需求文档位置；跳过状态检测直接实现 |
+| `missing_context` | 用户既没有描述新需求，也没有提供可续跑产物 | 🔴 CHECKPOINT：只问用户要新建什么需求，或既有需求文档、Ticket、`.feat-tmp/` 位于何处 | 用户提供新需求描述或可续跑产物位置前 | 猜测需求内容或产物位置；自动创建需求草稿 |
 
 # 3. 前置检查
 
@@ -51,11 +48,11 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 
 # 4. 阶段状态机
 
-续跑时读取用户指定的需求文档、Ticket、`.feat-tmp/` 或实现记录，按下表定位当前阶段。只执行匹配行的动作；`gate_id` 详见 §6 门禁表，`read_key` 详见 §6 引用文件路由。
+续跑时先读取需求文档和 Ticket 列表，按需扫描 `.feat-tmp/tickets/` 的实现沉淀，结合 DoR / DoD、最近验证结果、Review 结果、归档状态和必要代码事实，按下表定位当前阶段。只执行匹配行的动作；`gate_id` 详见 §6 门禁表，`read_key` 详见 §6 引用文件路由。
 
 | state_id | detect_by | required_input | action | gate_id | read_key | next_state |
 | --- | --- | --- | --- | --- | --- | --- |
-| `draft_requirement` | 用户显式调用 `feat` 且无现成需求文档 | 当前任务描述 | 执行建档协议；草稿创建后立即暂停，只输出文档路径、当前阶段和下一步提示 | - | `draft_protocol`、`requirement_template` | `clarify_requirement` |
+| `draft_requirement` | 入口匹配 `new_feat` | 当前任务描述 | 执行建档协议；草稿创建后立即暂停，只输出文档路径、当前阶段和下一步提示 | - | `draft_protocol`、`requirement_template` | `clarify_requirement` |
 | `clarify_requirement` | 需求草稿存在但无澄清结论 | 需求文档、用户澄清上下文、必要领域文档 | 使用 `grill-with-docs` 澄清，并回写需求文档 | `clarification_written_back` | - | `refine_requirement` |
 | `refine_requirement` | 有澄清结论但缺少目标、非目标、验收标准等 Feature DoR 必需项 | 初版需求文档、澄清对话 | 参考 `to-spec` 的 Spec 结构完善当前需求文档 | - | - | `feature_dor` |
 | `feature_dor` | 需求文档内容完整，但未记录 Feature DoR 结果 | 完整需求文档 | 执行 Feature DoR；未通过时先补需求文档 | `feature_dor_after_spec` | `readiness_checklists` | `split_tickets` |
@@ -65,10 +62,6 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 | `review_loop` | Ticket 已实现但 Review 未完成、正在修复循环，或存在待处理 Review findings | 当前 Ticket、实现结果、验证结果、Review 结果或 Review 策略选择 | 执行 Review 策略选择和修复循环 | `review_loop` | `review_loop`、`review_classification` | `ticket_done` |
 | `ticket_done` | Review 门禁已通过，或用户明确跳过 Review 且已记录原因和风险，待执行 Ticket DoD | 当前 Ticket、实现结果、验证结果、Review 门禁结果 | 执行 Ticket DoD，并按需更新 `.feat-tmp/tickets/*-实现沉淀.md` | `ticket_dod` | `readiness_checklists`、`implementation_notes_template` | `archive_ai_docs` 或 `implement_ticket` |
 | `archive_ai_docs` | 全部 Ticket DoD 通过 | 需求文档、全部 Ticket、`.feat-tmp/tickets/` 实现沉淀文件、代码事实 | 使用 `ai-retrieval-docs` 生成或更新正式 AI 检索文档 | `archive_ai_docs` | `readiness_checklists` | 工作流完成 |
-
-如果无法判断阶段，先列出已知事实和缺失信息，只问一个最关键问题。
-
-续跑时先读取需求文档和 Ticket 列表，按需扫描 `.feat-tmp/tickets/` 已有实现沉淀；结合 Ticket DoR / DoD、最近验证结果和必要代码事实判断当前阶段与下一执行项。
 
 # 5. 文档权威边界
 
@@ -100,15 +93,6 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 | `feature_size_review` | `split_tickets` 后 Ticket 数量较多或依赖关系复杂 | 先复核 Feature 是否过大；能拆成多个独立 Feature 时优先拆分 Feature | Feature 边界已确认；需要拆分时先回到需求文档更新范围 | 用临时文件掩盖 Feature 边界过大 |
 | `detailed_checklist` | 需要详细检查项 | 读取 [references/readiness-checklists.md](references/readiness-checklists.md) | 对应门禁检查项已逐项完成并记录结论 | 凭印象补门禁 |
 
-本 Skill 只显式关联工作流必要 Skill：
-
-- 项目工作流初始化：必要时使用 `setup-matt-pocock-skills`
-- 需求澄清：使用 `grill-with-docs`
-- 需求文档完善：参考 `to-spec` 的 Spec 整理方式
-- Ticket 拆分：使用 `to-tickets`
-- 实现阶段上下文加载：使用 `load-project-context`
-- 最终 AI 检索文档归档：使用 `ai-retrieval-docs`
-
 按需读取以下引用文件。阶段状态机只引用 `read_key`，具体路径和跳过条件由下表维护：
 
 | read_key | read | purpose | skip_when |
@@ -132,7 +116,6 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 | failure | first_action | fallback | stop_when |
 | --- | --- | --- | --- |
 | 续跑时找不到需求文档路径 | 🔴 CHECKPOINT：只问一个问题确认需求文档、Ticket 或 `.feat-tmp/` 位置 | 如果用户只提供 Ticket 或实现沉淀，先用其反查来源需求文档 | 无法确认来源需求文档时，不创建新需求文档 |
-| 未显式调用 `feat` / `$feat`，但请求接近完整需求流程 | 🔴 CHECKPOINT：只问是否启用 `feat` 工作流 | 用户确认后再进入 `draft_requirement` 或续跑状态检测 | 未确认前不读取 [references/draft-protocol.md](references/draft-protocol.md) 或创建需求草稿 |
 | 无法判断当前阶段 | 列出已读产物、匹配到的状态信号和缺失信息 | 只问一个最关键问题，例如需求文档路径、Ticket 编号或 Review 策略 | 阶段仍不明时，不跳到后续阶段 |
 | 外部工作流 Skill 不可用 | 判断当前阶段是否必须依赖该 Skill 或其产物 | 允许用户粘贴对应产物，由当前流程只做回写、门禁检查或状态判断 | 必需产物缺失且无法替代时停止该阶段 |
 | 需求文档与代码事实冲突 | 读取 [references/code-fact-check.md](references/code-fact-check.md)，按 `code_fact_check` 门禁处理 | 允许用户修正需求、调整 Ticket 或确认当前代码事实 | 阻塞级差异未解决时不进入实现 |
@@ -143,7 +126,6 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 
 | anti_pattern | risk | canonical_rule | required_action |
 | --- | --- | --- | --- |
-| 用户只说「开发一个需求」就创建 `feat` 文档 | 把普通开发任务强行流程化，增加无关产物 | `explicit_new_feat` | 回到 §2 入口判定；未显式调用 `feat` / `$feat` 时不新建工作流 |
 | 没有 Feature DoR 就拆 Ticket | Ticket 目标、非目标、验收和依赖不稳定 | `feature_dor_after_spec` | 回到 `feature_dor` 阶段执行门禁 |
 | 按 Controller、Service、Mapper、数据库表或测试层拆 Ticket | Ticket 不能独立交付或验收 | `vertical_slice` | 回到 `split_tickets` 阶段按垂直切片拆分 |
 | 实现完成或测试通过后直接关闭 Ticket | 跳过 Review、验证复核、Ticket DoD 和实现沉淀 | `review_loop`、`ticket_dod` | 先进入 `review_loop`，通过后再执行 Ticket DoD |
@@ -155,8 +137,6 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 Ticket 完成后，如果新增或修改入口、调用链、配置项、数据结构、验证命令、排查关键词，或产生影响后续 AI 理解代码的实现事实，在需求文档同级目录下创建或更新 `.feat-tmp/tickets/<需求序号>-<Ticket序号>-<Ticket简述>-实现沉淀.md`；文件不存在时读取 [references/implementation-notes-template.md](references/implementation-notes-template.md) 后创建。没有产生需要沉淀的实现事实时，在完成说明中写明 `无需更新 Ticket 实现沉淀`。
 
 全部 Ticket 完成后，`archive_ai_docs` 阶段的归档和 `.feat-tmp/` 清理规则详见 [references/readiness-checklists.md](references/readiness-checklists.md) 中的「`.feat-tmp/` 临时工作区归档规则」。当需求文档命名为 `<需求序号>-<需求简述>-需求文档.md` 时，最终 AI 检索文档由 `ai-retrieval-docs` 默认生成或更新为相邻编号的 `<相邻序号>-<需求简述>-AI检索说明.md`，例如 `10-订单超时处理-需求文档.md` 对应 `11-订单超时处理-AI检索说明.md`。
-
-Review 修复循环由 `review_loop` 门禁和 `review_loop` / `review_classification` 引用文件维护；Ticket DoD 由 `ticket_dod` 门禁维护。不要在沉淀与报告阶段重新解释 Review 策略或 DoD 细节。
 
 阶段推进后的关键结论必须落到对应工作流产物中，使后续会话能从需求文档、Ticket、`.feat-tmp/` 或 AI 检索文档恢复当前阶段；不要只依赖聊天上下文保存阶段状态。
 

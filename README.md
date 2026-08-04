@@ -97,7 +97,7 @@ flowchart TD
 | `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求 |
 | `to-spec` | 外部依赖 | 按 Spec 结构整理和完善当前需求文档 |
 | `to-tickets` | 外部依赖 | 将需求或 Spec 拆分为带阻塞关系的垂直切片 Ticket |
-| `feat` | 本仓库维护 | 编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
+| `feat` | 本仓库维护 | 仅通过 `$feat` 手动调用，编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
 | `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载 |
 | `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文 |
 

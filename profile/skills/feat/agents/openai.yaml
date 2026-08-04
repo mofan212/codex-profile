@@ -1,4 +1,7 @@
 interface:
   display_name: "Feat"
-  short_description: "显式新建或基于产物续跑 feat 工作流"
-  default_prompt: "按 $feat 的规则编排需求工作流；只有用户明确调用 feat 或 $feat 并提出新需求时才创建需求草稿，基于既有 feat 工作流产物目录、feat 需求文档、feat Ticket 或 .feat-tmp 产物时才续跑。对未显式调用但接近完整工作流的请求只先问一个确认问题；推进时按阶段状态机只执行当前阶段所需动作，不跳过澄清、Ticket DoR/DoD、代码事实校验、Review 门禁、实现沉淀和 AI 检索文档归档边界。"
+  short_description: "仅允许通过 $feat 手动启动或续跑完整需求工作流"
+  default_prompt: "使用 $feat 手动启动或续跑需求工作流；先识别现有产物和当前阶段，再按门禁推进澄清、Ticket 拆分、实现、Review 与最终归档，不得在未调用 $feat 时自动启用。"
+
+policy:
+  allow_implicit_invocation: false
