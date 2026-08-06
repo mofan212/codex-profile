@@ -1,0 +1,37 @@
+[
+  {
+    "id": "full-document-edit",
+    "prompt": "请直接修订下面这份完整中文 Markdown，统一排版，不改变事实、术语、链接目标或代码内容。保留现有无编号标题风格；如果有无法验证的项目请在修订稿后说明。\n\n# 发布说明\n\n本版本支持GitHub登录，默认超时为30秒。\n\n## 变更\n\n- 新增`retry-count`配置项。\n- 容量提升到20GB；\n\n| 项目 | 状态 |\n| --- | --- |\n| API兼容性。 | 已通过； |\n\n参考[迁移指南](guide.md)后运行`app --check`。",
+    "expected": "直接给出修订后的完整 Markdown；修正中英和数字空格、行内语法外侧空格、列表与表格尾部标点，保留无编号标题、链接目标和代码内容，并说明未改变语义及未执行的验证。"
+  },
+  {
+    "id": "limited-review",
+    "prompt": "只审查下面片段的中英/数字空格和中文标点，不要修改标题、列表、链接或措辞；列出问题和修正方向即可。\n\n## 2.3 部署\n\n- 在Kubernetes上部署2个Pod。\n- 文档地址为[部署说明](deploy.md)。\n- 当前进度是80 %，预计10分钟完成!!",
+    "expected": "选择审查模式和中文文案限定范围；只列出空格与标点问题及修正方向，不输出整段修订稿，不调整标题、列表结构、链接或措辞，并说明其他 Markdown 检查项已跳过。"
+  },
+  {
+    "id": "mermaid-source-organization",
+    "prompt": "整理下面 Markdown 中的 Mermaid flowchart 源码：把节点定义、连接关系和样式分组，保持节点文案、形状、连接方向和分支标签完全不变。不要安装新依赖；如果当前没有 Mermaid 渲染入口，明确说明。\n\n```mermaid\nflowchart TD\nstart([\"开始\"]) --> check{\"通过？\"}\ncheck -->|是| done([\"完成\"])\ncheck -->|否| start\nclassDef ok fill:#EFF6FF,stroke:#64748B;\nclass done ok;\n```",
+    "expected": "选择 Mermaid source_organization 深度；先独立定义 start、check、done，再集中声明三条连接和样式，保持全部图示语义不变；不安装依赖，并在无入口时明确未执行解析或渲染验证。"
+  },
+  {
+    "id": "new-document-chinese-quotes",
+    "prompt": "请首次新建一份中文 Markdown 说明文档，标题为「协作说明」，包含「适用范围」和「沟通约定」两个二级章节。正文需要自然写入一句：负责人提醒大家先确认范围再开始修改。请用引号标出提醒的原话，直接给出可保存的第一稿，不要解释排版规则。",
+    "expected": "第一稿直接使用中文直角引号「」标示正文引语，不出现弯引号“”；采用无编号标题和最少层级。"
+  },
+  {
+    "id": "new-document-nested-chinese-quotes",
+    "prompt": "请首次新建一份中文 Markdown 访谈纪要，记录经理转述用户反馈：用户看到系统提示保存成功后表示可以继续操作。要求用两层中文引号清楚表达转述关系，直接交付完整第一稿。",
+    "expected": "外层中文引号使用「」，内层嵌套引号使用『』，第一稿中不出现“”或‘’作为中文正文引号。"
+  },
+  {
+    "id": "new-document-protect-technical-quotes",
+    "prompt": "请首次新建一份中文 Markdown 技术说明，将下面素材整理为「行为说明」和「示例」两个章节。中文正文中的用户原话需要符合中文排版；所有技术内容必须逐字保留，不要修复或规范化其中的引号字符。\n\n正文素材：用户说“任务已完成”，随后检查以下示例。\n\n行内代码：`config.set(\"quote\", \"“原始”\")`\n\n```json\n{\"message\": \"保留“原始”字样\"}\n```\n\n```yaml\nmessage: \"保留“原始”字样\"\n```\n\n```powershell\nWrite-Output \"保留“原始”字样\"\n```\n\n```java\nString message = \"保留“原始”字样\";\n```",
+    "expected": "只将中文正文引语改为「任务已完成」；行内代码、JSON、YAML、命令和 Java 字符串字面量中的“原始”逐字保留。"
+  },
+  {
+    "id": "new-document-user-quote-style",
+    "prompt": "请首次新建一份中文 Markdown 公告，包含标题和一段正文。本文是品牌文案例外：正文引语必须统一使用弯引号“”，不要使用直角引号。请引用原话“今天开始试运行”，并直接交付可发布的第一稿。",
+    "expected": "遵守用户明确指定的品牌引号风格，保留弯引号“今天开始试运行”，不改为直角引号。"
+  }
+]

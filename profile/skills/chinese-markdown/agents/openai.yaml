@@ -1,4 +1,4 @@
 interface:
   display_name: "Chinese Markdown"
-  short_description: "格式化、整理和审查中文 Markdown 文档的排版与结构"
-  default_prompt: "使用 $chinese-markdown 处理中文 Markdown 的排版或结构；先确定范围和格式基线，执行最小改动，并报告跳过项与未执行验证。"
+  short_description: "新建、格式化、审查中文 Markdown，并整理 Mermaid 流程图源码"
+  default_prompt: "使用 $chinese-markdown 新建、格式化或审查中文 Markdown，或整理其中的 Mermaid `flowchart` 源码；新建文档先按范围加载规则，让第一稿直接合规，交付前执行检查清单，并保留用户指定风格和技术内容。"
