@@ -39,9 +39,7 @@
 ## 3.3 校验与保护
 
 - 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml` 的字段完整性与语言规则、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
-- 编写或修改 Skill 时，以 `$skill-creator` 作为主流程；`$writing-great-skills` 只用于需求收集、用户评审和结构质量复核，不替代初始化、资源规划、`agents/openai.yaml` 生成和校验
-- 新增 Skill 或较大修改既有 Skill 前，必须借用 `$writing-great-skills` 确认任务领域、用例、触发条件、脚本需求、`references/` / `assets/` 需求和参考资料；仅小范围文案修正可跳过
-- 修改完成后，必须借用 `$writing-great-skills` 的 Review Checklist 复核；新增 Skill 或较大修改须向用户呈现评审要点，脚本校验不能替代该检查；发现不符合项时，必须继续修改并重新检查
+- 新增 Skill 或较大修改既有 Skill 后，须向用户呈现结构质量评审要点；脚本校验不能替代该复核，发现不符合项时必须继续修改并重新检查
 - 在 Windows 中文环境运行 Skill 校验脚本读取中文 Markdown 时，如果遇到默认编码错误，优先使用 UTF-8 模式运行，例如设置 `PYTHONUTF8=1` 后再执行校验；不要把编码报错误判为 Skill 格式错误
 
 # 4. 同步维护规则
