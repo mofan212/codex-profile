@@ -1,4 +1,4 @@
 interface:
   display_name: "Load Project Context"
-  short_description: "按入口、术语和 Workspace 边界渐进加载项目上下文"
-  default_prompt: "按 $load-project-context 的规则渐进加载项目上下文；在源码解释、评审、设计或修改涉及领域术语、文档事实、术语边界或跨项目文档时，优先定位文档入口、术语路由、AI 上下文/检索入口和必要的 Workspace 兄弟项目文档，并说明读取与跳过依据。"
+  short_description: "按任务边界沿 AI 上下文与检索入口渐进加载项目领域事实"
+  default_prompt: "使用 $load-project-context 沿项目已有的 AI 上下文或检索入口加载当前任务需要的领域事实；只有任务依赖这些路由时才读取，普通代码解释、局部修改以及仅含 README.md、AGENTS.md 或 index.md 的项目直接跳过。"

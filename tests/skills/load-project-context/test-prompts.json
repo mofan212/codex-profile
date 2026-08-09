@@ -1,0 +1,17 @@
+[
+  {
+    "id": "ordinary-project-code-explanation",
+    "prompt": "当前项目只有根目录 README.md、AGENTS.md，以及 src/main/java/example/ChecksumUtils.java。请解释 ChecksumUtils.normalize(String) 的职责和边界；代码本身完整，不涉及业务术语，也没有 AI 上下文入口、AI 检索入口或 AI 检索说明。",
+    "expected": "不触发 load-project-context；直接读取必要源码并解释。README.md 和 AGENTS.md 的常规存在不能成为触发理由，也不输出 loaded_context 等 Skill 专属字段。"
+  },
+  {
+    "id": "domain-code-explanation-with-retrieval-route",
+    "prompt": "项目存在 docs/00-AI上下文入口.md，入口将“订单回退态”路由到 docs/order/订单状态AI检索说明.md。请解释 OrderFallbackPolicy 为什么禁止处于“回退态”的订单自动重试；源码只展示了条件分支，没有解释该领域状态的含义。",
+    "expected": "触发 load-project-context；先读取 AI 上下文入口，再按路由读取订单状态 AI 检索说明，最后结合源码解释，并说明已加载、跳过和后续可能需要的上下文。"
+  },
+  {
+    "id": "structured-context-but-local-code-edit",
+    "prompt": "项目存在完整的 AI 上下文入口和 AI 检索说明，但当前任务只是把自包含工具方法 parsePort(String) 中的局部变量 value 重命名为 port，并运行对应单元测试；方法不包含领域术语，也不依赖文档事实。请完成修改。",
+    "expected": "不触发 load-project-context；AI 检索体系的存在本身不是充分条件。直接检查目标代码和测试，完成局部修改与验证。"
+  }
+]

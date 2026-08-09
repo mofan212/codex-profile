@@ -66,9 +66,9 @@ flowchart TD
     feat -->|需求澄清| grillWithDocs
     feat -->|需求整理| toSpec
     feat -->|Ticket 拆分| toTickets
-    feat -->|上下文加载| loadProjectContext
+    feat -->|按需消费检索路由| loadProjectContext
     feat -->|最终归档| aiRetrievalDocs
-    loadProjectContext -->|文档维护切换| aiRetrievalDocs
+    loadProjectContext -->|缺少或需要维护路由时切换| aiRetrievalDocs
     javaBackendCode -->|命名协作| javaNaming
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
@@ -80,6 +80,8 @@ flowchart TD
     style javaBackendCode fill:#f59e0b,color:#fff,stroke:#d97706
     style javaNaming fill:#f59e0b,color:#fff,stroke:#d97706
 ```
+
+`ai-retrieval-docs` 负责生产和维护 AI 上下文入口、检索入口与检索说明；`load-project-context` 只在当前任务依赖这些既有路由时消费它们。项目只有 `README.md`、`AGENTS.md` 或普通 `index.md` 时，不进入该上下文加载流程。
 
 具体用哪些编码 Skill 由项目技术栈决定。
 
@@ -98,8 +100,8 @@ flowchart TD
 | `to-spec` | 外部依赖 | 按 Spec 结构整理和完善当前需求文档 |
 | `to-tickets` | 外部依赖 | 将需求或 Spec 拆分为带阻塞关系的垂直切片 Ticket |
 | `feat` | 本仓库维护 | 仅通过 `$feat` 手动调用，编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
-| `load-project-context` | 本仓库维护 | 按入口、术语和 Workspace 边界按需加载项目上下文，用于实现阶段上下文加载 |
-| `ai-retrieval-docs` | 本仓库维护 | 维护项目检索文档，方便后续快速定位上下文 |
+| `load-project-context` | 本仓库维护 | 消费既有 AI 上下文与检索路由，按任务边界渐进加载领域事实 |
+| `ai-retrieval-docs` | 本仓库维护 | 生产和维护 AI 上下文入口、检索入口与检索说明 |
 
 <details>
 <summary>🔄 &nbsp;<b>feat 工作流详细阶段图</b></summary>
@@ -138,7 +140,7 @@ flowchart LR
     slice(["🎯 选择切片 Ticket"])
 
     subgraph impl ["实现"]
-        locate["上下文加载\nload-project-context"]
+        locate["按需上下文路由\nload-project-context"]
         verify["代码事实校验"]
         implement["实现代码与测试"]
     end
