@@ -1,4 +1,4 @@
 interface:
   display_name: "Node HTTP Fetch"
   short_description: "用 Node.js 内置 fetch 调用 HTTP/API 接口"
-  default_prompt: "按 $node-http-fetch 的规则使用 Node.js 内置 fetch 调用 HTTP/API 接口；不安装 node-fetch，敏感值走环境变量。副作用接口先确认影响范围；Node 不可用时报告阻塞；输出 HTTP/业务状态和紧凑错误 JSON，展示前脱敏。"
+  default_prompt: "使用 $node-http-fetch 调用并验证 HTTP/API 接口；优先复用内置脚本，副作用请求先确认，敏感数据与结果输出按规则处理。"
