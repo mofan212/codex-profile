@@ -1,0 +1,27 @@
+[
+  {
+    "id": "custom-route-carrier-without-fixed-doc-system",
+    "prompt": "项目使用 PROJECT-RULES.md 作为 Agent 启动规则，里面把订单任务路由到 docs/order-router.md；order-router.md 再按主题路由到 AI 检索文档。请使用 maintain-ai-context-docs 为新增的退款主题补齐路由，并检查从启动规则到退款 AI 检索文档是否可达。项目不存在 domain.md、CONTEXT.md 或 CONTEXT-MAP.md。",
+    "expected": "识别 PROJECT-RULES.md 为既有启动承载文档，维护其已有路由链中的必要节点并验证可达性；不创建或要求 domain.md、CONTEXT.md、CONTEXT-MAP.md，也不把固定文件名写入项目规则。"
+  },
+  {
+    "id": "agents-route-section-minimal-update",
+    "prompt": "项目根 AGENTS.md 已有『支付领域任务先读取 docs/payment-entry.md』这一段。新增 docs/payment/refund-AI检索说明.md 后，请维护完整路由。不要改 AGENTS.md 中的编码、测试或 Git 规则。",
+    "expected": "只把 AGENTS.md 视为可能的 startup_carrier，并仅在必要时修改其 AI 上下文路由段落；能力域细分写入 payment-entry.md，直接上级同步后验证无孤立节点和循环，不触碰其他项目规则。"
+  },
+  {
+    "id": "no-startup-carrier-no-silent-creation",
+    "prompt": "请更新 docs/cache/cache-AI检索说明.md，并确保以后 Agent 可以自动加载它。项目没有任何 Agent 启动规则或文档索引，我也没有指定要创建哪个规则文件。",
+    "expected": "可以在确认事实和当前文档写入范围后更新 AI 检索文档，但不得静默创建 AGENTS.md 或其他启动承载文档；说明无法确认 startup_carrier，并在需要扩大写入范围时触发 CHECKPOINT。"
+  },
+  {
+    "id": "detect-cycle-and-orphan",
+    "prompt": "请统一维护项目 AI 上下文路由：rules.md 指向 docs/a.md，a.md 指向 docs/b.md，b.md 又指回 a.md；新建的 docs/topic-AI检索说明.md 当前没有任何上级入口。",
+    "expected": "按 routing graph 检查识别 a.md 与 b.md 的循环，以及 topic 文档的孤立状态；在确认的写入范围内删除回环、补充最短直接上级路由，并报告实际路径和验证结果。"
+  },
+  {
+    "id": "runtime-context-consumption-does-not-trigger",
+    "prompt": "项目已有完整的上下文路由。请解释 OrderFallbackPolicy 的行为，按项目 AGENTS.md 和现有入口读取必要文档即可，不生成、更新或检查任何 AI 检索文档。",
+    "expected": "不触发 maintain-ai-context-docs；按普通项目执行流程消费现有路由并解释代码，不输出文档维护字段，也不修改路由。"
+  }
+]

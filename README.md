@@ -54,8 +54,7 @@ flowchart TD
         grillWithDocs["grill-with-docs"]
         toSpec["to-spec"]
         toTickets["to-tickets"]
-        loadProjectContext["load-project-context"]
-        aiRetrievalDocs["ai-retrieval-docs"]
+        maintainAiContextDocs["maintain-ai-context-docs"]
     end
 
     subgraph java_coding ["Java 编码"]
@@ -66,22 +65,19 @@ flowchart TD
     feat -->|需求澄清| grillWithDocs
     feat -->|需求整理| toSpec
     feat -->|Ticket 拆分| toTickets
-    feat -->|按需消费检索路由| loadProjectContext
-    feat -->|最终归档| aiRetrievalDocs
-    loadProjectContext -->|缺少或需要维护路由时切换| aiRetrievalDocs
+    feat -->|最终归档与路由维护| maintainAiContextDocs
     javaBackendCode -->|命名协作| javaNaming
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
     style grillWithDocs fill:#0ea5e9,color:#fff,stroke:#0284c7
     style toSpec fill:#0ea5e9,color:#fff,stroke:#0284c7
     style toTickets fill:#0ea5e9,color:#fff,stroke:#0284c7
-    style loadProjectContext fill:#10b981,color:#fff,stroke:#059669
-    style aiRetrievalDocs fill:#10b981,color:#fff,stroke:#059669
+    style maintainAiContextDocs fill:#10b981,color:#fff,stroke:#059669
     style javaBackendCode fill:#f59e0b,color:#fff,stroke:#d97706
     style javaNaming fill:#f59e0b,color:#fff,stroke:#d97706
 ```
 
-`ai-retrieval-docs` 负责生产和维护 AI 上下文入口、检索入口与检索说明；`load-project-context` 只在当前任务依赖这些既有路由时消费它们。项目只有 `README.md`、`AGENTS.md` 或普通 `index.md` 时，不进入该上下文加载流程。
+`maintain-ai-context-docs` 负责生产和维护 AI 上下文入口、检索入口、检索说明，以及项目既有启动承载文档中的必要上下文路由。普通任务直接遵循项目已有规则和入口渐进加载上下文，不再依赖独立的上下文消费 Skill。
 
 具体用哪些编码 Skill 由项目技术栈决定。
 
@@ -100,8 +96,7 @@ flowchart TD
 | `to-spec` | 外部依赖 | 按 Spec 结构整理和完善当前需求文档 |
 | `to-tickets` | 外部依赖 | 将需求或 Spec 拆分为带阻塞关系的垂直切片 Ticket |
 | `feat` | 本仓库维护 | 仅通过 `$feat` 手动调用，编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
-| `load-project-context` | 本仓库维护 | 消费既有 AI 上下文与检索路由，按任务边界渐进加载领域事实 |
-| `ai-retrieval-docs` | 本仓库维护 | 生产和维护 AI 上下文入口、检索入口与检索说明 |
+| `maintain-ai-context-docs` | 本仓库维护 | 生产和维护 AI 检索文档、上下文入口及项目既有启动路由的连通性 |
 
 <details>
 <summary>🔄 &nbsp;<b>feat 工作流详细阶段图</b></summary>
@@ -140,13 +135,13 @@ flowchart LR
     slice(["🎯 选择切片 Ticket"])
 
     subgraph impl ["实现"]
-        locate["按需上下文路由\nload-project-context"]
+        locate["按项目规则\n渐进加载必要上下文"]
         verify["代码事实校验"]
         implement["实现代码与测试"]
     end
 
     review{{"📝 Review Loop\nSubagents / 外部 Review / 自审"}}
-    archive(["✅ 最终归档\nai-retrieval-docs"])
+    archive(["✅ 最终归档\nmaintain-ai-context-docs"])
 
     slice --> locate --> verify --> implement
     implement --> review

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Maintain AI Context Docs"
+  short_description: "维护中文 AI 检索文档、上下文入口与项目启动路由连通性"
+  default_prompt: "使用 $maintain-ai-context-docs 维护 AI 检索文档与项目上下文路由；先确认目标、写入边界和事实来源，再复用项目既有承载文档补齐下一入口、验证路由连通性，并只沉淀可长期检索的事实。"

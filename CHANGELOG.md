@@ -8,6 +8,11 @@
 
 日期节点按倒序排列。当天日期节点已存在时，将新变更追加到该节点的列表末尾；当天日期节点不存在时，在本节开头新增日期节点。
 
+> 2026-08-11
+
+- 移除 `load-project-context`，重新运行 `python install.py` 后会移除已安装版本
+- `ai-retrieval-docs` 更名为 `maintain-ai-context-docs`，并新增项目上下文路由维护与连通性检查，重新安装后生效
+
 > 2026-08-04
 
 - `feat` Skill 改为仅支持 `$feat` 手动调用，并禁用隐式调用
