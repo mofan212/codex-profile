@@ -1,0 +1,7 @@
+interface:
+  display_name: "Generate Commit Message"
+  short_description: "根据项目规则或当前用户近期提交生成 commit message"
+  default_prompt: "使用 $gen-commit-message 为当前项目的全部现有变更生成 commit message。"
+
+policy:
+  allow_implicit_invocation: false

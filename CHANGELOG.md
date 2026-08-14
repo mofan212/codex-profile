@@ -11,6 +11,7 @@
 > 2026-08-14
 
 - 新增 `goal-prompt`，可通过 `$goal-prompt` 手动生成用于新会话的 Goal 提示词
+- 新增 `gen-commit-message`，可通过 `$gen-commit-message` 手动为当前项目变更生成 commit message
 
 > 2026-08-11
 
