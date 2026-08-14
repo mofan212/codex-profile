@@ -162,7 +162,7 @@ flowchart LR
 
 | 名称 | 一句话用途 |
 | --- | --- |
-| `goal-prompt` | 仅通过 `$goal-prompt` 手动调用，生成可复制到新会话的 Goal 提示词 |
+| `gen-goal-prompt` | 仅通过 `$gen-goal-prompt` 手动调用，生成可复制到新会话的 Goal 提示词 |
 | `gen-commit-message` | 仅通过 `$gen-commit-message` 手动调用，按项目规则或当前用户近期提交生成 commit message |
 
 ## 编码技能

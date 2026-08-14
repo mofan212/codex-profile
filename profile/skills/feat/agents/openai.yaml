@@ -1,5 +1,5 @@
 interface:
-  display_name: "Feat"
+  display_name: "Feature Workflow"
   short_description: "仅允许通过 $feat 手动启动或续跑完整需求工作流"
   default_prompt: "使用 $feat 手动启动或续跑需求工作流；先识别现有产物和当前阶段，再按门禁推进澄清、Ticket 拆分、实现、Review 与最终归档，不得在未调用 $feat 时自动启用。"
 

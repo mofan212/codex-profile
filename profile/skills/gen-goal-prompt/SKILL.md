@@ -1,5 +1,5 @@
 ---
-name: goal-prompt
+name: gen-goal-prompt
 description: 根据当前对话生成可复制到新会话的 Goal 提示词。
 ---
 

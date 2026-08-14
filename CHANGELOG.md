@@ -12,6 +12,7 @@
 
 - 新增 `goal-prompt`，可通过 `$goal-prompt` 手动生成用于新会话的 Goal 提示词
 - 新增 `gen-commit-message`，可通过 `$gen-commit-message` 手动为当前项目变更生成 commit message
+- `goal-prompt` 更名为 `gen-goal-prompt`，重新运行 `python install.py` 后会移除旧名称并安装新名称
 
 > 2026-08-11
 
