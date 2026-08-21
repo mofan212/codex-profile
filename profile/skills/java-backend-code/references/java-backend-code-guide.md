@@ -64,7 +64,7 @@
 
 | trigger | requirement | forbidden |
 | --- | --- | --- |
-| 集合可能为 `null`，但后续仍要遍历或调用 `.stream()` | 优先使用 `ListUtils.emptyIfNull(...)`、`CollectionUtils.emptyIfNull(...)` 等 Commons Collections4 工具类归一化为空集合 | 手写重复的空值和空集合判断，除非提前返回能显著提升可读性 |
+| 集合可能为 `null`，但后续仍要遍历或调用 `.stream()` | 优先使用 `ListUtils.emptyIfNull(...)`、`CollectionUtils.emptyIfNull(...)` 等 Commons Collections4 工具类归一化为空集合 | 手写重复的空值和空集合判断，除非提前返回能够显著提升可读性 |
 | 简单筛选、映射、取首个、任意匹配、全部匹配 | 优先使用 Stream 的 `filter`、`map`、`findFirst`、`anyMatch`、`allMatch` 等表达主流程 | 为简单查询写命令式循环、`continue` 和临时变量 |
 | Stream 中只是调用已有无参方法或静态方法 | 优先使用方法引用 | 写成无必要的 Lambda |
 | Stream 条件需要组合外部变量、工具类调用或业务判断 | 使用 Lambda，并保持条件短而直接 | 为追求方法引用强行拆出低价值私有方法 |

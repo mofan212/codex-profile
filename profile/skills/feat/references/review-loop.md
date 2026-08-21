@@ -52,7 +52,7 @@ Main Agent 收到 Review 结果后必须逐条复核：
 | decision | action |
 | --- | --- |
 | 采纳 | 修复问题，并说明对应 finding |
-| 降级为非阻塞 | 记录降级理由，必要时处理或说明不处理 |
+| 降级为非阻塞 | 记录降级理由，并处理或记录不处理理由 |
 | 不采纳 | 记录事实依据，说明为什么不影响当前 Ticket |
 
 只有 `blocking` finding 必须进入修复循环。`non_blocking` finding 可以处理，也可以记录不处理理由。`ignore` finding 不修改代码，只保留判断依据。
