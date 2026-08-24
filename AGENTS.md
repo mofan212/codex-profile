@@ -1,15 +1,15 @@
 # 1. 项目定位
 
-- 当前仓库是 Codex Profile 备份仓库，用于保存可迁移的 Codex 配置源码
+- 当前仓库是 Codex Profile 备份仓库，主要用于保存可迁移的 Codex 全局规则和共享 Skills，另附可公开同步的 OpenCode 配置
 - 根目录 `AGENTS.md` 只约束 AI 在当前仓库中的行为，不是要安装到 Codex 全局目录的备份文件
-- 要备份和安装的 Codex 全局规则是 `profile/AGENTS.md`，自定义 Skill 位于 `profile/skills/`
+- 要备份和安装的 Codex 全局规则是 `profile/AGENTS.md`，自定义 Skill 位于 `profile/skills/`；OpenCode 公开配置位于 `opencode/opencode.jsonc`，详细说明位于 `opencode/README.md`
 
 # 2. 默认修改目标
 
-- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`
+- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`；要求修改 OpenCode 配置时，默认修改 `opencode/opencode.jsonc`
 - 用户只说「修改 Skill」「改全局规则」「更新配置」时，先理解为修改当前仓库中的备份源码
-- 只有目标位置互相冲突、用户语义明确指向本机已安装 Codex 配置目录，或需要修改当前工作区之外的文件时，才先向用户确认
-- 除非用户明确要求安装、同步到本机或修改本机已安装 Codex 配置目录，否则不要修改 `~/.codex/AGENTS.md`、`~/.codex/skills/` 或其他已安装目录
+- 只有目标位置互相冲突、用户语义明确指向本机已安装配置目录，或需要修改当前工作区之外的文件时，才先向用户确认
+- 除非用户明确要求安装、同步到本机或修改本机已安装配置目录，否则不要修改 `~/.codex/AGENTS.md`、`~/.agents/skills/`、`~/.config/opencode/opencode.jsonc` 或其他已安装目录
 
 # 3. Skill 编写规则
 
@@ -46,10 +46,11 @@
 
 | trigger | action |
 | --- | --- |
-| 新增、删除、重命名或调整 Skill 目录结构 | 同步 `install.py` 和 `README.md` 中的路径、Skill 列表与安装说明 |
+| 新增、删除、重命名或调整 Skill 目录结构 | 同步 `scripts/install_codex_profile.py` 和 `README.md` 中的路径、Skill 列表与安装说明 |
 | 维护 `README.md` 中的 Skill 列表 | 按 `README.md` 现有类别归入合适分类，必要时新增类别，不要合并回单一总表 |
 | 修改 Skill 之间的软依赖、切换关系或协作边界 | 同步 `README.md` 中的 Skill 软依赖关系说明 |
 | 新增或修改 feat 工作流的阶段、门禁、依赖、文档边界、实现沉淀规则或目录结构 | 同步 `README.md` 中的 feat 工作流说明、依赖声明和 Skill 列表 |
+| 修改 OpenCode 配置的备份范围、安装路径或安装行为 | 同步 `opencode/install.py`、`opencode/README.md` 和 `CHANGELOG.md`；根目录 `README.md` 只保留简要说明 |
 
 ## 4.1 重要更新日志
 
@@ -70,9 +71,11 @@
 
 # 6. 安装脚本边界
 
-- `install.py` 写入本机 Codex 目录的真实安装会整体替换目标目录中同名 Skill，不会合并目录，也不会保留目标同名 Skill 目录中的额外文件
-- 如果由 AI 执行 `python install.py` 写入本机 Codex 目录，必须先向用户说明上述覆盖规则，并获得用户二次确认；`python install.py --dry-run` 不需要二次确认
-- 验证安装行为时优先运行 `python install.py --dry-run`，确认来源和目标路径正确后再考虑真实安装
+- 根目录 `install.py` 是 Codex 安装入口，实际实现位于 `scripts/install_codex_profile.py`；真实安装会把 `profile/AGENTS.md` 写入 `~/.codex/`，并整体替换 `~/.agents/skills/` 中的同名 Skill 目录，不做合并，也不保留其中的额外文件
+- `opencode/install.py` 是独立的配置安装脚本，会根据 `opencode/opencode.jsonc` 生成并整体覆盖 `~/.config/opencode/opencode.jsonc`，不会合并内容；真实安装优先读取 `OPENCODE_CUSTOM_BASE_URL`，缺失时仅在交互终端请求输入，将实际地址写入目标配置但不得写回仓库或回显
+- `scripts/cleanup_legacy_codex_skills.py` 是一次性清理脚本，会删除旧版本安装到 `~/.codex/skills/` 的 Skill 和旧 manifest，清理完成后无需再运行
+- 如果由 AI 执行上述脚本写入本机已安装目录，必须先向用户说明对应覆盖或删除规则，并获得用户二次确认；使用 `--dry-run` 预演不需要二次确认
+- 验证安装行为时优先运行 `--dry-run`，确认来源和目标路径正确后再考虑真实安装
 
 # 7. Git 提交信息规则
 
@@ -82,10 +85,12 @@
 | --- | --- | --- |
 | 单个 Skill | 与 Skill 目录名一致 | `chinese-markdown: 完善 Mermaid 流程图规则` |
 | 备份的 Codex 全局规则 `profile/AGENTS.md` | `global-rules` | `global-rules: 完善本地文件链接引用规则` |
+| 备份的 OpenCode 全局配置 `opencode/opencode.jsonc` | `opencode-config` | `opencode-config: 新增 glm-5.3 模型配置` |
 | 根目录规则、安装脚本、仓库文档和版本控制配置等仓库自身内容 | `repo` | `repo: 规范 Git 提交信息作用域` |
 | 多个不可拆分的 Skill | `skills` | `skills: 统一跨 Skill 的路由规则` |
 
 - `scope` 按提交的主要目的确定，不按发生改动的文件数量确定
-- Skill 变更引起的 `README.md`、`install.py` 或 `CHANGELOG.md` 配套同步，仍使用对应 Skill 名称
+- Skill 变更引起的 `README.md`、`install.py`、`scripts/install_codex_profile.py` 或 `CHANGELOG.md` 配套同步，仍使用对应 Skill 名称
 - 全局规则变更引起的仓库说明同步，仍使用 `global-rules`
+- OpenCode 配置变更引起的 `opencode/install.py`、`opencode/README.md` 或仓库说明同步，仍使用 `opencode-config`
 - 一个提交包含多个相互独立的主要目的时，优先拆分提交

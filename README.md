@@ -1,45 +1,41 @@
 # Codex Profile
 
-个人 Codex 全局配置的备份仓库。
+个人 Codex 全局规则和共享 Skills 的备份仓库，另附可公开同步的 OpenCode 配置。
 
 > [!WARNING]
-> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.codex/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。请先用 `python install.py --dry-run` 确认同步范围再执行。
+> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/AGENTS.md` 也会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围再执行。
 
 当前包含：
 
 - `AGENTS.md`：当前仓库的规则（约束 AI 在本仓库的行为）
 - `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
 - `profile/AGENTS.md`：个人 Codex 全局规则
-- `profile/skills/`：个人自定义 Skills
-- `install.py`：Windows、macOS、Linux 通用安装脚本
+- `profile/skills/`：个人自定义 Skills（Codex 和 OpenCode 共用）
+- `opencode/`：可公开同步的 OpenCode 配置及独立安装说明
+- `install.py`：Windows、macOS、Linux 通用 Codex 安装入口
 
 # 使用和更新方式
 
-`install.py` 会把 `profile/AGENTS.md` 和 `profile/skills/` 复制到当前用户的 `~/.codex` 目录。
+根目录 `install.py` 会把 `profile/AGENTS.md` 复制到 `~/.codex/`，把 `profile/skills/` 复制到 `~/.agents/skills/`。OpenCode 配置独立同步，详细说明见 [`opencode/README.md`](opencode/README.md)。
 
 常用命令：
 
 ```powershell
-# 安装或同步到默认 Codex 目录
+# 安装或同步全局规则和 Skills
 python install.py
 
 # 预演安装计划
 python install.py --dry-run
 
-# 安装到指定目录
-python install.py --codex-home C:\Users\YourName\.codex
+# 自定义全局规则和 Skills 的安装位置
+python install.py --codex-home C:\Users\YourName\.codex --agents-home C:\Users\YourName\.agents
 ```
 
-更新流程：
+从旧版本升级（Skills 曾安装到 `~/.codex/skills/`）时，先运行一次清理脚本，再安装：
 
 ```powershell
-# ── 推送本地修改 ──
-git add .
-git commit -m "更新 Codex 配置"
-git push
-
-# ── 拉取远端更新并安装 ──
-git pull
+python scripts/cleanup_legacy_codex_skills.py --dry-run
+python scripts/cleanup_legacy_codex_skills.py
 python install.py
 ```
 
@@ -181,6 +177,6 @@ flowchart LR
 
 # 不同步内容
 
-以下内容不纳入同步，通常和本机状态、缓存或会话历史相关：
+以下内容属于本机状态、凭据、缓存或会话历史，不纳入同步：
 
 `sessions/`、`archived_sessions/`、`log/`、`tmp/`、`sqlite/`、`plugins/`、`*.sqlite`、`history.jsonl`

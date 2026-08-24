@@ -8,6 +8,12 @@
 
 日期节点按倒序排列。当天日期节点已存在时，将新变更追加到该节点的列表末尾；当天日期节点不存在时，在本节开头新增日期节点。
 
+> 2026-08-24
+
+- Skills 安装目录从 `~/.codex/skills/` 改为 `~/.agents/skills/`（Codex 和 OpenCode 共用）；`install.py` 新增 `--agents-home` 参数，用于指定 `.agents` 目录（默认 `~/.agents`），Skills 会安装到该目录下的 `skills/` 子目录
+- 新增 `scripts/cleanup_legacy_codex_skills.py`，曾用旧版安装过的用户需运行一次，清理 `~/.codex/skills/` 中的旧安装
+- 新增可公开同步的 OpenCode 配置和独立安装脚本，安装时从 `OPENCODE_CUSTOM_BASE_URL` 或交互输入注入实际 provider 地址，详见 [OpenCode 配置同步说明](opencode/README.md)
+
 > 2026-08-14
 
 - 新增 `goal-prompt`，可通过 `$goal-prompt` 手动生成用于新会话的 Goal 提示词
