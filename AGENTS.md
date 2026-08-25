@@ -75,7 +75,7 @@
 - 根目录 `install.py` 是 Codex 安装入口，实际实现位于 `scripts/install_codex_profile.py`；真实安装会把 `profile/codex-global-rules.md` 写入 `~/.codex/AGENTS.md`，并整体替换 `~/.agents/skills/` 中的同名 Skill 目录，不做合并，也不保留其中的额外文件
 - `opencode/install.py` 是独立的配置安装脚本，会根据 `opencode/opencode.jsonc` 生成并整体覆盖 `~/.config/opencode/opencode.jsonc`，不会合并内容；真实安装优先读取 `OPENCODE_CUSTOM_BASE_URL`，缺失时仅在交互终端请求输入，将实际地址写入目标配置但不得写回仓库或回显
 - `scripts/cleanup_legacy_codex_skills.py` 是一次性清理脚本，会删除旧版本安装到 `~/.codex/skills/` 的 Skill 和旧 manifest，清理完成后无需再运行
-- 如果由 AI 执行上述脚本写入本机已安装目录，必须先向用户说明对应覆盖或删除规则，并获得用户二次确认；使用 `--dry-run` 预演不需要二次确认
+- 如果由 AI 执行上述脚本写入本机已安装目录，必须先向用户说明对应覆盖或删除规则，并获得用户二次确认；使用 `--dry-run` 预演不需要二次确认。真实执行默认要求终端交互确认，AI 获得二次确认后应传入 `--yes` 执行
 - 验证安装行为时优先运行 `--dry-run`，确认来源和目标路径正确后再考虑真实安装
 
 # 7. Git 提交信息规则

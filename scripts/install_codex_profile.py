@@ -25,9 +25,24 @@ def default_agents_home():
     return Path.home() / ".agents"
 
 
-def configure_stdout():
+def configure_output():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
+
+
+def confirm_install(skip_confirmation, input_func=None):
+    if skip_confirmation:
+        return
+
+    input_func = input if input_func is None else input_func
+    try:
+        answer = input_func("确认按上述范围执行安装？[y/N]：").strip().lower()
+    except (EOFError, KeyboardInterrupt) as exc:
+        raise SystemExit("安装已取消。非交互执行请使用 --yes。") from exc
+    if answer not in {"y", "yes"}:
+        raise SystemExit("安装已取消。")
 
 
 def is_relative_to(path, parent):
@@ -158,10 +173,13 @@ def remove_installed_skill(skill_name, skills_target, dry_run):
 
 
 def main():
-    configure_stdout()
+    configure_output()
 
     parser = argparse.ArgumentParser(
-        description="Install shared agent profile files (AGENTS.md to ~/.codex, skills to ~/.agents)."
+        description=(
+            "Install profile/codex-global-rules.md to ~/.codex/AGENTS.md "
+            "and shared skills to ~/.agents/skills."
+        )
     )
     parser.add_argument(
         "--codex-home",
@@ -177,6 +195,11 @@ def main():
         "--dry-run",
         action="store_true",
         help="Print planned changes without writing files.",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Skip the confirmation prompt for a real install.",
     )
     args = parser.parse_args()
 
@@ -206,8 +229,11 @@ def main():
         f"重要提示：真实安装会整体替换 {skills_target} 中的同名 Skill，"
         "不会合并目录，也不会保留目标同名 Skill 目录中的额外文件。"
         "同时会删除本脚本上次安装过、但当前 profile/skills 中已不存在的 Skill。"
-        f"AGENTS.md 会写入 {codex_home / 'AGENTS.md'}。"
+        f"仓库中的 profile/codex-global-rules.md 会安装为 {codex_home / 'AGENTS.md'}。"
     )
+    if not args.dry_run:
+        confirm_install(args.yes)
+
     copy_file(agents_source, codex_home / "AGENTS.md", args.dry_run)
 
     for skill_name in sorted(previous_skill_names - current_skill_names):
@@ -221,7 +247,10 @@ def main():
     if args.dry_run:
         print(f"Dry run completed for {codex_home} and {agents_home}")
     else:
-        print(f"Profile installed: AGENTS.md -> {codex_home}, skills -> {agents_home / 'skills'}")
+        print(
+            f"Profile installed: profile/codex-global-rules.md -> {codex_home / 'AGENTS.md'}, "
+            f"skills -> {agents_home / 'skills'}"
+        )
 
 
 if __name__ == "__main__":

@@ -16,9 +16,24 @@ def default_config_home():
     return Path.home() / ".config" / "opencode"
 
 
-def configure_stdout():
+def configure_output():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
+
+
+def confirm_install(skip_confirmation, input_func=None):
+    if skip_confirmation:
+        return
+
+    input_func = input if input_func is None else input_func
+    try:
+        answer = input_func("确认按上述范围执行安装？[y/N]：").strip().lower()
+    except (EOFError, KeyboardInterrupt) as exc:
+        raise SystemExit("安装已取消。非交互执行请使用 --yes。") from exc
+    if answer not in {"y", "yes"}:
+        raise SystemExit("安装已取消。")
 
 
 def is_relative_to(path, parent):
@@ -53,7 +68,7 @@ def validate_base_url(value):
     return base_url
 
 
-def resolve_base_url(dry_run, environ=None, interactive=None, input_func=None):
+def resolve_base_url(allow_prompt, environ=None, interactive=None, input_func=None):
     environ = os.environ if environ is None else environ
     raw_value = environ.get(BASE_URL_ENV_NAME)
     if raw_value and raw_value.strip():
@@ -62,7 +77,7 @@ def resolve_base_url(dry_run, environ=None, interactive=None, input_func=None):
         except ValueError as exc:
             raise SystemExit(f"Environment variable {BASE_URL_ENV_NAME} is invalid: {exc}") from exc
 
-    if dry_run:
+    if not allow_prompt:
         return None
 
     interactive = sys.stdin.isatty() if interactive is None else interactive
@@ -94,7 +109,7 @@ def render_config(source_text, base_url):
 
 
 def main():
-    configure_stdout()
+    configure_output()
 
     parser = argparse.ArgumentParser(description="Install OpenCode config file.")
     parser.add_argument(
@@ -106,6 +121,11 @@ def main():
         "--dry-run",
         action="store_true",
         help="Print planned changes without writing files.",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Skip the confirmation prompt for a real install.",
     )
     args = parser.parse_args()
 
@@ -121,7 +141,7 @@ def main():
         raise SystemExit(f"{source} not found")
 
     source_text = source.read_text(encoding="utf-8")
-    base_url = resolve_base_url(args.dry_run)
+    base_url = resolve_base_url(allow_prompt=False)
 
     print(
         f"重要提示：真实安装会用 {source} 整体覆盖 {target}，"
@@ -136,6 +156,9 @@ def main():
         print(f"Environment variable {BASE_URL_ENV_NAME} is set and valid.")
     print(f"render {source} -> {target}")
     if not args.dry_run:
+        confirm_install(args.yes)
+        if base_url is None:
+            base_url = resolve_base_url(allow_prompt=True)
         rendered_config = render_config(source_text, base_url)
         target.parent.mkdir(parents=True, exist_ok=True)
         with target.open("w", encoding="utf-8", newline="\n") as file:

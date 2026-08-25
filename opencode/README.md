@@ -23,6 +23,8 @@ python opencode/install.py --dry-run
 python opencode/install.py
 ```
 
+真实安装会在覆盖配置前要求确认。需要非交互执行时传入 `--yes`。
+
 安装后需要重启 OpenCode，配置才会生效。
 
 ## 不同步内容

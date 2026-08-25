@@ -11,6 +11,7 @@
 > 2026-08-25
 
 - Codex 全局规则备份从 `profile/AGENTS.md` 更名为 `profile/codex-global-rules.md`，避免从 `profile/` 启动 Codex 时被误识别为项目规则；安装目标仍为 `~/.codex/AGENTS.md`
+- Codex、OpenCode 安装脚本和旧版 Skill 清理脚本在真实覆盖或删除前新增交互确认
 
 > 2026-08-24
 

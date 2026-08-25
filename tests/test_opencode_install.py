@@ -29,25 +29,35 @@ class ValidateBaseUrlTest(unittest.TestCase):
 class ResolveBaseUrlTest(unittest.TestCase):
     def test_uses_environment_variable_without_prompting(self):
         value = INSTALL.resolve_base_url(
-            False,
+            allow_prompt=False,
             environ={INSTALL.BASE_URL_ENV_NAME: "https://example.com/v1"},
             interactive=False,
         )
         self.assertEqual(value, "https://example.com/v1")
 
     def test_dry_run_does_not_prompt_when_variable_is_missing(self):
-        value = INSTALL.resolve_base_url(True, environ={}, interactive=True, input_func=lambda _: self.fail("prompted"))
+        value = INSTALL.resolve_base_url(
+            allow_prompt=False,
+            environ={},
+            interactive=True,
+            input_func=lambda _: self.fail("prompted"),
+        )
         self.assertIsNone(value)
 
     def test_prompts_until_input_is_valid(self):
         values = iter(["invalid", "https://example.com/v1"])
         with redirect_stderr(io.StringIO()):
-            value = INSTALL.resolve_base_url(False, environ={}, interactive=True, input_func=lambda _: next(values))
+            value = INSTALL.resolve_base_url(
+                allow_prompt=True,
+                environ={},
+                interactive=True,
+                input_func=lambda _: next(values),
+            )
         self.assertEqual(value, "https://example.com/v1")
 
     def test_non_interactive_install_requires_environment_variable(self):
         with self.assertRaises(SystemExit):
-            INSTALL.resolve_base_url(False, environ={}, interactive=False)
+            INSTALL.resolve_base_url(allow_prompt=True, environ={}, interactive=False)
 
 
 class RenderConfigTest(unittest.TestCase):
@@ -62,13 +72,30 @@ class RenderConfigTest(unittest.TestCase):
 
 
 class InstallIntegrationTest(unittest.TestCase):
-    def test_real_install_injects_url_without_printing_it(self):
+    def test_real_install_requires_confirmation_before_writing(self):
         base_url = "https://private.example.test/v1"
         with tempfile.TemporaryDirectory() as config_home:
             environ = os.environ.copy()
             environ[INSTALL.BASE_URL_ENV_NAME] = base_url
             result = subprocess.run(
                 [sys.executable, str(INSTALL_PATH), "--config-home", config_home],
+                input="no\n",
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                env=environ,
+            )
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse((Path(config_home) / INSTALL.SOURCE_NAME).exists())
+
+    def test_real_install_injects_url_without_printing_it(self):
+        base_url = "https://private.example.test/v1"
+        with tempfile.TemporaryDirectory() as config_home:
+            environ = os.environ.copy()
+            environ[INSTALL.BASE_URL_ENV_NAME] = base_url
+            result = subprocess.run(
+                [sys.executable, str(INSTALL_PATH), "--config-home", config_home, "--yes"],
                 check=True,
                 capture_output=True,
                 text=True,

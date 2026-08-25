@@ -21,9 +21,24 @@ def default_codex_home():
     return Path.home() / ".codex"
 
 
-def configure_stdout():
+def configure_output():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
+
+
+def confirm_cleanup(skip_confirmation, input_func=None):
+    if skip_confirmation:
+        return
+
+    input_func = input if input_func is None else input_func
+    try:
+        answer = input_func("确认按上述范围执行清理？[y/N]：").strip().lower()
+    except (EOFError, KeyboardInterrupt) as exc:
+        raise SystemExit("清理已取消。非交互执行请使用 --yes。") from exc
+    if answer not in {"y", "yes"}:
+        raise SystemExit("清理已取消。")
 
 
 def is_relative_to(path, parent):
@@ -96,7 +111,7 @@ def remove_skill(skill_name, skills_target, dry_run):
 
 
 def main():
-    configure_stdout()
+    configure_output()
 
     parser = argparse.ArgumentParser(
         description="Remove skills previously installed into ~/.codex/skills by the old install.py."
@@ -110,6 +125,11 @@ def main():
         "--dry-run",
         action="store_true",
         help="Print planned changes without writing files.",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Skip the confirmation prompt for a real cleanup.",
     )
     args = parser.parse_args()
 
@@ -129,6 +149,9 @@ def main():
         f"重要提示：本脚本会删除旧版本 install.py 安装到 {skills_target} 中的 Skill，"
         f"以及旧 manifest 文件 {manifest_path}。请先使用 --dry-run 确认清理范围再执行。"
     )
+    if not args.dry_run:
+        confirm_cleanup(args.yes)
+
     for skill_name in sorted(skill_names):
         remove_skill(skill_name, skills_target, args.dry_run)
 

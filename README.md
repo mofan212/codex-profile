@@ -3,7 +3,7 @@
 个人 Codex 全局规则和共享 Skills 的备份仓库，另附可公开同步的 OpenCode 配置。
 
 > [!WARNING]
-> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/codex-global-rules.md` 会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围再执行。
+> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/codex-global-rules.md` 会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围，真实执行时会再提示确认。
 
 当前包含：
 
@@ -30,6 +30,9 @@ python install.py --dry-run
 
 # 自定义全局规则和 Skills 的安装位置
 python install.py --codex-home C:\Users\YourName\.codex --agents-home C:\Users\YourName\.agents
+
+# 跳过交互确认
+python install.py --yes
 ```
 
 从旧版本升级（Skills 曾安装到 `~/.codex/skills/`）时，先运行一次清理脚本，再安装：
@@ -39,6 +42,8 @@ python scripts/cleanup_legacy_codex_skills.py --dry-run
 python scripts/cleanup_legacy_codex_skills.py
 python install.py
 ```
+
+清理脚本同样会在删除前要求确认，可用 `--yes` 跳过。
 
 # Skill 软依赖关系
 
