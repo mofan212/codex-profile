@@ -11,6 +11,7 @@
 - `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
 - `profile/AGENTS.md`：个人 Codex 全局规则
 - `profile/skills/`：个人自定义 Skills（Codex 和 OpenCode 共用）
+- `prompts/`：尚未充分验证或暂不足以沉淀为 Skill 的提示词
 - `opencode/`：可公开同步的 OpenCode 配置及独立安装说明
 - `install.py`：Windows、macOS、Linux 通用 Codex 安装入口
 

@@ -1,13 +1,13 @@
 # 1. 项目定位
 
-- 当前仓库是 Codex Profile 备份仓库，主要用于保存可迁移的 Codex 全局规则和共享 Skills，另附可公开同步的 OpenCode 配置
+- 当前仓库是 Codex Profile 备份仓库，主要用于保存可迁移的 Codex 全局规则、共享 Skills 和收集的提示词，另附可公开同步的 OpenCode 配置
 - 根目录 `AGENTS.md` 只约束 AI 在当前仓库中的行为，不是要安装到 Codex 全局目录的备份文件
-- 要备份和安装的 Codex 全局规则是 `profile/AGENTS.md`，自定义 Skill 位于 `profile/skills/`；OpenCode 公开配置位于 `opencode/opencode.jsonc`，详细说明位于 `opencode/README.md`
+- 要备份和安装的 Codex 全局规则是 `profile/AGENTS.md`，自定义 Skill 位于 `profile/skills/`；提示词位于 `prompts/`，不参与安装，维护规则见 `prompts/AGENTS.md`；OpenCode 公开配置位于 `opencode/opencode.jsonc`，详细说明位于 `opencode/README.md`
 
 # 2. 默认修改目标
 
-- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`；要求修改 OpenCode 配置时，默认修改 `opencode/opencode.jsonc`
-- 用户只说「修改 Skill」「改全局规则」「更新配置」时，先理解为修改当前仓库中的备份源码
+- 用户要求修改 Codex 全局规则时，默认修改 `profile/AGENTS.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`；要求新增、修改或整理提示词时，默认修改 `prompts/`；要求修改 OpenCode 配置时，默认修改 `opencode/opencode.jsonc`
+- 用户只说「修改 Skill」「改全局规则」「记提示词」「更新配置」时，先理解为修改当前仓库中的备份源码
 - 只有目标位置互相冲突、用户语义明确指向本机已安装配置目录，或需要修改当前工作区之外的文件时，才先向用户确认
 - 除非用户明确要求安装、同步到本机或修改本机已安装配置目录，否则不要修改 `~/.codex/AGENTS.md`、`~/.agents/skills/`、`~/.config/opencode/opencode.jsonc` 或其他已安装目录
 
