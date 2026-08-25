@@ -3,13 +3,13 @@
 个人 Codex 全局规则和共享 Skills 的备份仓库，另附可公开同步的 OpenCode 配置。
 
 > [!WARNING]
-> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/AGENTS.md` 也会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围再执行。
+> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/codex-global-rules.md` 会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围再执行。
 
 当前包含：
 
 - `AGENTS.md`：当前仓库的规则（约束 AI 在本仓库的行为）
 - `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
-- `profile/AGENTS.md`：个人 Codex 全局规则
+- `profile/codex-global-rules.md`：个人 Codex 全局规则
 - `profile/skills/`：个人自定义 Skills（Codex 和 OpenCode 共用）
 - `prompts/`：尚未充分验证或暂不足以沉淀为 Skill 的提示词
 - `opencode/`：可公开同步的 OpenCode 配置及独立安装说明
@@ -17,7 +17,7 @@
 
 # 使用和更新方式
 
-根目录 `install.py` 会把 `profile/AGENTS.md` 复制到 `~/.codex/`，把 `profile/skills/` 复制到 `~/.agents/skills/`。OpenCode 配置独立同步，详细说明见 [`opencode/README.md`](opencode/README.md)。
+根目录 `install.py` 会把 `profile/codex-global-rules.md` 复制为 `~/.codex/AGENTS.md`，把 `profile/skills/` 复制到 `~/.agents/skills/`。OpenCode 配置独立同步，详细说明见 [`opencode/README.md`](opencode/README.md)。
 
 常用命令：
 

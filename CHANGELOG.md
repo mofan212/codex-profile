@@ -8,6 +8,10 @@
 
 日期节点按倒序排列。当天日期节点已存在时，将新变更追加到该节点的列表末尾；当天日期节点不存在时，在本节开头新增日期节点。
 
+> 2026-08-25
+
+- Codex 全局规则备份从 `profile/AGENTS.md` 更名为 `profile/codex-global-rules.md`，避免从 `profile/` 启动 Codex 时被误识别为项目规则；安装目标仍为 `~/.codex/AGENTS.md`
+
 > 2026-08-24
 
 - Skills 安装目录从 `~/.codex/skills/` 改为 `~/.agents/skills/`（Codex 和 OpenCode 共用）；`install.py` 新增 `--agents-home` 参数，用于指定 `.agents` 目录（默认 `~/.agents`），Skills 会安装到该目录下的 `skills/` 子目录

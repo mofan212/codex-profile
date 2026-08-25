@@ -187,13 +187,13 @@ def main():
     validate_target_home(agents_home, repo_root)
 
     profile_root = repo_root / "profile"
-    agents_source = profile_root / "AGENTS.md"
+    agents_source = profile_root / "codex-global-rules.md"
     skills_source = profile_root / "skills"
     skills_target = agents_home / "skills"
     manifest_path = agents_home / MANIFEST_NAME
 
     if not agents_source.is_file():
-        raise SystemExit("profile/AGENTS.md not found")
+        raise SystemExit("profile/codex-global-rules.md not found")
     if not skills_source.is_dir():
         raise SystemExit("profile/skills directory not found")
 
