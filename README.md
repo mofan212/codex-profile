@@ -109,7 +109,7 @@ flowchart TD
 flowchart LR
     request(["📋 用户需求"])
     precheck{{"⚙️ 前置检查"}}
-    docs["确认文档"]
+    docs["确定目标目录\n计算目录内序号"]
 
     subgraph clarify ["需求澄清"]
         grill["需求澄清\ngrill-with-docs"]

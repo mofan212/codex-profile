@@ -1,6 +1,6 @@
 ---
 name: feat
-description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Ticket 拆分到实现前检查、Review 门禁和最终归档。当用户通过 `$feat` 手动启动新需求或续跑既有工作流时，使用该 Skill。
+description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Ticket 拆分到实现前检查、Review 门禁和最终归档。
 ---
 
 # 1. 定位
@@ -41,7 +41,7 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 | `split_tickets` | 是否能调用 `to-tickets` 或读取其产物 | 无法调用时，提示用户运行 `/to-tickets`，或提供拆分结果供当前流程补齐 Ticket DoR / DoD |
 | `archive_ai_docs` | 当前会话是否可用 `maintain-ai-context-docs` | 提示用户添加或启用该 Skill |
 
-`draft_requirement` 阶段只需要当前任务描述、[references/draft-protocol.md](references/draft-protocol.md) 和 [references/requirement-template.md](references/requirement-template.md)，不要因为外部工作流 Skill 不可用而阻塞草稿创建。
+`draft_requirement` 阶段只需要当前任务描述、[references/draft-protocol.md](references/draft-protocol.md) 和 [references/requirement-template.md](references/requirement-template.md)，外部工作流 Skill 不可用时仍可创建草稿。
 
 不要把具体实现类 Skill 作为前置条件。
 
@@ -96,7 +96,7 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 
 | read_key | read | purpose | skip_when |
 | --- | --- | --- | --- |
-| `draft_protocol` | [references/draft-protocol.md](references/draft-protocol.md) | 按标准协议定位目录、命名需求目录、计算序号并创建需求草稿 | 已有可用需求草稿 |
+| `draft_protocol` | [references/draft-protocol.md](references/draft-protocol.md) | 定位目标目录、概括需求简述、计算目标目录内的序号并创建需求草稿 | 已有可用需求草稿 |
 | `requirement_template` | [references/requirement-template.md](references/requirement-template.md) | 生成可继续澄清的初版需求文档 | 已有可用需求草稿 |
 | `readiness_checklists` | [references/readiness-checklists.md](references/readiness-checklists.md) | 使用 Feature DoR、Ticket DoR、Ticket DoD、垂直切片和归档检查项判断能否继续 | 当前阶段不涉及对应门禁检查 |
 | `review_loop` | [references/review-loop.md](references/review-loop.md) | 执行 Review 策略选择、Subagents Review 协议和修复循环 | 当前 Ticket 不涉及代码、测试、配置、接口、数据结构、长期文档或 AI 检索事实 |
