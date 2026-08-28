@@ -8,6 +8,10 @@
 
 日期节点按倒序排列。当天日期节点已存在时，将新变更追加到该节点的列表末尾；当天日期节点不存在时，在本节开头新增日期节点。
 
+> 2026-08-28
+
+- `feat` 新增需求文档收敛终态和 Feature 级临时文件隔离；升级后，续跑状态写入 `.feat-tmp/<需求序号>-feat-state.md`，完成时只清理当前需求序号的临时文件
+
 > 2026-08-25
 
 - Codex 全局规则备份从 `profile/AGENTS.md` 更名为 `profile/codex-global-rules.md`，避免从 `profile/` 启动 Codex 时被误识别为项目规则；安装目标仍为 `~/.codex/AGENTS.md`

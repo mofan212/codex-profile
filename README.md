@@ -67,7 +67,7 @@ flowchart TD
     feat -->|需求澄清| grillWithDocs
     feat -->|需求整理| toSpec
     feat -->|Ticket 拆分| toTickets
-    feat -->|最终归档与路由维护| maintainAiContextDocs
+    feat -->|AI 检索归档与路由维护| maintainAiContextDocs
     javaBackendCode -->|命名协作| javaNaming
 
     style feat fill:#4f46e5,color:#fff,stroke:#3730a3
@@ -97,8 +97,10 @@ flowchart TD
 | `grill-with-docs` | 外部依赖 | 基于需求文档和项目领域文档澄清需求 |
 | `to-spec` | 外部依赖 | 按 Spec 结构整理和完善当前需求文档 |
 | `to-tickets` | 外部依赖 | 将需求或 Spec 拆分为带阻塞关系的垂直切片 Ticket |
-| `feat` | 本仓库维护 | 仅通过 `$feat` 手动调用，编排需求澄清、Ticket 拆分、实现门禁、Review 循环和归档 |
+| `feat` | 本仓库维护 | 仅通过 `$feat` 手动调用，编排需求澄清、Ticket 拆分、实现门禁、Review、AI 检索归档和需求文档收敛 |
 | `maintain-ai-context-docs` | 本仓库维护 | 生产和维护 AI 检索文档、上下文入口及项目既有启动路由的连通性 |
+
+`feat` 将未完成 Feature 的最小状态保存到需求文档同级的 `.feat-tmp/<需求序号>-feat-state.md`，Ticket 实现沉淀保存到 `.feat-tmp/tickets/<需求序号>-*-实现沉淀.md`；完成时只清理当前需求序号对应的文件。
 
 <details>
 <summary>🔄 &nbsp;<b>feat 工作流详细阶段图</b></summary>
@@ -143,16 +145,27 @@ flowchart LR
     end
 
     review{{"📝 Review Loop\nSubagents / 外部 Review / 自审"}}
-    archive(["✅ 最终归档\nmaintain-ai-context-docs"])
+    dod{{"Ticket DoD"}}
+    more{"还有未完成 Ticket？"}
+    archive["AI 检索归档\nmaintain-ai-context-docs"]
+    converge(["✅ 需求文档收敛\n清理临时工作流信息"])
 
     slice --> locate --> verify --> implement
     implement --> review
-    review -->|"✅ 通过"| archive
+    review -->|"✅ 通过"| dod
+    dod -->|"🔄 补齐后复查"| dod
+    dod -->|"✅ 通过"| more
+    more -->|"是"| slice
+    more -->|"否，全部 Ticket DoD 通过"| archive
+    archive --> converge
     review -->|"🔄 修复后重审"| review
 
     style slice fill:#6366f1,color:#fff,stroke:#4f46e5
     style review fill:#475569,color:#fff,stroke:#334155
+    style dod fill:#475569,color:#fff,stroke:#334155
+    style more fill:#475569,color:#fff,stroke:#334155
     style archive fill:#10b981,color:#fff,stroke:#059669
+    style converge fill:#10b981,color:#fff,stroke:#059669
     style locate fill:#10b981,color:#fff,stroke:#059669
     style verify fill:#10b981,color:#fff,stroke:#059669
     style implement fill:#10b981,color:#fff,stroke:#059669
