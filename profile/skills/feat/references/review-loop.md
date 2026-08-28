@@ -9,9 +9,9 @@ Main Agent 永远负责阶段状态、Review 结论复核、修复决策、Ticke
 | trigger | action | forbidden |
 | --- | --- | --- |
 | Ticket 已实现且涉及代码、测试、配置、接口、数据结构、长期文档或 AI 检索事实 | 进入 `review_loop`；首次询问时先列出当前环境可用的 Review 策略，再在策略之后单独提供可直接复制的外部 Review 提示词，用户无需先选择外部 Review | 未经过 Review 或明确替代策略就执行 Ticket DoD |
-| 当前会话支持启动独立 Subagents，且用户明确选择 Subagents Review | 启动 Review Subagents，传入 §3 上下文，要求按 §4 输出 Review 结果 | 未经用户明确选择就启动 Subagents Review；让 Subagents 修改代码或裁决 DoD |
+| 当前会话支持启动独立 Subagents，且用户明确选择 Subagents Review | 启动 Review Subagents，传入 [Review 输入](#3-review-输入) 规定的上下文，要求按 [Review 输出格式](#4-review-输出格式) 返回结果 | 未经用户明确选择就启动 Subagents Review；让 Subagents 修改代码或裁决 DoD |
 | 当前会话不支持 Subagents，或用户未选择 Subagents Review | 暂停并说明可用 Review 策略；询问用户选择 Main Agent 自审、提供外部 Review 结果，或跳过 Review 并记录原因 | 静默降级为 Main Agent 自审；把 Main Agent 自审称为独立 Review |
-| 用户提供外部 Review 结果 | 读取 [readiness-checklists.md](readiness-checklists.md) 的「Review 结果处理规则」分类并处理 | 要求外部 Review 必须使用固定格式后才处理 |
+| 用户提供外部 Review 结果 | 读取 [Review 结果处理规则](readiness-checklists.md#5-review-结果处理规则) 分类并处理 | 要求外部 Review 必须使用固定格式后才处理 |
 | 用户明确选择跳过 Review | 记录跳过原因和风险，继续执行 Ticket DoD 的其他检查 | 未记录原因就通过 Review 门禁 |
 
 如果用户选择 Main Agent 自审，完成说明和工作流产物中必须写明 `Review 方式：Main Agent 自审`。

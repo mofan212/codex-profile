@@ -37,7 +37,7 @@
 - `Exception`：异常类型
 - `Thrower`：集中抛出或构造领域异常
 - `Utils` / `Util`：无状态工具类，通常使用静态方法
-- `Helper`：辅助协作者；与 `Utils` / `Util` / `Support` 的边界见第 4 节
+- `Helper`：辅助协作者；与 `Utils` / `Util` / `Support` 的边界见 [`Utils` / `Util` / `Helper` / `Support` 边界](#4-utils--util--helper--support-边界)
 - `Support`：框架支撑、抽象基类、可继承公共能力，或特定包内的内部支撑类
 - `Accessor`：对复杂结构做计算式或中介式访问
 - `Generator`：生成代码、ID、Key 或产物

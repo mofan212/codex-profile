@@ -9,9 +9,9 @@
 | mode | condition | action |
 | --- | --- | --- |
 | `route_only` | 用户要求补充第一跳、下一入口、上下级路由、连通性、孤立节点、循环检查，或同步新增、删除、重命名、移动后的路由 | 只读取当前节点、直接上级、直接下级和确认实际路径所需的相关段落；不读取整个路由范围的 AI 检索文档 |
-| `scope_maintenance` | 用户要求根据入口统一维护其路由范围内的 AI 检索文档，或当前变更需求需要同步维护长期事实 | 按后续章节检查变更需求文档和确认维护范围 |
+| `scope_maintenance` | 用户要求根据入口统一维护其路由范围内的 AI 检索文档，或当前变更需求需要同步维护长期事实 | 按 [先查变更需求文档](#3-先查变更需求文档) 检查；没有变更时按 [没有变更需求文档](#4-没有变更需求文档) 确认维护范围 |
 
-`route_only` 模式读取 [writing-context-entry-doc.md](writing-context-entry-doc.md) 后执行最小修改，并按 [completion-checklist.md](completion-checklist.md) 完成路由校验；完成后不进入后续章节。
+`route_only` 模式读取 [writing-context-entry-doc.md](writing-context-entry-doc.md) 后执行最小修改，并按 [completion-checklist.md](completion-checklist.md) 完成路由校验；完成后结束本流程，不再检查变更需求文档或统一维护范围。
 
 # 3. 先查变更需求文档
 

@@ -47,7 +47,7 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 
 # 4. 阶段状态机
 
-续跑时先读取需求文档和 Ticket 列表，按需扫描 `.feat-tmp/tickets/` 的实现沉淀，结合 DoR / DoD、最近验证结果、Review 结果、归档状态和必要代码事实，按下表定位当前阶段。只执行匹配行的动作；`gate_id` 详见 §6 门禁表，`read_key` 详见 §6 引用文件路由。
+续跑时先读取需求文档和 Ticket 列表，按需扫描 `.feat-tmp/tickets/` 的实现沉淀，结合 DoR / DoD、最近验证结果、Review 结果、归档状态和必要代码事实，按下表定位当前阶段。只执行匹配行的动作；`gate_id` 和 `read_key` 分别见 [门禁与编排](#6-门禁与编排) 中的门禁表与引用文件路由。
 
 | state_id | detect_by | required_input | action | gate_id | read_key | next_state |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -135,7 +135,7 @@ description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Tic
 
 Ticket 完成后，如果新增或修改入口、调用链、配置项、数据结构、验证命令、排查关键词，或产生影响后续 AI 理解代码的实现事实，在需求文档同级目录下创建或更新 `.feat-tmp/tickets/<需求序号>-<Ticket序号>-<Ticket简述>-实现沉淀.md`；文件不存在时读取 [references/implementation-notes-template.md](references/implementation-notes-template.md) 后创建。没有产生需要沉淀的实现事实时，在完成说明中写明 `无需更新 Ticket 实现沉淀`。
 
-全部 Ticket 完成后，`archive_ai_docs` 阶段的归档和 `.feat-tmp/` 清理规则详见 [references/readiness-checklists.md](references/readiness-checklists.md) 中的「`.feat-tmp/` 临时工作区归档规则」。当需求文档命名为 `<需求序号>-<需求简述>-需求文档.md` 时，最终 AI 检索文档由 `maintain-ai-context-docs` 默认生成或更新为相邻编号的 `<相邻序号>-<需求简述>-AI检索说明.md`，例如 `10-订单超时处理-需求文档.md` 对应 `11-订单超时处理-AI检索说明.md`。
+全部 Ticket 完成后，`archive_ai_docs` 阶段的归档和 `.feat-tmp/` 清理规则详见 [`.feat-tmp/` 临时工作区归档规则](references/readiness-checklists.md#6-feat-tmp-临时工作区归档规则)。当需求文档命名为 `<需求序号>-<需求简述>-需求文档.md` 时，最终 AI 检索文档由 `maintain-ai-context-docs` 默认生成或更新为相邻编号的 `<相邻序号>-<需求简述>-AI检索说明.md`，例如 `10-订单超时处理-需求文档.md` 对应 `11-订单超时处理-AI检索说明.md`。
 
 阶段推进后的关键结论必须落到对应工作流产物中，使后续会话能从需求文档、Ticket、`.feat-tmp/` 或 AI 检索文档恢复当前阶段；不要只依赖聊天上下文保存阶段状态。
 

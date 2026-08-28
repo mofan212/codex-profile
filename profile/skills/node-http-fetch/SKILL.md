@@ -7,7 +7,7 @@ description: 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API 接
 
 ## 1. 执行流程
 
-1. 按「副作用门禁」判断请求是否可以立即执行。
+1. 按 [副作用门禁](#2-副作用门禁) 判断请求是否可以立即执行。
 2. 优先使用工作区 Node；不可用时使用 `where.exe node` 查找本机 Node。找不到 Node 时报告阻塞；未经用户同意，不安装依赖或切换 HTTP 客户端。
 3. JSON 请求优先运行 [scripts/fetch-json.mjs](scripts/fetch-json.mjs)；串联请求复用同一请求 helper；文件上传、表单、二进制或 raw body 使用专用 `.mjs` 脚本。
 4. 通过环境变量传入请求参数；敏感值不得写入可复用脚本、生成产物、日志或最终回复。
