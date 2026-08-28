@@ -8,7 +8,7 @@ Main Agent 永远负责阶段状态、Review 结论复核、修复决策、Ticke
 
 | trigger | action | forbidden |
 | --- | --- | --- |
-| Ticket 已实现且涉及代码、测试、配置、接口、数据结构、长期文档或 AI 检索事实 | 进入 `review_loop`；首次询问 Review 策略时同步生成可直接复制的外部 Review 提示词，用户无需先选择外部 Review | 未经过 Review 或明确替代策略就执行 Ticket DoD |
+| Ticket 已实现且涉及代码、测试、配置、接口、数据结构、长期文档或 AI 检索事实 | 进入 `review_loop`；首次询问时先列出当前环境可用的 Review 策略，再在策略之后单独提供可直接复制的外部 Review 提示词，用户无需先选择外部 Review | 未经过 Review 或明确替代策略就执行 Ticket DoD |
 | 当前会话支持启动独立 Subagents，且用户明确选择 Subagents Review | 启动 Review Subagents，传入 §3 上下文，要求按 §4 输出 Review 结果 | 未经用户明确选择就启动 Subagents Review；让 Subagents 修改代码或裁决 DoD |
 | 当前会话不支持 Subagents，或用户未选择 Subagents Review | 暂停并说明可用 Review 策略；询问用户选择 Main Agent 自审、提供外部 Review 结果，或跳过 Review 并记录原因 | 静默降级为 Main Agent 自审；把 Main Agent 自审称为独立 Review |
 | 用户提供外部 Review 结果 | 读取 [readiness-checklists.md](readiness-checklists.md) 的「Review 结果处理规则」分类并处理 | 要求外部 Review 必须使用固定格式后才处理 |
@@ -44,6 +44,8 @@ Main Agent 永远负责阶段状态、Review 结论复核、修复决策、Ticke
 | `suggestion` | 给出最小修复方向，不扩大 Ticket 范围 |
 
 没有发现问题时，输出 `无阻塞问题`，并简要说明 Review 覆盖范围。
+
+首次提供给用户的外部 Review 提示词必须要求：存在 findings 时，Reviewer 的最终响应只包含一个 Markdown 代码围栏，围栏内按上表字段存放完整 Review 结果，便于用户原样复制回传；没有 findings 时正常输出 `无阻塞问题` 和 Review 覆盖范围，无需使用代码围栏。
 
 # 5. Main Agent 复核
 
