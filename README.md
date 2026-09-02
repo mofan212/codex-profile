@@ -144,7 +144,7 @@ flowchart LR
         implement["实现代码与测试"]
     end
 
-    review{{"📝 Review Loop\nSubagents / 外部 Review / 自审"}}
+    review{{"📝 Review Loop\nSubagents / 外部 Review / 跳过 Review"}}
     dod{{"Ticket DoD"}}
     more{"还有未完成 Ticket？"}
     archive["AI 检索归档\nmaintain-ai-context-docs"]
