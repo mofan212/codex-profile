@@ -130,6 +130,7 @@ updated_at: "YYYY-MM-DD"
 | `review_classification` | [references/readiness-checklists.md](references/readiness-checklists.md) | 收到外部 Review 结果或需要分类 Review 意见时，判断阻塞级问题、非阻塞建议和不处理项 | 当前阶段没有 Review 结果 |
 | `code_fact_check` | [references/code-fact-check.md](references/code-fact-check.md) | 校验 Ticket 技术假设与当前代码事实的一致性，按阻塞/非阻塞分级处理 | 当前 Ticket 不涉及代码改动 |
 | `implementation_notes_template` | [references/implementation-notes-template.md](references/implementation-notes-template.md) | 记录单个 Ticket 完成后的实现事实，供最终归档 | 没有产生需要沉淀的实现事实 |
+| `failure_and_antipatterns` | [references/failure-and-antipatterns.md](references/failure-and-antipatterns.md) | 处理阶段阻塞、验证缺失、Review 失败和反模式 | 正常阶段推进且未命中异常 |
 
 默认只参考 `to-spec` 的 Spec 模板和整理方式完善当前需求文档，不执行 `to-spec` 的发布流程，不创建独立 Spec Ticket，也不创建第二份权威 Spec。只有用户明确要求发布或创建独立 Spec 时，才使用完整 `to-spec` 流程。
 
@@ -137,29 +138,11 @@ updated_at: "YYYY-MM-DD"
 
 专用 Skill 的规则优先处理具体执行细节；本 Skill 只保留阶段、门禁和交接约束。
 
-# 7. 失败处理
+# 7. 异常与反例
 
-| failure | first_action | fallback | stop_when |
-| --- | --- | --- | --- |
-| 续跑时找不到需求文档路径 | 🔴 CHECKPOINT：只问一个问题确认需求文档、Ticket 或 `.feat-tmp/` 位置 | 如果用户只提供 Ticket 或实现沉淀，先用其反查来源需求文档 | 无法确认来源需求文档时，不创建新需求文档 |
-| 无法判断当前阶段 | 列出已读产物、匹配到的状态信号和缺失信息 | 只问一个最关键问题，例如需求文档路径、Ticket 编号或 Review 策略 | 阶段仍不明时，不跳到后续阶段 |
-| 外部工作流 Skill 不可用 | 判断当前阶段是否必须依赖该 Skill 或其产物 | 允许用户粘贴对应产物，由当前流程只做回写、门禁检查或状态判断 | 必需产物缺失且无法替代时停止该阶段 |
-| 需求文档与代码事实冲突 | 读取 [references/code-fact-check.md](references/code-fact-check.md)，按 `code_fact_check` 门禁处理 | 允许用户修正需求、调整 Ticket 或确认当前代码事实 | 阻塞级差异未解决时不进入实现 |
-| Ticket 已实现但缺少验证记录 | 🔴 CHECKPOINT：要求补充最近验证命令、输出或可复现检查结果 | 无法运行时记录静态核对范围、未验证项和风险 | 没有任何验证依据时不关闭 Ticket |
-| Review 存在阻塞级问题 | 🛑 STOP：先修复阻塞问题并重新验证 | 非阻塞建议可处理或记录不处理理由 | 阻塞级问题未处理时不进入 Ticket DoD |
+命中阶段阻塞、验证缺失或 Review 失败时，读取 [失败处理与反例](references/failure-and-antipatterns.md) 的「失败处理」部分，按 `first_action`、`fallback` 和 `stop_when` 执行；命中反模式时读取同一文件的「反例黑名单」部分，按 `required_action` 执行。未命中异常时跳过该 reference，不重复加载。
 
-# 8. 反例与黑名单
-
-| anti_pattern | risk | canonical_rule | required_action |
-| --- | --- | --- | --- |
-| 没有 Feature DoR 就拆 Ticket | Ticket 目标、非目标、验收和依赖不稳定 | `feature_dor_after_spec` | 回到 `feature_dor` 阶段执行门禁 |
-| 按 Controller、Service、Mapper、数据库表或测试层拆 Ticket | Ticket 不能独立交付或验收 | `vertical_slice` | 回到 `split_tickets` 阶段按垂直切片拆分 |
-| 实现完成或测试通过后直接关闭 Ticket | 跳过 Review、验证复核、Ticket DoD 和实现沉淀 | `review_loop`、`ticket_dod` | 先进入 `review_loop`，通过后再执行 Ticket DoD |
-| 把需求设想写入 AI 检索文档 | 长期检索文档污染代码事实 | `archive_ai_docs` | 只把已实现的代码事实归档到 AI 检索文档 |
-| 用 `.feat-tmp/` 掩盖长期事实或未完成决策 | 后续会话无法判断权威来源 | `archive_ai_docs` | 阶段结论写回权威产物；最终归档后再按规则处理 `.feat-tmp/` |
-| AI 检索文档归档后直接宣布 Feature 完成 | 需求文档继续混入门禁、Ticket 状态和实施过程 | `requirement_doc_convergence` | 先执行需求文档职责检查和临时内容清理 |
-
-# 9. 沉淀与报告
+# 8. 沉淀与报告
 
 Ticket 完成后，如果新增或修改入口、调用链、配置项、数据结构、验证命令、排查关键词，或产生影响后续 AI 理解代码的实现事实，在需求文档同级目录下创建或更新 `.feat-tmp/tickets/<需求序号>-<Ticket序号>-<Ticket简述>-实现沉淀.md`；文件不存在时读取 [references/implementation-notes-template.md](references/implementation-notes-template.md) 后创建。没有产生需要沉淀的实现事实时，在完成说明中写明 `无需更新 Ticket 实现沉淀`。
 
