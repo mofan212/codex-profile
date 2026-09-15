@@ -1,23 +1,33 @@
 # Codex Profile
 
-个人 Codex 全局规则和共享 Skills 的备份仓库，另附可公开同步的 OpenCode 配置。
+个人 Codex 全局规则和共享 Skills 的备份仓库。
 
 > [!WARNING]
-> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 本机 `~/.agents/skills/` 下的对应目录，不会合并，也不会保留本机的额外文件；脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除。`profile/codex-global-rules.md` 会覆盖 `~/.codex/AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围，真实执行时会再提示确认。
+> 执行 `python install.py` 真实安装时，`profile/skills/` 中的同名 Skill 会 **整体替换** 各安装目标中的对应目录，不会合并，也不会保留同名目录中的额外文件。脚本上次安装过、但当前 `profile/skills/` 已不存在的 Skill 也会被删除，其他 Skill 保留。全局规则会覆盖各安装目标中的 `AGENTS.md`。请先用 `python install.py --dry-run` 确认同步范围，真实执行时会再提示确认。
 
 当前包含：
 
 - `AGENTS.md`：当前仓库的规则（约束 AI 在本仓库的行为）
 - `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
 - `profile/codex-global-rules.md`：个人 Codex 全局规则
-- `profile/skills/`：个人自定义 Skills（Codex 和 OpenCode 共用）
+- `profile/skills/`：个人自定义 Skills
 - `prompts/`：尚未充分验证或暂不足以沉淀为 Skill 的提示词
-- `opencode/`：可公开同步的 OpenCode 配置及独立安装说明
 - `install.py`：Windows、macOS、Linux 通用 Codex 安装入口
 
 # 使用和更新方式
 
-根目录 `install.py` 会把 `profile/codex-global-rules.md` 复制为 `~/.codex/AGENTS.md`，把 `profile/skills/` 复制到 `~/.agents/skills/`。OpenCode 配置独立同步，详细说明见 [`opencode/README.md`](opencode/README.md)。
+根目录 `install.py` 按以下规则安装，`~` 表示当前用户主目录：
+
+| 仓库来源 | 默认安装位置 | 安装条件 |
+| --- | --- | --- |
+| `profile/codex-global-rules.md` | `~/.codex/AGENTS.md` | 始终安装，可用 `--codex-home` 指定目标目录 |
+| `profile/skills/` | `~/.agents/skills/` | 始终安装，可用 `--agents-home` 指定目标父目录 |
+| `profile/codex-global-rules.md` | `~/.dsh/AGENTS.md` | 用户主目录下已存在 `.dsh` 目录 |
+| `profile/skills/` | `~/.workbuddy/skills/` | 用户主目录下已存在 `.workbuddy` 目录 |
+
+两个追加条件独立判断，不主动创建 `.dsh` 或 `.workbuddy`，但会为已存在的 `.workbuddy` 创建缺失的 `skills/`。追加目标不受 `--codex-home`、`--agents-home` 影响，全部安装目标共用一次确认，`--dry-run` 只展示计划。
+
+WorkBuddy 与 `.agents` 使用相同的 Skill 替换和清理逻辑，两处分别在各自目录下维护 `.agents-profile-install.json`，仅清理各自清单记录的旧 Skill。
 
 常用命令：
 

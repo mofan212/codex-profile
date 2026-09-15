@@ -39,9 +39,3 @@ __pycache__/
 
 # Local Skill evaluation artifacts
 .darwin/
-
-# OpenCode local state and credentials
-/opencode/auth.json
-/opencode/opencode.db*
-/opencode/snapshot/
-/opencode/tool-output/

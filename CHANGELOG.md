@@ -8,6 +8,11 @@
 
 日期节点按倒序排列。当天日期节点已存在时，将新变更追加到该节点的列表末尾；当天日期节点不存在时，在本节开头新增日期节点。
 
+> 2026-09-15
+
+- 移除 OpenCode 配置备份、独立安装脚本及相关说明，仓库不再提供 OpenCode 配置同步，本机已安装配置不受影响
+- 安装脚本在用户主目录已存在 `.dsh` 时追加覆盖 `.dsh/AGENTS.md`，已存在 `.workbuddy` 时追加同步 `.workbuddy/skills/`，使用与 `.agents` 相同的整体替换和旧 Skill 清理逻辑，并独立维护安装清单。追加目标不受 `--codex-home`、`--agents-home` 影响，安装前可用 `--dry-run` 查看完整范围
+
 > 2026-08-28
 
 - `feat` 新增需求文档收敛终态和 Feature 级临时文件隔离；升级后，续跑状态写入 `.feat-tmp/<需求序号>-feat-state.md`，完成时只清理当前需求序号的临时文件
@@ -21,7 +26,7 @@
 
 - Skills 安装目录从 `~/.codex/skills/` 改为 `~/.agents/skills/`（Codex 和 OpenCode 共用）；`install.py` 新增 `--agents-home` 参数，用于指定 `.agents` 目录（默认 `~/.agents`），Skills 会安装到该目录下的 `skills/` 子目录
 - 新增 `scripts/cleanup_legacy_codex_skills.py`，曾用旧版安装过的用户需运行一次，清理 `~/.codex/skills/` 中的旧安装
-- 新增可公开同步的 OpenCode 配置和独立安装脚本，安装时从 `OPENCODE_CUSTOM_BASE_URL` 或交互输入注入实际 provider 地址，详见 [OpenCode 配置同步说明](opencode/README.md)
+- 新增可公开同步的 OpenCode 配置和独立安装脚本，安装时从 `OPENCODE_CUSTOM_BASE_URL` 或交互输入注入实际 provider 地址
 
 > 2026-08-14
 
