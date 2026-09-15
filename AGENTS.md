@@ -39,7 +39,8 @@
 
 ## 3.3 校验与保护
 
-- 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml` 的字段完整性与语言规则、引用文件路径和 `README.md` 同步关系；能运行校验时优先运行校验
+- 只在 Skill 自身定位为手动入口，或用户明确要求禁止自动调用时，才在两处同时声明显式触发：`SKILL.md` frontmatter 的 `disable-model-invocation: true` 与 `agents/openai.yaml` 的 `policy.allow_implicit_invocation: false`，且不得只写其一
+- 新增、修改或优化 Skill 后必须检查 `description`、正文语言、`agents/openai.yaml` 的字段完整性与语言规则、引用文件路径、调用策略声明一致性和 `README.md` 同步关系；能运行校验时优先运行校验
 - 新增 Skill 或较大修改既有 Skill 后，须向用户呈现结构质量评审要点；脚本校验不能替代该复核，发现不符合项时必须继续修改并重新检查
 - 在 Windows 中文环境运行 Skill 校验脚本读取中文 Markdown 时，如果遇到默认编码错误，优先使用 UTF-8 模式运行，例如设置 `PYTHONUTF8=1` 后再执行校验；不要把编码报错误判为 Skill 格式错误
 

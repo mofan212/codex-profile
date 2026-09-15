@@ -1,6 +1,7 @@
 ---
 name: feat
 description: 管理 feat 需求工作流，从需求草稿、澄清、Spec、Ticket 拆分到实现前检查、Review 门禁、AI 检索归档和需求文档收敛。
+disable-model-invocation: true
 ---
 
 # 1. 定位

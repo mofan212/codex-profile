@@ -1,6 +1,7 @@
 ---
 name: gen-goal-prompt
 description: 根据当前对话生成可复制到新会话的 Goal 提示词。
+disable-model-invocation: true
 ---
 
 根据当前对话，**仅用 Markdown 围栏代码块** 输出一段可直接复制到新会话、用于完成已讨论任务的自包含提示词：

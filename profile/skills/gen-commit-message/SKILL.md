@@ -1,6 +1,7 @@
 ---
 name: gen-commit-message
 description: 为当前项目的全部现有变更生成 commit message。
+disable-model-invocation: true
 ---
 
 检查当前项目中的全部现有变更，不以当前会话为范围。当前目录不是 Git 仓库或没有变更时，停止并说明。
