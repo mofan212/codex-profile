@@ -27,6 +27,14 @@ def default_agents_home():
     return user_home() / ".agents"
 
 
+def optional_user_home(directory_name):
+    optional_home = user_home() / directory_name
+    if not optional_home.is_dir():
+        print(f"skip optional directory {optional_home} (not an existing directory)")
+        return None
+    return optional_home.resolve()
+
+
 def configure_output():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -180,9 +188,10 @@ def main():
     parser = argparse.ArgumentParser(
         description=(
             "Install profile/codex-global-rules.md to ~/.codex/AGENTS.md "
-            "and shared skills to ~/.agents/skills. Also install rules to "
-            "~/.dsh/AGENTS.md and skills to ~/.workbuddy/skills when the "
-            "respective ~/.dsh or ~/.workbuddy directory already exists."
+            "and shared skills to ~/.agents/skills. Also install "
+            "profile/dsh-global-rules.md to ~/.dsh/AGENTS.md when the "
+            "~/.dsh directory already exists, and skills to "
+            "~/.workbuddy/skills when the ~/.workbuddy directory already exists."
         )
     )
     parser.add_argument(
@@ -210,28 +219,34 @@ def main():
     repo_root = Path(__file__).resolve().parent.parent
     codex_home = Path(args.codex_home).expanduser().resolve()
     agents_home = Path(args.agents_home).expanduser().resolve()
-    rules_homes = [codex_home]
     skills_homes = [agents_home]
-    for directory_name, target_homes in ((".dsh", rules_homes), (".workbuddy", skills_homes)):
-        optional_home = user_home() / directory_name
-        if optional_home.is_dir():
-            resolved_home = optional_home.resolve()
-            if resolved_home not in target_homes:
-                target_homes.append(resolved_home)
-        else:
-            print(f"skip optional directory {optional_home} (not an existing directory)")
+    dsh_home = optional_user_home(".dsh")
+    workbuddy_home = optional_user_home(".workbuddy")
+    if workbuddy_home is not None and workbuddy_home not in skills_homes:
+        skills_homes.append(workbuddy_home)
 
-    for target_home in rules_homes + skills_homes:
+    install_homes = [codex_home, *skills_homes]
+    if dsh_home is not None and dsh_home not in install_homes:
+        install_homes.append(dsh_home)
+
+    for target_home in install_homes:
         validate_target_home(target_home, repo_root)
 
     profile_root = repo_root / "profile"
-    agents_source = profile_root / "codex-global-rules.md"
+    codex_rules_source = profile_root / "codex-global-rules.md"
+    dsh_rules_source = profile_root / "dsh-global-rules.md"
     skills_source = profile_root / "skills"
 
-    if not agents_source.is_file():
+    if not codex_rules_source.is_file():
         raise SystemExit("profile/codex-global-rules.md not found")
+    if dsh_home is not None and not dsh_rules_source.is_file():
+        raise SystemExit("profile/dsh-global-rules.md not found")
     if not skills_source.is_dir():
         raise SystemExit("profile/skills directory not found")
+
+    rules_installs = [(codex_rules_source, codex_home / "AGENTS.md")]
+    if dsh_home is not None and dsh_home != codex_home:
+        rules_installs.append((dsh_rules_source, dsh_home / "AGENTS.md"))
 
     skill_dirs = sorted(path for path in skills_source.iterdir() if path.is_dir())
     current_skill_names = {skill_dir.name for skill_dir in skill_dirs}
@@ -239,20 +254,20 @@ def main():
         target_home: load_manifest(target_home / MANIFEST_NAME)
         for target_home in skills_homes
     }
-    rules_targets = [target_home / "AGENTS.md" for target_home in rules_homes]
     skills_targets = [target_home / "skills" for target_home in skills_homes]
 
     print(
         f"重要提示：真实安装会整体替换 {'、'.join(map(str, skills_targets))} 中的同名 Skill，"
         "不会合并目录，也不会保留目标同名 Skill 目录中的额外文件。"
         "同时会删除本脚本上次安装过、但当前 profile/skills 中已不存在的 Skill。"
-        f"仓库中的 profile/codex-global-rules.md 会覆盖安装为 {'、'.join(map(str, rules_targets))}。"
     )
+    for rules_source, rules_target in rules_installs:
+        print(f"重要提示：仓库中的 profile/{rules_source.name} 会覆盖安装为 {rules_target}。")
     if not args.dry_run:
         confirm_install(args.yes)
 
-    for rules_target in rules_targets:
-        copy_file(agents_source, rules_target, args.dry_run)
+    for rules_source, rules_target in rules_installs:
+        copy_file(rules_source, rules_target, args.dry_run)
 
     for target_home, previous_manifest in previous_manifests.items():
         skills_target = target_home / "skills"
@@ -265,10 +280,13 @@ def main():
         write_manifest(target_home / MANIFEST_NAME, current_skill_names, previous_manifest, args.dry_run)
 
     if args.dry_run:
-        print(f"Dry run completed for {', '.join(map(str, rules_homes + skills_homes))}")
+        print(f"Dry run completed for {', '.join(map(str, install_homes))}")
     else:
+        rules_summary = ", ".join(
+            f"profile/{source.name} -> {target}" for source, target in rules_installs
+        )
         print(
-            f"Profile installed: profile/codex-global-rules.md -> {', '.join(map(str, rules_targets))}, "
+            f"Profile installed: {rules_summary}, "
             f"skills -> {', '.join(map(str, skills_targets))}"
         )
 

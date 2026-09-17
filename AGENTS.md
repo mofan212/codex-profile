@@ -2,11 +2,11 @@
 
 - 当前仓库是 Codex Profile 备份仓库，主要用于保存可迁移的 Codex 全局规则、共享 Skills 和收集的提示词
 - 根目录 `AGENTS.md` 只约束 AI 在当前仓库中的行为，不是要安装到 Codex 全局目录的备份文件
-- 要备份和安装的 Codex 全局规则是 `profile/codex-global-rules.md`，自定义 Skill 位于 `profile/skills/`；提示词位于 `prompts/`，不参与安装
+- 要备份和安装的全局规则是 `profile/codex-global-rules.md`（Codex）和 `profile/dsh-global-rules.md`（DSH），自定义 Skill 位于 `profile/skills/`；提示词位于 `prompts/`，不参与安装
 
 # 2. 默认修改目标
 
-- 用户要求修改 Codex 全局规则时，默认修改 `profile/codex-global-rules.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`；要求新增、修改或整理提示词时，默认修改 `prompts/`
+- 用户要求修改 Codex 全局规则时，默认修改 `profile/codex-global-rules.md`；要求修改 DSH 全局规则时，默认修改 `profile/dsh-global-rules.md`；要求修改、新增或调整 Skill 时，默认修改 `profile/skills/`；要求新增、修改或整理提示词时，默认修改 `prompts/`
 - 用户只说「修改 Skill」「改全局规则」「记提示词」「更新配置」时，先理解为修改当前仓库中的备份源码
 - 只有目标位置互相冲突、用户语义明确指向本机已安装配置目录，或需要修改当前工作区之外的文件时，才先向用户确认
 - 除非用户明确要求安装、同步到本机或修改本机已安装配置目录，否则不要修改 `~/.codex/AGENTS.md`、`~/.agents/skills/` 或其他已安装目录
@@ -73,7 +73,7 @@
 # 6. 安装脚本边界
 
 - 根目录 `install.py` 是 Codex 安装入口，实际实现位于 `scripts/install_codex_profile.py`；真实安装会把 `profile/codex-global-rules.md` 写入 `~/.codex/AGENTS.md`，并整体替换 `~/.agents/skills/` 中的同名 Skill 目录，不做合并，也不保留其中的额外文件
-- 用户主目录下存在 `.dsh` 目录时，追加覆盖 `~/.dsh/AGENTS.md`，存在 `.workbuddy` 目录时，追加同步 `~/.workbuddy/skills/`。两个条件独立判断，目录不存在则跳过，追加目标不受 `--codex-home`、`--agents-home` 影响。WorkBuddy 与 `.agents` 使用相同的 Skill 替换和清理逻辑，分别维护安装清单，仅清理各自清单记录、但仓库已删除的 Skill
+- 用户主目录下存在 `.dsh` 目录时，规则来源是 `profile/dsh-global-rules.md`，同样写入 `~/.dsh/AGENTS.md`；存在 `.workbuddy` 目录时，追加同步 `~/.workbuddy/skills/`。两个条件独立判断，目录不存在则跳过，追加目标不受 `--codex-home`、`--agents-home` 影响。WorkBuddy 与 `.agents` 使用相同的 Skill 替换和清理逻辑，分别维护安装清单，仅清理各自清单记录、但仓库已删除的 Skill
 - `scripts/cleanup_legacy_codex_skills.py` 是一次性清理脚本，会删除旧版本安装到 `~/.codex/skills/` 的 Skill 和旧 manifest，清理完成后无需再运行
 - 如果由 AI 执行上述脚本写入本机已安装目录，必须先向用户说明对应覆盖或删除规则，并获得用户二次确认；使用 `--dry-run` 预演不需要二次确认。真实执行默认要求终端交互确认，AI 获得二次确认后应传入 `--yes` 执行
 - 验证安装行为时优先运行 `--dry-run`，确认来源和目标路径正确后再考虑真实安装
@@ -85,7 +85,7 @@
 | 主要变更对象 | 作用域 | 示例 |
 | --- | --- | --- |
 | 单个 Skill | 与 Skill 目录名一致 | `chinese-markdown: 完善 Mermaid 流程图规则` |
-| 备份的 Codex 全局规则 `profile/codex-global-rules.md` | `global-rules` | `global-rules: 完善本地文件链接引用规则` |
+| 备份的全局规则 `profile/codex-global-rules.md`、`profile/dsh-global-rules.md` | `global-rules` | `global-rules: 完善本地文件链接引用规则` |
 | 根目录规则、安装脚本、仓库文档和版本控制配置等仓库自身内容 | `repo` | `repo: 规范 Git 提交信息作用域` |
 | 多个不可拆分的 Skill | `skills` | `skills: 统一跨 Skill 的路由规则` |
 

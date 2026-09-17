@@ -92,6 +92,7 @@ class CodexInstallConfirmationTest(unittest.TestCase):
         )
 
         self.assertIn("profile/codex-global-rules.md", result.stdout)
+        self.assertIn("profile/dsh-global-rules.md", result.stdout)
         self.assertIn("~/.codex/AGENTS.md", result.stdout)
         self.assertIn("~/.dsh/AGENTS.md", result.stdout)
         self.assertIn("~/.workbuddy/skills", result.stdout)
@@ -144,16 +145,22 @@ class CodexInstallConfirmationTest(unittest.TestCase):
             self.assertFalse(self.dsh_home.exists())
             self.assertFalse(self.workbuddy_home.exists())
 
-    def test_installs_rules_when_only_dsh_directory_exists(self):
+    def test_installs_dsh_rules_from_dsh_source_when_only_dsh_directory_exists(self):
         self.dsh_home.mkdir()
         (self.dsh_home / "AGENTS.md").write_text("原有规则", encoding="utf-8")
 
         result = self.run_install("--yes")
 
         self.assertEqual(result.returncode, 0, result.stderr)
-        rules = (REPO_ROOT / "profile" / "codex-global-rules.md").read_bytes()
-        self.assertEqual((self.dsh_home / "AGENTS.md").read_bytes(), rules)
-        self.assertEqual((self.codex_home / "AGENTS.md").read_bytes(), rules)
+        profile = REPO_ROOT / "profile"
+        self.assertEqual(
+            (self.dsh_home / "AGENTS.md").read_bytes(),
+            (profile / "dsh-global-rules.md").read_bytes(),
+        )
+        self.assertEqual(
+            (self.codex_home / "AGENTS.md").read_bytes(),
+            (profile / "codex-global-rules.md").read_bytes(),
+        )
         self.assertFalse(self.workbuddy_home.exists())
 
     def test_creates_skills_when_only_workbuddy_directory_exists(self):
@@ -203,7 +210,7 @@ class CodexInstallConfirmationTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(
             (self.dsh_home / "AGENTS.md").read_bytes(),
-            (REPO_ROOT / "profile" / "codex-global-rules.md").read_bytes(),
+            (REPO_ROOT / "profile" / "dsh-global-rules.md").read_bytes(),
         )
         for target_home, tracked_name in targets:
             self.assertFalse((target_home / "skills" / tracked_name).exists())

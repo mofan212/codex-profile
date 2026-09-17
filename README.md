@@ -10,6 +10,7 @@
 - `AGENTS.md`：当前仓库的规则（约束 AI 在本仓库的行为）
 - `CHANGELOG.md`：重要更新、影响范围和必要操作的记录
 - `profile/codex-global-rules.md`：个人 Codex 全局规则
+- `profile/dsh-global-rules.md`：个人 DSH 全局规则
 - `profile/skills/`：个人自定义 Skills
 - `prompts/`：尚未充分验证或暂不足以沉淀为 Skill 的提示词
 - `install.py`：Windows、macOS、Linux 通用 Codex 安装入口
@@ -22,7 +23,7 @@
 | --- | --- | --- |
 | `profile/codex-global-rules.md` | `~/.codex/AGENTS.md` | 始终安装，可用 `--codex-home` 指定目标目录 |
 | `profile/skills/` | `~/.agents/skills/` | 始终安装，可用 `--agents-home` 指定目标父目录 |
-| `profile/codex-global-rules.md` | `~/.dsh/AGENTS.md` | 用户主目录下已存在 `.dsh` 目录 |
+| `profile/dsh-global-rules.md` | `~/.dsh/AGENTS.md` | 用户主目录下已存在 `.dsh` 目录 |
 | `profile/skills/` | `~/.workbuddy/skills/` | 用户主目录下已存在 `.workbuddy` 目录 |
 
 两个追加条件独立判断，不主动创建 `.dsh` 或 `.workbuddy`，但会为已存在的 `.workbuddy` 创建缺失的 `skills/`。追加目标不受 `--codex-home`、`--agents-home` 影响，全部安装目标共用一次确认，`--dry-run` 只展示计划。
