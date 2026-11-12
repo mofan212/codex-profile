@@ -1,8 +1,8 @@
 function parseJsonEnv(name, text) {
   try {
     return JSON.parse(text);
-  } catch (error) {
-    const wrapped = new Error(`${name} must be valid JSON: ${error.message}`);
+  } catch {
+    const wrapped = new Error(`${name} must be valid JSON`);
     wrapped.code = "INVALID_JSON_ENV";
     wrapped.envVar = name;
     throw wrapped;
@@ -105,14 +105,12 @@ try {
     body,
     signal: controller?.signal,
   });
-  clearTimeout(timeoutId);
-
   const text = await response.text();
   let parsed;
   try {
     parsed = JSON.parse(text);
   } catch {
-    parsed = text;
+    parsed = { type: "non-json", length: text.length };
   }
 
   console.log(JSON.stringify({
@@ -121,15 +119,16 @@ try {
     response: redactSensitive(parsed),
   }));
 } catch (error) {
-  clearTimeout(timeoutId);
   console.error(JSON.stringify({
     status: "error",
     code: timeoutTriggered ? "REQUEST_TIMEOUT" : error.code || "REQUEST_FAILED",
-    error: error.message,
+    error: error.envVar ? error.message : timeoutTriggered ? "Request timed out" : "HTTP request failed",
     envVar: error.envVar,
     targetHost: typeof url === "string" ? targetHostFrom(url) : undefined,
     requestSent,
-    cause: error.cause ? String(error.cause) : undefined,
+    cause: error.cause?.code,
   }));
   process.exitCode = 1;
+} finally {
+  clearTimeout(timeoutId);
 }

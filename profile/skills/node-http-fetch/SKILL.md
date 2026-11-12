@@ -38,7 +38,7 @@ description: 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API 接
 | `REQUEST_BODY` | JSON 请求体，默认 `{}` |
 | `REQUEST_COOKIE` | 可选 Cookie 请求头 |
 | `REQUEST_HEADERS` | 可选 JSON 请求头对象 |
-| `REQUEST_TIMEOUT_MS` | 可选正整数超时毫秒数 |
+| `REQUEST_TIMEOUT_MS` | 可选正整数超时毫秒数，覆盖收到响应头和读取完整响应体 |
 
 接口依赖浏览器来源校验时，通过 `REQUEST_HEADERS` 添加 `Origin` 和 `Referer`。
 
@@ -48,7 +48,8 @@ description: 使用 Node.js 内置 `fetch` 调用、测试和验证 HTTP/API 接
 
 - 参数错误以脚本的非零退出码和错误 JSON 为准；给出可复制的修正方式。
 - 网络、DNS、TLS 或超时失败时，说明错误类型、目标主机和请求是否已经发出；副作用请求不得自动重试。
-- 响应不是 JSON 时保留原始文本兜底，不把解析失败解释为业务失败。
+- 响应不是 JSON 时，脚本仅输出 `response: { type: "non-json", length: 字符数 }`，不记录原始文本，也不把解析失败解释为业务失败；确需排查原文时，使用专用脚本在内存中筛选、脱敏后只输出必要片段。
+- 参数解析错误只报告参数名和格式要求；请求异常只报告错误代码、目标主机和底层 `cause` 代码，不输出可能包含凭据的原始错误消息。
 - 分开报告 `httpStatus`、`httpStatusText` 与响应中的 `status`、`code`、`message`、`traceId` 等业务字段。
 - 不回显 Cookie、Token、API Key、密码或其他敏感值；脚本输出已脱敏时仍需复核摘要。
 - 串联请求只在确有需要时保存非敏感中间数据，并校验最终数量、标识符和差异。

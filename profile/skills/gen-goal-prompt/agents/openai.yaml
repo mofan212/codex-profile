@@ -1,7 +1,7 @@
 interface:
   display_name: "Generate Goal Prompt"
   short_description: "根据当前对话生成可复制到新会话并执行任务的 Goal 提示词"
-  default_prompt: "使用 $gen-goal-prompt 根据当前对话生成可复制到新会话的 Goal 提示词。"
+  default_prompt: "使用 $gen-goal-prompt 根据当前对话生成自包含的 Goal 提示词；保留目标、约束、已完成事项、剩余工作、关键文件和验证结果，仅用 Markdown 围栏代码块输出，并要求新会话核对现状后续跑。"
 
 policy:
   allow_implicit_invocation: false

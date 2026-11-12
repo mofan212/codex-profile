@@ -113,6 +113,8 @@ flowchart TD
 
 `feat` 将未完成 Feature 的最小状态保存到需求文档同级的 `.feat-tmp/<需求序号>-feat-state.md`，Ticket 实现沉淀保存到 `.feat-tmp/tickets/<需求序号>-*-实现沉淀.md`；完成时只清理当前需求序号对应的文件。
 
+AI 检索归档由 `maintain-ai-context-docs` 统一命名：优先更新同主题已有文档，首次新建时优先使用需求文档的相邻编号，已占用则使用当前目录最大编号的下一号。
+
 <details>
 <summary>🔄 &nbsp;<b>feat 工作流详细阶段图</b></summary>
 

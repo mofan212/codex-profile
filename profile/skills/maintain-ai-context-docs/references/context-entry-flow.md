@@ -4,6 +4,8 @@
 
 先读取 [routing-graph.md](routing-graph.md)，根据项目实际内容和引用关系判断当前目标是 `startup_carrier` 还是 `route_entry`，不要根据文件名假设项目采用某套固定文档体系。
 
+`operation_mode=check_only` 时，按用户明确的检查范围核对路由和事实，未限定时只检查当前节点、直接上下级和确认实际路径所需的相关段落。报告失效目标、循环、孤立节点、过期事实及未验证项后结束，不进入后续写入流程，不因缺少修复授权而暂停，也不默认读取整个路由范围的文档。
+
 # 2. 判断维护模式
 
 | mode | condition | action |

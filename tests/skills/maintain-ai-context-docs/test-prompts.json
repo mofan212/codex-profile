@@ -23,5 +23,35 @@
     "id": "runtime-context-consumption-does-not-trigger",
     "prompt": "项目已有完整的上下文路由。请解释 OrderFallbackPolicy 的行为，按项目 AGENTS.md 和现有入口读取必要文档即可，不生成、更新或检查任何 AI 检索文档。",
     "expected": "不触发 maintain-ai-context-docs；按普通项目执行流程消费现有路由并解释代码，不输出文档维护字段，也不修改路由。"
+  },
+  {
+    "id": "specified-retrieval-check-only-without-parent",
+    "prompt": "请只读检查 docs/cache/cache-AI检索说明.md 是否过期，不改文件。当前文档写缓存默认开启，CacheConfig.java 与对应测试均证明默认关闭。该检索文档没有上级入口，项目也没有启动承载文档。只报告已知事实差异和检查边界。",
+    "expected": "选择 check_only 和 retrieval_doc，报告默认值差异及依据，不因缺少上级入口或写入授权而停止，不询问创建入口或更新权限，不扩大到其他检索文档。"
+  },
+  {
+    "id": "route-check-only-reports-cycle",
+    "prompt": "只检查项目启动规则 rules.md 中已有的 AI 路由及其直接链路，不修复：rules.md 指向 docs/a.md，a.md 指向 docs/b.md，b.md 又指回 a.md。请指出路由问题和实际路径。",
+    "expected": "选择 check_only 和 route_carrier_doc，识别并报告 a.md 与 b.md 的循环及路径，不进入写作、创建或统一维护流程，不询问修复授权。"
+  },
+  {
+    "id": "requirement-based-check-only",
+    "prompt": "请根据 docs/10-订单超时-需求文档.md 只读检查同主题 AI 检索说明是否过期。目录里已有 14-订单超时-AI检索说明.md，源码和测试已把超时阈值从 30 分钟改为 15 分钟，但该说明仍写 30 分钟。不要修改或创建文档。",
+    "expected": "选择 check_only 和 requirement_doc，对照同主题既有说明与事实报告阈值过期，不创建相邻编号的说明，不询问写入授权，也不修改需求文档。"
+  },
+  {
+    "id": "specified-document-check-and-fix-is-edit",
+    "prompt": "请检查并修复 docs/cache/cache-AI检索说明.md 中过期的默认值，只修改这个文件。CacheConfig.java 和测试均证明默认关闭，说明中仍写默认开启。",
+    "expected": "选择 edit 和 retrieval_doc，核实事实后更新指定文档，不再次询问是只读检查还是编辑，不扩大维护范围。"
+  },
+  {
+    "id": "archive-number-already-occupied",
+    "prompt": "只判断归档文件名，不写文件：当前目录有 10-订单超时-需求文档.md、11-支付重试-需求文档.md、12-支付重试-AI检索说明.md，没有订单超时的 AI 检索说明。编号格式一致，相关实现事实已经核实。订单超时的新 AI 检索说明应放在哪里？",
+    "expected": "按需求文档归档命名规则选择 13-订单超时-AI检索说明.md，保持两位编号，不占用 11 或 12，不覆盖其他主题文件。"
+  },
+  {
+    "id": "archive-reuses-existing-nonadjacent-number",
+    "prompt": "只判断归档目标，不写文件：当前需求是 10-订单超时-需求文档.md，同主题已有 17-订单超时-AI检索说明.md，11 号尚未使用。应更新哪份说明，还是创建新文件？",
+    "expected": "优先更新 17-订单超时-AI检索说明.md，保留其路径和编号，不为凑相邻编号创建或重命名为 11 号文件。"
   }
 ]

@@ -147,7 +147,7 @@ updated_at: "YYYY-MM-DD"
 
 Ticket 完成后，如果新增或修改入口、调用链、配置项、数据结构、验证命令、排查关键词，或产生影响后续 AI 理解代码的实现事实，在需求文档同级目录下创建或更新 `.feat-tmp/tickets/<需求序号>-<Ticket序号>-<Ticket简述>-实现沉淀.md`；文件不存在时读取 [references/implementation-notes-template.md](references/implementation-notes-template.md) 后创建。没有产生需要沉淀的实现事实时，在完成说明中写明 `无需更新 Ticket 实现沉淀`。
 
-全部 Ticket 完成后，按 [最终归档与需求文档收敛](references/readiness-checklists.md#6-最终归档与需求文档收敛) 依次归档 AI 检索文档、收敛需求文档并处理 `.feat-tmp/`。当需求文档命名为 `<需求序号>-<需求简述>-需求文档.md` 时，最终 AI 检索文档由 `maintain-ai-context-docs` 默认生成或更新为相邻编号的 `<相邻序号>-<需求简述>-AI检索说明.md`，例如 `10-订单超时处理-需求文档.md` 对应 `11-订单超时处理-AI检索说明.md`。
+全部 Ticket 完成后，按 [最终归档与需求文档收敛](references/readiness-checklists.md#6-最终归档与需求文档收敛) 依次归档 AI 检索文档、收敛需求文档并处理 `.feat-tmp/`。最终 AI 检索文档由 `maintain-ai-context-docs` 生成或更新，命名、既有文档复用和编号占用处理以该 Skill 的需求文档驱动流程为准，本 Skill 不另行分配归档编号。
 
 Feature 级过程状态写入 `.feat-tmp/<需求序号>-feat-state.md`，Ticket 级状态写入对应 Ticket；需求文档只合并稳定需求结论，AI 检索文档只记录已实现事实。不要只依赖聊天上下文保存阶段状态，也不要为续跑把过程状态追加到需求正文。
 
